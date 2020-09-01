@@ -1,9 +1,8 @@
 auth.onAuthStateChanged((user) => {
-    console.log(Cookies.get("uid"))
     console.log(user)
-    // if ((!!Cookies.get("uid")) == true) {
-    //     return window.location.replace("index.html");
-    // }
+    if ((!!Cookies.get("uid")) == true) {
+        return window.location.replace("index.html");
+    }
 });
 
 const facebookButton = document.querySelector("#login_with_facebook");
