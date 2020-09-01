@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rwrite</title>
+    <title>Article</title>
     <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-
-
 </head>
 
 <body>
@@ -28,16 +26,22 @@
             <a href="article.html">Submit your Article</a>
         </div>
     </nav>
-    <header></header>
     <main>
-        <div class="trending"></div>
-        <div class="tags"></div>
-        <div class="arcticle-container">
-            <div class="arcticle-item"></div>
-            <div class="arcticle-item"></div>
-            <div class="arcticle-item"></div>
-            <div class="arcticle-item"></div>
-        </div>
+        <form class="article-form-container" action="">
+            <h2>write an article</h2>
+            <input type="text" placeholder="name" name="name" id="name">
+            <input type="text" placeholder="tagline" name="tagline" id="tagline">
+            <input type="text" placeholder="description" name="description" id="description">
+            <input type="text" placeholder="Twiiter" name="twiiter" id="twiiter">
+            <input type="text" placeholder="Facebook" name="facebook" id="facebook">
+            <input type="text" placeholder="Instagram" name="instagram" id="instagram">
+            <input type="text" placeholder="email" name="email" id="email">
+            <input type="text" placeholder="tags" name="tags" id="tags">
+            <input type="text" placeholder="Editor" name="editor" id="editor">
+            <input type="text" placeholder="writers" name="writers" id="writers">
+            <textarea id="editor1"></textarea>
+            <button class="article-form-button">Submit</button>
+        </form>
     </main>
     <footer>
         <a href="#">contact</a>
@@ -48,11 +52,7 @@
         <a href="#">English 😀</a>
     </footer>
     <script>
-        // const editor1 = CKEDITOR.replace('editor1');
-        // const button = document.querySelector('#sss');
-        // button.addEventListener("click", () => {
-        //     console.log(CKEDITOR.instances.editor1.getData());
-        // })
+
     </script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
@@ -60,7 +60,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/article.js"></script>
 
 </body>
 
