@@ -3,7 +3,7 @@ auth.onAuthStateChanged((user) => {
         return window.location.replace("register.html");
     }
 });
-
+const uid = Cookies.get("uid")
 const editor1 = CKEDITOR.replace('editor1');
 const addArticleForm = document.querySelector(".article-form-container")
 const addArticleFormButton = document.querySelector(".article-form-button")
@@ -34,6 +34,6 @@ addArticleFormButton.addEventListener("click", (e) => {
         writers,
         article,
     }
-    db.ref(`users/${email}/articles`).push(articleObj)
+    db.ref(`users/${uid}/articles`).push(articleObj)
     e.preventDefault()
 })
