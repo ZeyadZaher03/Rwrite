@@ -1,8 +1,9 @@
 auth.onAuthStateChanged((user) => {
-    if ((!!Cookies.get("uid")) == true) {
-        auth.signOut()
-        return window.location.replace("index.html");
-    }
+    console.log(user)
+    // if ((!!Cookies.get("uid")) == true) {
+    //     auth.signOut()
+    //     return window.location.replace("index.html");
+    // }
 });
 
 const facebookButton = document.querySelector("#login_with_facebook");
