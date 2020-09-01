@@ -18,14 +18,18 @@ facebookButton.addEventListener("click", (e) => {
     auth
         .signInWithPopup(provider)
         .then((result) => {
-            console.log(result);
-            //   This gives you a Google Access Token. You can use it to access the Google API.
-            // var token = result.credential.accessToken;
-            // The signed-in user info.
+            // console.log(result);
             var user = result.user;
             var uid = user.uid;
             var email = result.user.email;
             var name = result.user.displayName;
+            console.log(user);
+            console.log(email);
+            console.log(name);
+            console.log(uid);
+            //   This gives you a Google Access Token. You can use it to access the Google API.
+            // var token = result.credential.accessToken;
+            // The signed-in user info.
             db.ref(`users/${email}`).push({
                 name
             }).then((response) => {
