@@ -1,9 +1,7 @@
 auth.onAuthStateChanged((user) => {
-    console.log(Cookies.get("uid"))
-    console.log(user)
-    //     if (!Cookies.get("uid")) {
-    //         return window.location.replace("register.html");
-    //     }
+    if (!user || !Cookies.get("uid")) {
+        return window.location.replace("register.html");
+    }
 });
 
 const editor1 = CKEDITOR.replace('editor1');

@@ -1,6 +1,5 @@
 auth.onAuthStateChanged((user) => {
-    console.log(user)
-    if ((!!Cookies.get("uid")) == true) {
+    if (user || (!!Cookies.get("uid")) == true) {
         return window.location.replace("index.html");
     }
 });
