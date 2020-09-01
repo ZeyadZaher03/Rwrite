@@ -1,7 +1,7 @@
 auth.onAuthStateChanged((user) => {
     if ((!!Cookies.get("uid")) == true) {
-        return window.location.replace("index.html");
         auth.logOut()
+        // return window.location.replace("index.html");
     }
 });
 
