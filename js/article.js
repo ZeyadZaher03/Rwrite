@@ -1,8 +1,8 @@
-auth.onAuthStateChanged((user) => {
-    if (!Cookies.get("uid")) {
-        return window.location.replace("register.html");
-    }
-});
+// auth.onAuthStateChanged((user) => {
+//     if (!Cookies.get("uid")) {
+//         return window.location.replace("register.html");
+//     }
+// });
 const editor1 = CKEDITOR.replace('editor1');
 const addArticleForm = document.querySelector(".article-form-container")
 const addArticleFormButton = document.querySelector(".article-form-button")
