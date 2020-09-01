@@ -1,6 +1,7 @@
 auth.onAuthStateChanged((user) => {
     if ((!!Cookies.get("uid")) == true) {
         return window.location.replace("index.html");
+        auth.logOut()
     }
 });
 
@@ -28,9 +29,7 @@ facebookButton.addEventListener("click", (e) => {
             //   This gives you a Google Access Token. You can use it to access the Google API.
             // var token = result.credential.accessToken;
             // The signed-in user info.
-            db.ref(`users/${uid}`).push({
-                name
-            }).then((response) => {
+            db.ref(`users/${uid}/name`).set(name).then((response) => {
                 Cookies.set("uid", uid)
                 Cookies.set("email", email)
                 window.location.replace("index.html");
