@@ -1,5 +1,5 @@
 auth.onAuthStateChanged((user) => {
-    if (user || Cookies.get("uid") == true) {
+    if (!Cookies.get("uid")) {
         return window.location.replace("register.html");
     }
 });
