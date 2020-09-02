@@ -4,6 +4,9 @@ auth.onAuthStateChanged((user) => {
         Cookies.remove("uid")
         Cookies.remove("email")
         auth.signOut()
+        const registerButton = document.querySelector(".registerbutton")
+        registerButton.innerHTML = "Register / Log in"
+        registerButton.setAttribute("id", "LoginButton")
         register()
     } else {
         // loged in 
@@ -27,6 +30,7 @@ const logout = () => {
 
 const register = () => {
 
+    const loginButton = document.querySelector("#LoginButton")
     const authForm = document.querySelector(".register-container")
 
     const closeRegisterAnimation = () => {
@@ -54,7 +58,7 @@ const register = () => {
     }
 
     const registerPopup = () => {
-        const loginButton = document.querySelector("#LoginButton")
+
         const options = {
             loginRegPopupVis: false
         }
