@@ -1,6 +1,8 @@
 auth.onAuthStateChanged((user) => {
     const uid = Cookies.get("uid")
     const registerButton = document.querySelector(".registerbutton")
+    registerButton.setAttribute("id", "LoginButton")
+    registerButton.innerHTML = "Register / Log in"
     register()
     console.log('id', uid)
     console.log('user', user)
@@ -13,8 +15,6 @@ auth.onAuthStateChanged((user) => {
     //     Cookies.remove("uid")
     //     Cookies.remove("email")
     //     auth.signOut()
-    //     registerButton.innerHTML = "Register / Log in"
-    //     registerButton.setAttribute("id", "LoginButton")
     // } else {
     //     registerButton.innerHTML = "logout"
     //     registerButton.setAttribute("id", "logoutButton")
