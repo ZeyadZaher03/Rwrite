@@ -19,12 +19,25 @@ auth.onAuthStateChanged((user) => {
 });
 
 const logout = () => {
+    const closeRegisterAnimation = () => {
+        anime({
+            targets: ".register-container",
+            top: ["170", "130"],
+            opacity: ["1", "0"],
+            duration: 200,
+            easing: 'easeInOutQuad',
+            complete() {
+                authForm.style.display = "none"
+            }
+        })
+    }
     const logoutButton = document.querySelector("#logoutButton")
     logoutButton.addEventListener("click", (e) => {
         e.preventDefault()
         auth.signOut()
         Cookies.remove("uid")
         Cookies.remove("email")
+        closeRegisterAnimation()
     })
 }
 
@@ -98,9 +111,7 @@ const register = () => {
 
                     Cookies.set("uid", uid)
                     Cookies.set("email", email)
-                    console.log("ss")
                     db.ref("users").once("value", (res) => {
-                        console.log("sss")
                         if (res.val()) return
                         db.ref(`users/${uid}`).set({
                             name,
