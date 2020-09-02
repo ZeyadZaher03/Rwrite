@@ -116,7 +116,7 @@ const register = () => {
                             window.location.replace("index.html");
                         })
                     })
-                }).cathc((err) => {
+                }).catch((err) => {
                     console.log(err)
                 })
         })
