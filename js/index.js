@@ -4,7 +4,7 @@ auth.onAuthStateChanged((user) => {
         Cookies.remove("email")
         auth.signOut()
     } else {
-        console.log(logedin)
+        console.log("logedin")
     }
 });
 
