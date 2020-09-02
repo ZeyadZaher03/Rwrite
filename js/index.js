@@ -1,23 +1,22 @@
 auth.onAuthStateChanged((user) => {
-    console.log(user)
-    console.log(uid)
+    const uid = Cookies.get("uid")
     const registerButton = document.querySelector(".registerbutton")
-    registerButton.innerHTML = "Register / Log in"
-    registerButton.setAttribute("id", "LoginButton")
-    register()
-    // if (!user || !uid) {
-    //     // not loged in 
-    //     Cookies.remove("uid")
-    //     Cookies.remove("email")
-    //     auth.signOut()
-    // } else {
-    //     // loged in 
-    //     console.log("logedin")
-    //     const registerButton = document.querySelector(".registerbutton")
-    //     registerButton.innerHTML = "logout"
-    //     registerButton.setAttribute("id", "logoutButton")
-    //     logout()
-    // }
+
+    if (!user || !uid) {
+        // not loged in 
+        Cookies.remove("uid")
+        Cookies.remove("email")
+        auth.signOut()
+        registerButton.innerHTML = "Register / Log in"
+        registerButton.setAttribute("id", "LoginButton")
+        register()
+    } else {
+        // loged in 
+        console.log("logedin")
+        registerButton.innerHTML = "logout"
+        registerButton.setAttribute("id", "logoutButton")
+        logout()
+    }
 });
 
 const logout = () => {
