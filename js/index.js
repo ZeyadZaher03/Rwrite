@@ -1,7 +1,7 @@
 auth.onAuthStateChanged((user) => {
     const uid = Cookies.get("uid")
     const registerButton = document.querySelector(".registerbutton")
-
+    console.log(user)
     if (!user || !uid) {
         // not loged in 
         Cookies.remove("uid")
