@@ -1,7 +1,7 @@
 auth.onAuthStateChanged((user) => {
     const uid = Cookies.get("uid")
     const registerButton = document.querySelector(".registerbutton")
-    console.log(user)
+    console.log(user.email)
     if (!user || !uid) {
         // not loged in 
         Cookies.remove("uid")
@@ -11,8 +11,6 @@ auth.onAuthStateChanged((user) => {
         registerButton.setAttribute("id", "LoginButton")
         register()
     } else {
-        // loged in 
-        console.log("logedin")
         registerButton.innerHTML = "logout"
         registerButton.setAttribute("id", "logoutButton")
         logout()
