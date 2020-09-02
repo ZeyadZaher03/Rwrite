@@ -3,14 +3,36 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"
+        integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
     <title>register</title>
 </head>
 
 <body>
-    <a id="login_with_facebook" href="#">login by Facebook</a>
-    <a href="#">login by twitter</a>
+    <button>SS</button>
+    <div class="register-container">
+        <h2>Register / Log in</h2>
+        <div class="social-media-container">
+            <div class="social-item-container">
+                <a class="register-social-icons facebook-login" id="facebook-background" href="#">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <p>Login with Facebook</p>
+            </div>
+            <div class="social-item-container">
+                <a class="register-social-icons" id="twitter-background" href="#">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <p>Login with Twitter</p>
+            </div>
+        </div>
+
+    </div>
 
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>

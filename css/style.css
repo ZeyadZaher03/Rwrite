@@ -1,8 +1,361 @@
+*::before,
+*::after,
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    height: 100%;
+}
+
 a {
-    margin: 2rem;
-    height: 4rem;
-    width: 4rem;
     display: inline-block;
+}
+
+@media only screen and (max-width: 1200px) {
+    html {
+        font-size: 56.25%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    html {
+        font-size: 50%;
+    }
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'Rubik', sans-serif;
+    /* font-family: 'Poppins',
+        sans-serif; */
+    line-height: 1.4;
+}
+
+nav {
+    background: #fbfbfb;
+}
+
+.nav-row {
+    border-bottom: 2px solid #dedede;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-row-first {
+    padding: 1.5rem 3rem;
+}
+
+.nav-lang-link {
+    color: #000;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+}
+
+.nav-social-button {
+    font-size: 2.2rem;
+    margin: 0 1.2rem;
+    color: #000;
+    transition: color 150ms ease-in-out;
+}
+
+.nav-social-button#twitter:active,
+.nav-social-button#twitter:hover {
+    color: #1da1f2
+}
+
+.nav-social-button#facebook:active,
+.nav-social-button#facebook:hover {
+    color: #1877f2
+}
+
+.nav-social-button#instagram:active,
+.nav-social-button#instagram:hover {
+    color: #c32aa3
+}
+
+.nav-row-second {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.nav-row-container {
+    display: flex;
+    height: 100%;
+}
+
+.nav-menu {
+    display: inline-flex;
+    padding: 3rem 4rem;
+    align-items: center;
+    border-right: 1px solid #ccc;
+}
+
+.nav-menu svg {
+    font-size: 3rem;
+    margin-right: 2rem;
+}
+
+.nav-logo {
+    justify-self: center;
+}
+
+.nav-actions {
+    justify-self: right;
+}
+
+
+
+.nav-sec-row-link {
+    padding: 3rem 2.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    color: #000;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    transition: background 150ms ease-in-out;
+}
+
+.nav-sec-row-link:hover,
+.nav-sec-row-link:active {
+    background: #f1f1f1;
+}
+
+#LoginButton {
+    position: relative;
+}
+
+.submit-article {
+    background: #00a9a1;
+    height: 100%;
+    color: #fff;
+    text-decoration: none;
+    transition: background 200ms ease-in-out;
+}
+
+.submit-article:hover,
+.submit-article:active {
+    background: #009b93;
+}
+
+/* header */
+.header {
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.header img {
+    width: 100%;
+}
+
+/* trending */
+
+.trending-container {
+    position: relative;
+    top: -8rem;
+    margin: 2rem;
+}
+
+.trending {
+    background: #fff;
+    width: 100%;
+    display: flex;
+    padding: 1.5rem 2rem;
+    justify-content: center;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.trending-item {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    width: 22rem;
+    padding: 1rem;
+    line-height: 1;
+    position: relative;
+    transition: all 300ms ease-in-out;
+    top: 0;
+    display: block;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.trending-item:hover,
+.trending-item:active {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.17);
+    transform: scale(1.01);
+    top: -4px;
+}
+
+
+.trending-item:not(:last-child) {
+    margin-right: 3rem;
+}
+
+.trending-image {
+    width: 100%;
+    height: 17rem;
+    overflow: hidden;
+    width: 100%;
+}
+
+.trending-image img {
+    width: 100%;
+}
+
+.trending-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin-top: 1.2rem;
+    line-height: 1;
+}
+
+.trending-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    margin-top: 1.2rem;
+}
+
+.trending-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    float: 1;
+    justify-content: flex-end;
+}
+
+
+
+.trending-name-tag {
+    margin-top: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tag-item {
+    font-size: 1rem;
+    padding: .3rem .5rem;
+    margin: .1rem;
+    text-decoration: none;
+    border-radius: 50rem;
+    color: #fff;
+    background: #1877f2;
+    display: inline-block;
+}
+
+.trendin-user {
+    font-size: 1rem;
+    float: 1;
+    display: flex;
+    align-items: center;
+}
+
+.trendin-user-image {
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
-    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.trendin-user-image img {
+    width: 100%;
+}
+
+.trendin-user-name {
+    margin-left: 0.5rem;
+}
+
+/* Footer */
+.footer {
+    border-top: 1px solid #ccc;
+    padding: 2rem;
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    font-size: 1.4rem;
+}
+
+.footer-links a {
+    color: #000;
+    text-decoration: none;
+    margin-right: 2rem;
+    text-transform: capitalize;
+}
+
+
+/* REGISTER */
+.register-container {
+    width: 35rem;
+    position: absolute;
+    top: 170px;
+    border-radius: 3px;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #f1f1f1;
+    justify-content: space-between;
+    display: none;
+    opacity: 0;
+    background: #fff;
+    right: 230px;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 10 rgba(0, 0, 0, 0.15);
+}
+
+.register-container h2 {
+    padding: 2rem 0;
+    width: 100%;
+    border-bottom: 1px solid #f3f3f3;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.social-media-container {
+    padding: 2rem;
+    padding-top: 0;
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+}
+
+.register-social-icons {
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 2.5rem;
+}
+
+#facebook-background {
+    background-image: linear-gradient(120deg, #1877f2, #145ab6);
+}
+
+#twitter-background {
+    background-image: linear-gradient(120deg, #1da1f2, #198fd8);
+    /* background-color: #1da1f2; */
+}
+
+.social-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+.social-item-container p {
+    margin-top: 1rem;
 }
