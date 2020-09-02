@@ -98,9 +98,11 @@ const register = () => {
                     var email = result.user.email;
                     var name = result.user.displayName;
 
+                    Cookies.set("uid", uid)
+                    Cookies.set("email", email)
+                    console.log("ss")
                     db.ref("users").once("value", (res) => {
-                        Cookies.set("uid", uid)
-                        Cookies.set("email", email)
+                        console.log("sss")
                         if (res.val()) return
                         db.ref(`users/${uid}`).set({
                             name,
