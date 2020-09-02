@@ -1,15 +1,32 @@
 auth.onAuthStateChanged((user) => {
     if (!user || !uid) {
+        // not loged in 
         Cookies.remove("uid")
         Cookies.remove("email")
         auth.signOut()
+        register()
     } else {
+        // loged in 
+        console.log(user)
+        console.log(uid)
         console.log("logedin")
+        const registerButton = document.querySelector(".registerbutton")
+        registerButton.innerHTML = "logout"
+        registerButton.setAttribute("id", "logoutButton")
+        logout()
     }
 });
 
+const logout = () => {
+    const logoutButton = document.querySelector("#logoutButton")
+    logoutButton.addEventListener("click", (e) => {
+        e.preventDefault()
+        auth.signOut()
+    })
+}
+
 const register = () => {
-    const loginButton = document.querySelector("#LoginButton")
+
     const authForm = document.querySelector(".register-container")
 
     const closeRegisterAnimation = () => {
@@ -37,7 +54,7 @@ const register = () => {
     }
 
     const registerPopup = () => {
-
+        const loginButton = document.querySelector("#LoginButton")
         const options = {
             loginRegPopupVis: false
         }
@@ -92,4 +109,3 @@ const register = () => {
     registerPopup()
     signInWithFaceBook()
 }
-register()
