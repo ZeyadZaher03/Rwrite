@@ -91,7 +91,7 @@ const register = () => {
     facebookLoginButton.addEventListener("click", (e) => {
       e.preventDefault();
       const provider = new firebase.auth.FacebookAuthProvider();
-      //   provider.addScope("user_birthday");
+      provider.addScope("user_birthday");
       //   provider.addScope("username");
       provider.setCustomParameters({
         display: "popup",
