@@ -1,6 +1,6 @@
 authintication()
 menuNavigationSwitch()
-if (!Cookie.get("uid")) {
+if (!Cookies.get("uid")) {
     location.replace("index.html")
 }
 const runArticle = () => {
@@ -183,7 +183,7 @@ const runArticle = () => {
             writer: writerArray,
             editor: editorArray,
             article,
-            uid: Cookie.get("uid")
+            uid: Cookies.get("uid")
         };
 
         return {
@@ -195,7 +195,7 @@ const runArticle = () => {
     const addArticleToDb = async (articleObj) => {
         await db.ref(`articles`).push(articleObj).then((snapshot) => {
             id = snapshot.key
-            db.ref(`users/${Cookie.get("uid")}/articles`).push(id)
+            db.ref(`users/${Cookies.get("uid")}/articles`).push(id)
         })
     }
     addArticleForm.addEventListener("submit", (e) => e.preventDefault());
