@@ -1,4 +1,4 @@
-// authintication()
+authintication()
 menuNavigationSwitch()
 
 
