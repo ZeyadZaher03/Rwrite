@@ -192,7 +192,7 @@ const runArticle = () => {
     const addArticleToDb = async (articleObj) => {
         await db.ref(`articles`).push(articleObj).then((snapshot) => {
             id = snapshot.key
-            db.ref(`users/${"C16NeLUBm5XfzKSuySJf7Ti1Uw92"}/articles`).push(id)
+            db.ref(`users/${Cookie.get("uid")}/articles`).push(id)
         })
     }
 
