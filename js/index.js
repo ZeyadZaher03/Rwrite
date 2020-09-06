@@ -3,7 +3,7 @@ menuNavigationSwitch()
 
 
 
-console.log(window.innerWidth < 800)
+
 if (window.innerWidth < 800) {
     new Glider(document.querySelector('.glider'), {
         slidesToShow: 2,

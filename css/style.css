@@ -849,6 +849,14 @@ nav {
   .register-container {
     right: 10px;
   }
+
+  .articles-container {
+    flex-direction: column;
+    padding: 3rem;
+  }
+  .foryou {
+    margin: 0;
+  }
 }
 
 .sidemenu {
