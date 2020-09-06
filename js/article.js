@@ -203,6 +203,8 @@ const runArticle = () => {
         const errorsInArticle = addArticle().numberOfErrors
         if (errorsInArticle > 0) return
         addArticleToDb(article)
+        addArticleForm.reset()
+
     });
 
     CKEDITOR.instances.editor1.on('change', () => {
