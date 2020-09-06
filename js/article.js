@@ -1,6 +1,8 @@
 authintication()
 menuNavigationSwitch()
-
+if (!Cookie.get("uid")) {
+    location.replace("index.html")
+}
 const runArticle = () => {
     const getDisplay = (item) => getComputedStyle(item).display;
 
@@ -181,6 +183,7 @@ const runArticle = () => {
             writer: writerArray,
             editor: editorArray,
             article,
+            uid: Cookie.get("uid")
         };
 
         return {
@@ -195,7 +198,6 @@ const runArticle = () => {
             db.ref(`users/${Cookie.get("uid")}/articles`).push(id)
         })
     }
-
     addArticleForm.addEventListener("submit", (e) => e.preventDefault());
     addArticleButton.addEventListener("click", (e) => {
         e.preventDefault();
