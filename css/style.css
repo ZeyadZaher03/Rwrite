@@ -845,6 +845,10 @@ nav {
   .article-form-container {
     grid-template-columns: 1fr;
   }
+
+  .register-container {
+    right: 10px;
+  }
 }
 
 .sidemenu {

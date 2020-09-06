@@ -68,16 +68,29 @@ const authintication = () => {
 
     const logout = () => {
         const closeRegisterAnimation = () => {
-            anime({
-                targets: ".register-container",
-                top: ["170", "130"],
-                opacity: ["1", "0"],
-                duration: 200,
-                easing: "easeInOutQuad",
-                complete() {
-                    authForm.style.display = "none";
-                },
-            });
+            if (window.innerWidth < 800) {
+                anime({
+                    targets: ".register-container",
+                    top: ["140", "110"],
+                    opacity: ["1", "0"],
+                    duration: 200,
+                    easing: "easeInOutQuad",
+                    complete() {
+                        authForm.style.display = "none";
+                    },
+                });
+            } else {
+                anime({
+                    targets: ".register-container",
+                    top: ["170", "130"],
+                    opacity: ["1", "0"],
+                    duration: 200,
+                    easing: "easeInOutQuad",
+                    complete() {
+                        authForm.style.display = "none";
+                    },
+                });
+            }
         };
         const logoutButton = document.querySelector("#logoutButton");
         logoutButton.addEventListener("click", (e) => {
@@ -94,27 +107,51 @@ const authintication = () => {
         const authForm = document.querySelector(".register-container");
 
         const closeRegisterAnimation = () => {
-            anime({
-                targets: ".register-container",
-                top: ["170", "130"],
-                opacity: ["1", "0"],
-                duration: 200,
-                easing: "easeInOutQuad",
-                complete() {
-                    authForm.style.display = "none";
-                },
-            });
+            if (window.innerWidth < 800) {
+                anime({
+                    targets: ".register-container",
+                    top: ["140", "110"],
+                    opacity: ["1", "0"],
+                    duration: 200,
+                    easing: "easeInOutQuad",
+                    complete() {
+                        authForm.style.display = "none";
+                    },
+                });
+            } else {
+                anime({
+                    targets: ".register-container",
+                    top: ["170", "130"],
+                    opacity: ["1", "0"],
+                    duration: 200,
+                    easing: "easeInOutQuad",
+                    complete() {
+                        authForm.style.display = "none";
+                    },
+                });
+            }
         };
 
         const openRegisterAnimation = () => {
-            authForm.style.display = "flex";
-            anime({
-                targets: ".register-container",
-                top: ["150", "170"],
-                opacity: ["0", "1"],
-                duration: 300,
-                easing: "easeInOutQuad",
-            });
+            if (window.innerWidth < 800) {
+                authForm.style.display = "flex";
+                anime({
+                    targets: ".register-container",
+                    top: ["130", "150"],
+                    opacity: ["0", "1"],
+                    duration: 300,
+                    easing: "easeInOutQuad",
+                });
+            } else {
+                authForm.style.display = "flex";
+                anime({
+                    targets: ".register-container",
+                    top: ["150", "170"],
+                    opacity: ["0", "1"],
+                    duration: 300,
+                    easing: "easeInOutQuad",
+                });
+            }
         };
 
         const registerPopup = () => {
