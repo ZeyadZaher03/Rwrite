@@ -1,2 +1,2 @@
-authintication()
+// authintication()
 menuNavigationSwitch()

@@ -846,3 +846,16 @@ nav {
     grid-template-columns: 1fr;
   }
 }
+
+.sidemenu {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidemenu > * {
+  color: inherit;
+  padding: 2rem 2rem;
+  text-align: center;
+  border: 1px solid;
+  text-decoration: none;
+}
