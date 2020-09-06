@@ -1,37 +1,7 @@
-authintication()
-const menuButton = document.querySelector(".nav-menu")
-const options = {
-    isOpened: false
-}
-menuButton.addEventListener('click', (e) => {
-    console.log(options)
-    e.preventDefault()
-    if (!options.isOpened) {
-        anime({
-            targets: ".sidemenu",
-            left: ["-40rem", '0']
-        })
-        anime({
-            targets: ".container",
-            left: ["0", '40rem']
-        })
+// authintication()
+menuNavigationSwitch()
 
-        options.isOpened = true
-    } else {
-        anime({
-            targets: ".sidemenu",
-            left: ["0", '-40rem']
-        })
-        anime({
-            targets: ".container",
-            left: ["40rem", '0rem']
-        })
-        console.log("close")
 
-        options.isOpened = false
-    }
-
-})
 
 console.log(window.innerWidth < 800)
 if (window.innerWidth < 800) {

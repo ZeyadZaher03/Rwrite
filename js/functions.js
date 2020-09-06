@@ -1,3 +1,50 @@
+const menuNavigationSwitch = () => {
+    const menuButton = document.querySelector(".nav-menu")
+    const menuOptions = {
+        isOpened: false
+    }
+    const closeAnimation = () => {
+        anime({
+            targets: ".sidemenu",
+            left: ["0", '-40rem'],
+            easing: "easeInOutSine",
+            duration: 200
+        })
+        anime({
+            targets: ".container",
+            left: ["40rem", '0rem'],
+            easing: "easeInOutSine",
+            duration: 200
+        })
+    }
+
+    const openAnimation = () => {
+        anime({
+            targets: ".sidemenu",
+            left: ["-40rem", '0'],
+            easing: "easeInOutSine",
+            duration: 300
+        })
+        anime({
+            targets: ".container",
+            left: ["0", '40rem'],
+            easing: "easeInOutSine",
+            duration: 300
+        })
+    }
+
+    menuButton.addEventListener('click', (e) => {
+        e.preventDefault()
+        if (!menuOptions.isOpened) {
+            openAnimation()
+            menuOptions.isOpened = true
+        } else {
+            closeAnimation()
+            menuOptions.isOpened = false
+        }
+    })
+}
+
 const authintication = () => {
     auth.onAuthStateChanged((user) => {
         const uid = Cookies.get("uid");

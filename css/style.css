@@ -795,3 +795,21 @@ nav {
 .container {
   position: relative;
 }
+
+#article-content {
+  display: none;
+}
+
+.article-link-actions {
+  justify-self: right;
+  display: flex;
+  color: #313131;
+}
+
+.article-link-actions > * {
+  margin: 0 1rem;
+}
+
+.input-text-err {
+  color: #cf3a3a;
+}
