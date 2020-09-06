@@ -194,7 +194,7 @@ const authintication = () => {
                         console.log(result);
                         Cookies.set("uid", uid);
                         Cookies.set("email", email);
-                        db.ref("users").once("value", (res) => {
+                        db.ref(`users/${uid}`).once("value", (res) => {
                             if (res.val()) return;
                             db.ref(`users/${uid}`).set({
                                 name,
