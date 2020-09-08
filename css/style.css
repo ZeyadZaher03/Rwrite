@@ -295,6 +295,7 @@ nav {
   position: absolute;
   top: 170px;
   border-radius: 3px;
+  z-index: 9999;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #f1f1f1;
   justify-content: space-between;
@@ -1089,4 +1090,42 @@ nav {
   position: relative;
   top: -1rem;
   width: 100%;
+}
+
+.profile-image-filler {
+  background: #e3e3e3;
+}
+
+.profile-data-and-input {
+  display: flex;
+  align-items: center;
+}
+
+.profile-data-icon {
+  margin-left: 1rem;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 9999999;
+  width: 4rem !important;
+  visibility: hidden;
+  color: #009b93;
+  font-size: 1.3rem;
+  transition: all 100ms ease-in-out;
+  display: block;
+}
+
+
+.profile-data-and-input:hover .profile-data-icon {
+  opacity: 1;
+  visibility: visible;
+}
+
+.profile-data-and-input-filler {
+  background: #ddd;
+  height: 2rem;
+  margin-bottom: .5rem;
+}
+
+.profile-data-input {
+  display: none;
 }
