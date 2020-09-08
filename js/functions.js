@@ -187,6 +187,7 @@ const authintication = () => {
                         var uid = user.uid;
                         var email = result.user.email;
                         var name = result.user.displayName;
+                        var profileImageUrl = result.user.photoURL;
                         console.log(result);
                         Cookies.set("uid", uid);
                         Cookies.set("email", email);
@@ -194,6 +195,7 @@ const authintication = () => {
                             if (res.val()) return;
                             db.ref(`users/${uid}`).set({
                                 name,
+                                profileImageUrl,
                                 email,
                             });
                         });
