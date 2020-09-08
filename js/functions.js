@@ -192,7 +192,7 @@ const authintication = () => {
                         Cookies.set("uid", uid);
                         Cookies.set("email", email);
                         db.ref(`users/${uid}`).once("value", (res) => {
-                            if (res.val()) return;
+                            // if (res.val()) return;
                             db.ref(`users/${uid}`).set({
                                 name,
                                 profileImageUrl,
