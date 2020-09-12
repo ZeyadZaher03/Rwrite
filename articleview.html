@@ -27,7 +27,7 @@
 
     <script defer src="js/main.js"></script>
     <script defer src="js/functions.js"></script>
-    <script defer src="js/profile.js"></script>
+    <script defer src="js/view.js"></script>
 </head>
 
 <body>
@@ -80,65 +80,28 @@
             </div>
         </nav>
 
-        <header class="profile-header">
-            <img src="https://images.unsplash.com/photo-1598962134959-27a16982a4db?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=746&q=80"
-                alt="">
-            <div class="edit-profile-header">
-                <label for="profile-header">
-                    <i class="edit-profile-edit-icon fas fa-pencil-alt"></i>
-                </label>
-                <input type="file" name="profile-header" id="profile-header">
-            </div>
+        <header class="article_header">
+            <img id="article_image" src="" alt="">
         </header>
 
-        <div class="profile-container">
-            <div class="profile-sidenav">
-                <div class="profile-container-sidenav">
-                    <a href="#">My Profile</a>
-                    <a href="#">My Wallet</a>
-                    <a href="#">Settings</a>
-                    <a href="#">Feed</a>
-                </div>
-            </div>
-            <div class="profile-content">
-                <div class="profile-content-header">
-                    <div class="profile-image-contianer">
-                        <div class="profile-image profile-image-filler">
-                            <img src="" alt="">
-                        </div>
-                    </div>
-                    <div class="profile-info">
-                        <div id="nameProfileContainer" class="profile-data-and-input  profile-data-and-input-filler ">
-                        </div>
-                        <div id="emailProfileContainer" class="profile-data-and-input  profile-data-and-input-filler ">
-                        </div>
-                        <div id="bioProfileContainer" class="profile-data-and-input  profile-data-and-input-filler ">
-                        </div>
-                        <!-- <div class="profile-data-and-input  profile-data-and-input-filler "> -->
-                        <!-- <p>Love football, running ,coding,</p>
-                            <i class="profile-data-icon fas fa-pencil-alt"></i>
-                            <input class="profile-data-input" type="text" name="name" id="name"> -->
-                        <!-- </div> -->
-                    </div>
-                    <div class="profile-status">
-                        <div class="profile-status-box">
-                            <p class="profile-status-number" id="article-number">299</p>
-                            <p>articles</p>
-                        </div>
-                        <div class="profile-status-box">
-                            <p class="profile-status-number">700k</p>
-                            <p>articles</p>
-                        </div>
-                        <div class="profile-status-box">
-                            <p class="profile-status-number">99</p>
-                            <p>articles</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <main class="article_content">
+            <h2 class="article_tagline"></h2>
+            <span class="article_name"></span>
+            <div class="article_body"></div>
+        </main>
     </div>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">contact</a>
+            <a href="#">F.A.Q.</a>
+            <a href="#">Cookies Policy</a>
+            <a href="#">Legal Terms</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">English 🇬🇧</a>
+        </div>
+        <div class="footer-info">Privat Cloud <b>Stacks</b></div>
+    </footer>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>

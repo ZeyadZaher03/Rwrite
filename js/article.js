@@ -4,6 +4,8 @@ menuNavigationSwitch();
 //     location.replace("index.html")
 // }
 
+const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
+
 const runArticle = () => {
     const getDisplay = (item) => getComputedStyle(item).display;
 
@@ -252,7 +254,7 @@ const runArticle = () => {
             return imgUrl = driverImageUrl
         }
         if (image) await getImageUrl()
-        // const uid = Cookies.get("uid");
+
 
         const articleObj = {
             name: name.value,
@@ -264,11 +266,12 @@ const runArticle = () => {
             email: email.value,
             est,
             image: imgUrl,
+            views: 0,
             tags: tagsArray,
             writer: writerArray,
             editor: editorArray,
             article,
-            uid: 'C16NeLUBm5XfzKSuySJf7Ti1Uw92',
+            uid,
         };
 
         return {
@@ -283,8 +286,7 @@ const runArticle = () => {
             .push(articleObj)
             .then((snapshot) => {
                 id = snapshot.key;
-                // db.ref(`users/${Cookies.get("uid")}/articles`).push(id);
-                db.ref(`users/C16NeLUBm5XfzKSuySJf7Ti1Uw92/articles`).push(id);
+                db.ref(`users/${uid}/articles`).push(id);
             });
     };
 
@@ -312,8 +314,8 @@ const runArticle = () => {
         const article = articleReturn.article;
         const errorsInArticle = articleReturn.numberOfErrors;
         if (errorsInArticle > 0) return;
-        if (!!(article.tags.length)) saveNewTags()
-        console.log(article)
+        if (article.tags.length > 0) saveNewTags(article.tags)
+
         addArticleToDb(article);
         addArticleForm.reset();
     });
