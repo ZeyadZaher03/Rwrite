@@ -537,11 +537,12 @@ nav {
 .tags {
   display: flex;
   align-items: center;
-  margin-bottom: 2rem;
   width: 80%;
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  margin-bottom: 3rem;
+
 }
 
 .tag-main-item {
@@ -1221,4 +1222,48 @@ nav {
 
 .profile-add-item {
   color: #009b93;
+}
+
+.search-nav-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-left: 2rem;
+}
+
+#navsearchbutton {
+  position: absolute;
+  left: -1rem;
+}
+
+.search-nav-container input {
+  padding: 1rem 4rem;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}
+
+.search-content-list {
+  position: absolute;
+  left: 0;
+  top: 64px;
+  width: 100%;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+}
+
+.search-content-list-link {
+  padding: 1rem;
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}
+
+.search-content-list-link:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.search-content-list-link:nth-child(odd) {
+  background: #ddd;
 }

@@ -281,42 +281,36 @@ const runArticle = () => {
     };
 
     const addArticleToDb = async (articleObj) => {
+        let articleId
         await db
             .ref(`articles`)
             .push(articleObj)
             .then((snapshot) => {
                 id = snapshot.key;
                 db.ref(`users/${uid}/articles`).push(id);
+                return articleId = id
             });
+
+        return articleId
     };
 
 
     addArticleForm.addEventListener("submit", (e) => e.preventDefault());
 
-    const getDbTags = async () => {
-        const tagRef = await db.ref(`tags`).once("value")
-        const tags = []
-        await tagRef.forEach((tag) => {
-            tags.push(tag.val())
-        })
-        return tags
-    }
-
-    const saveNewTags = async (tags) => {
-        const dbTags = await getDbTags()
-        const newTags = tags.filter(tag => !(dbTags.includes(tag)));
-        newTags.forEach((tag) => db.ref(`tags`).push(tag))
+    const saveNewTags = async (tags, articleId) => {
+        return tags.forEach((tag) => db.ref(`tags/${tag}`).push(articleId))
     }
 
     addArticleButton.addEventListener("click", async (e) => {
+        addArticleButton.disabled = true
         e.preventDefault();
         const articleReturn = await addArticle()
         const article = articleReturn.article;
         const errorsInArticle = articleReturn.numberOfErrors;
         if (errorsInArticle > 0) return;
-        if (article.tags.length > 0) saveNewTags(article.tags)
-
-        addArticleToDb(article);
+        if (article.tags.length > 0) await saveNewTags(article.tags, await addArticleToDb(article))
+        else await addArticleToDb(article)
+        addArticleButton.disabled = false
         addArticleForm.reset();
     });
 

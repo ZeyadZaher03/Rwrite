@@ -4,16 +4,6 @@ menuNavigationSwitch()
 
 const tag = async () => {
     const parent = document.querySelector(".tags")
-    const getDbTags = async () => {
-        const tagRef = await db.ref(`tags`).once("value")
-        const tags = []
-        await tagRef.forEach((tag) => {
-            tags.push(tag.val())
-        })
-        return tags
-    }
-
-    const tagFromDb = await getDbTags()
 
     const createTagLink = (name) => {
         const link = document.createElement("a")
@@ -23,9 +13,12 @@ const tag = async () => {
 
         parent.appendChild(link)
     }
-    tagFromDb.forEach((tag) => createTagLink(tag))
 
-    // <a href="#" class="tag-main-item">#life Style</a>
+    db.ref(`tags`).on("value", (snapshot) => {
+        const tagsObj = snapshot.val()
+        parent.innerHTML = ""
+        for (const tag in tagsObj) createTagLink(tag)
+    })
 }
 
 tag()
