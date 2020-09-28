@@ -187,6 +187,8 @@ const authintication = () => {
         provider.setCustomParameters({
           display: "popup",
         });
+        provider.addScope('user_link');
+
 
         auth
           .signInWithPopup(provider)
