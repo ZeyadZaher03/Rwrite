@@ -220,9 +220,13 @@ const authintication = () => {
 };
 
 const getArticlesByTag = async () => {
-  const searchInput = document.querySelector(".search_input");
-  const searchContentList = document.querySelector("#searchContentList");
 
+  let searchInput = document.querySelector(".search_input");
+  let searchContentList = document.querySelector("#searchContentList");
+  if (window.innerWidth < 800) {
+    searchInput = document.querySelector(".search_input-smallscreen");
+    searchContentList = document.querySelector("#searchContentListSmallScreens");
+  }
   const runSearch = async (searchInput) => {
     // get all tags names
     const getTagIdsByName = await db.ref(`tags`).once("value");

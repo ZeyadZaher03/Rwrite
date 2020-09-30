@@ -104,6 +104,9 @@ nav {
 
 .nav-logo {
   justify-self: center;
+  height: 8rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .nav-actions {
@@ -1074,6 +1077,10 @@ nav {
     grid-template-columns: 1fr;
   }
 
+  .search-nav-container {
+    display: none !important;
+  }
+
   .register-container {
     right: 10px;
   }
@@ -1119,6 +1126,12 @@ nav {
 .sidemenu-link-active {
   background: #00a9a1;
   color: #fff;
+}
+
+.sidemenu-link-active:hover {
+  background: #00a9a1;
+  color: #fff;
+
 }
 
 /* profile */
@@ -1349,7 +1362,7 @@ nav {
 .search-content-list {
   position: absolute;
   left: 0;
-  top: 64px;
+  top: 73px;
   width: 100%;
   border-left: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
@@ -1395,4 +1408,20 @@ nav {
 .bottom-left-popup-message--err {
   border-left: 6px solid #b10000;
   background: rgba(80, 0, 0, 0.171);
+}
+
+.search-res-row input {
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+.search-res-row {
+  position: relative;
+}
+
+#searchContentListSmallScreens {
+  top: 27px !important;
+  width: 90%;
+  left: 50%;
+  transform: translateX(-50%);
 }

@@ -26,10 +26,10 @@
 
 
   <div class="sidemenu">
-    <a class="sidemenu-link sidemenu-link-active" href="index.html">Home</a>
-    <a class="sidemenu-link" href="section.html">section</a>
-    <a class="sidemenu-link" href="profile.html">profile</a>
-    <a class="sidemenu-link" href="article.html">Submit your Article</a>
+    <a class="sidemenu-link" href="index.html">Home</a>
+    <a class="sidemenu-link" href="section.html">Rwrite Articles</a>
+    <a class="sidemenu-link" href="profile.html">Profile</a>
+    <a class="sidemenu-link sidemenu-link-active" href="article.html">Submit your Article</a>
   </div>
 
   <div class="container">
@@ -71,9 +71,11 @@
           <div class="search-nav-container">
             <a class="nav-sec-row-link" id="navsearchbutton" href="#"><i class="fas fa-search"></i></a>
             <input type="text" class="search_input">
+            <div id="searchContentList" class="search-content-list">
+            </div>
           </div>
         </div>
-        <h2 class="nav-logo">Rwrite</h2>
+        <img class="nav-logo" src="assets/image/rwrite-1.png"></img>
         <div class="nav-row-container nav-actions">
           <a class="nav-sec-row-link registerbutton" id=""></a>
           <a class="nav-sec-row-link submit-article" href="article.html">Submit your Article</a>
@@ -97,7 +99,9 @@
         </div>
       </div>
       <div class="search-res-row">
-        <i class="fas fa-search"></i>
+        <input type="text" class="search_input-smallscreen">
+        <div id="searchContentListSmallScreens" class="search-content-list">
+        </div>
       </div>
     </nav>
 
