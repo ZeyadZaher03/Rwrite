@@ -9,7 +9,6 @@ const selectedTag = url.get("tag")
 const createArticleEle = (snapshot) => {
     const id = snapshot.key
     const articleData = snapshot.val()
-
     const tagline = articleData.tagline
     const description = articleData.description
     const imageUrl = articleData.image
@@ -95,19 +94,17 @@ const createArticleEle = (snapshot) => {
 }
 
 const getArticles = async () => {
-    const articlesQuery = db.ref(`articles`)
-    const articlesSnapshot = await articlesQuery
+    const tagsQuery = db.ref(`tags/${selectedTag}`)
+    const tagsSnapshot = await tagsQuery
     document.querySelector(".foryou").innerHTML = ""
 
-    articlesSnapshot.on("value", (snapshot) => {
+    tagsSnapshot.on("value", (snapshot) => {
         let selectedArticles = []
-        snapshot.forEach((childSnapshot) => {
-            const dbTags = childSnapshot.val().tags
-            if (dbTags.includes(selectedTag)) {
-                selectedArticles.push(childSnapshot)
-            }
+        snapshot.forEach((childSnapshot) => selectedArticles.push(childSnapshot.val()));
+        selectedArticles.forEach(async (id) => {
+            const articleData = await db.ref(`articles/${id}`).once("value")
+            createArticleEle(articleData)
         });
-        selectedArticles.forEach(childSnapshot => createArticleEle(childSnapshot))
     })
 }
 

@@ -4,6 +4,7 @@ menuNavigationSwitch();
 //     location.replace("index.html")
 // }
 
+
 const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
 
 const runArticle = () => {
@@ -123,6 +124,7 @@ const runArticle = () => {
     tags(addEditorsOption);
 
     CKEDITOR.replace("editor1");
+
     const addArticleForm = document.querySelector(".article-form-container");
     const addArticleButton = document.querySelector(".publish-button");
     const articleContent = document.querySelector("#article-content");
@@ -205,6 +207,7 @@ const runArticle = () => {
         const image = articelImage.files[0]
 
         const est = articletime.innerHTML;
+
         const errorMessages = () => {
             let emptyValues = 0;
             const errorInput = (ele, errorMessage) => {
@@ -239,7 +242,9 @@ const runArticle = () => {
 
             return emptyValues;
         };
+
         let imgUrl
+
         const getImageUrl = async () => {
             const storageRef = firebase.storage().ref(`articles`)
             const fileName = `${new Date()}_${image.name}`
@@ -298,20 +303,38 @@ const runArticle = () => {
     addArticleForm.addEventListener("submit", (e) => e.preventDefault());
 
     const saveNewTags = async (tags, articleId) => {
-        return tags.forEach((tag) => db.ref(`tags/${tag}`).push(articleId))
+        tags.forEach((tag) => db.ref(`tags/${tag}`).push(articleId))
+        return articleId
     }
 
     addArticleButton.addEventListener("click", async (e) => {
+
         addArticleButton.disabled = true
+        loadLoader("show")
         e.preventDefault();
         const articleReturn = await addArticle()
         const article = articleReturn.article;
         const errorsInArticle = articleReturn.numberOfErrors;
         if (errorsInArticle > 0) return;
-        if (article.tags.length > 0) await saveNewTags(article.tags, await addArticleToDb(article))
-        else await addArticleToDb(article)
-        addArticleButton.disabled = false
-        addArticleForm.reset();
+        const saveTagsAndArticle = async () => {
+            return await saveNewTags(article.tags, await addArticleToDb(article))
+        }
+
+        if (article.tags.length > 0) {
+            const id = await saveTagsAndArticle()
+            displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
+            addArticleForm.reset();
+            loadLoader("hide")
+            addArticleButton.disabled = false
+            location.href = `/articleview.html?id=${id}`
+        } else {
+            const id = await addArticleToDb(article)
+            displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
+            addArticleButton.disabled = false
+            loadLoader("hide")
+            addArticleForm.reset();
+            location.href = `/articleview.html?id=${id}`
+        }
     });
 
 

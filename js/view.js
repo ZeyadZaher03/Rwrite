@@ -3,6 +3,7 @@ menuNavigationSwitch()
 
 const url = new URL(location.href).searchParams
 const id = url.get("id")
+const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
 
 const getArticle = async () => {
     const aticleQuery = await db.ref(`articles/${id}`)
@@ -42,3 +43,63 @@ const runArticle = async () => {
 }
 
 runArticle()
+
+
+const commentSystem = () => {
+    const addComment = () => {
+        const commentForm = document.querySelector(".add-comment")
+        const commentinput = commentForm["comment"]
+        commentForm.addEventListener("submit", e => {
+            e.preventDefault()
+            const comment = commentinput.value
+            if (comment === "") return
+            const timestamp = new Date().getTime()
+            db.ref(`articles/${id}/comments`).push({
+                "uid": uid,
+                "comment": comment,
+                "data": timestamp
+            })
+            commentForm.reset()
+        })
+    }
+    addComment()
+
+    const viewComments = () => {
+        const container = document.querySelector(".comment-container")
+        createCommentItem = (name, comment) => {
+            const commentItemContainer = document.createElement("div")
+            const nameContainer = document.createElement("h5")
+            const commentText = document.createElement("p")
+
+            nameContainer.innerHTML = `${name}:`
+            commentText.innerHTML = comment
+
+            commentItemContainer.classList.add("comment-item-container")
+            commentItemContainer.appendChild(nameContainer)
+            commentItemContainer.appendChild(commentText)
+
+            return commentItemContainer
+        }
+        db.ref(`articles/${id}/comments`).on("value", (snapshot) => {
+            container.innerHTML = ""
+            snapshot.forEach((childSnapshot) => {
+
+                const commentObj = childSnapshot.val()
+                const comment = commentObj.comment
+                const userId = commentObj.uid
+
+                const generateComment = async () => {
+                    const userNameQuery = await db.ref(`users/${userId}/name`).once("value")
+                    const name = await userNameQuery.val()
+                    container.appendChild(createCommentItem(name, comment))
+                }
+
+                generateComment()
+            })
+
+        })
+    }
+    viewComments()
+}
+
+commentSystem()

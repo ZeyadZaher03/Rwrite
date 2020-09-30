@@ -246,12 +246,13 @@ const getArticlesByTag = async () => {
       db.ref(`tags/${tagId}`).once("value", (snapshot) => {
         snapshot.forEach(async (childSnapshot) => {
           searchContentList.innerHTML = "";
-          const articleData = await db.ref(`articles/${childSnapshot.val()}`).child("tagline").once("value");
-          const articleTagline = await articleData.val();
+          const articleData = await db.ref(`articles/${childSnapshot.val()}`).once("value");
+          const articleId = await articleData.key;
+          const articleTagline = await articleData.val().tagline;
           console.log(index, articleTagline);
           const a = document.createElement("a");
           a.innerHTML = articleTagline;
-          a.href = a;
+          a.href = `/articleview.html?id=${articleId}`;
           a.classList.add("search-content-list-link");
           searchContentList.appendChild(a);
         });
@@ -272,3 +273,37 @@ const getArticlesByTag = async () => {
   // sort tags with
 };
 getArticlesByTag();
+
+
+const displayMessage = (position, type, message, duration) => {
+  let element
+  if (position === "topCenter") element = document.querySelector(".bottom-left-popup-message")
+  else if (position === "bottomLeft") element = document.querySelector(".bottom-left-popup-message")
+  else element = document.querySelector(".bottom-left-popup-message")
+
+  const textContainer = element.querySelector("p")
+  textContainer.innerHTML = ""
+  textContainer.innerHTML = message
+
+  if (type === "error") {
+    element.classList.add("bottom-left-popup-message--err")
+
+    const elementIcon = element.querySelector(".popup-message-icon--error")
+    elementIcon.classList.add("popup-message-icon--active")
+  } else if (type === "success") {
+    element.classList.add("bottom-left-popup-message--succ")
+    const elementIcon = element.querySelector(".popup-message-icon--success")
+    elementIcon.classList.add("popup-message-icon--active")
+  }
+  element.classList.add("bottom-left-popup-message--active")
+
+
+  setTimeout(() => {
+    element.classList.remove("bottom-left-popup-message--active")
+  }, duration);
+}
+const loadLoader = (status) => {
+  let element = document.querySelector(".article-sumbmition-container")
+  if (status == "show") element.classList.add("article-sumbmition-container--active")
+  if (status == "hide") element.classList.remove("article-sumbmition-container--active")
+}

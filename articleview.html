@@ -53,6 +53,8 @@
                     <div class="search-nav-container">
                         <a class="nav-sec-row-link" id="navsearchbutton" href="#"><i class="fas fa-search"></i></a>
                         <input type="text" class="search_input">
+                        <div id="searchContentList" class="search-content-list">
+                        </div>
                     </div>
                 </div>
                 <h2 class="nav-logo">Rwrite</h2>
@@ -92,6 +94,15 @@
             <span class="article_name"></span>
             <div class="article_body"></div>
         </main>
+
+        <div class="comment-section">
+            <h2 class="comment-section-heading">Comments</h2>
+            <form class="add-comment">
+                <input type="text" name="comment" autocomplete="off" placeholder="Add a comment...">
+                <button>Send <i class="fas fa-paper-plane"></i></button>
+            </form>
+            <div class="comment-container"></div>
+        </div>
     </div>
 
     <footer class="footer">
@@ -110,6 +121,9 @@
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script defer src="js/main.js"></script>
+    <script defer src="js/functions.js"></script>
+    <script defer src="js/view.js"></script>
 </body>
 
 </html>
