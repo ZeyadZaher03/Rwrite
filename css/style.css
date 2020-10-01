@@ -102,6 +102,10 @@ nav {
   margin-right: 2rem;
 }
 
+.nav-logo-container {
+  justify-self: center;
+}
+
 .nav-logo {
   justify-self: center;
   height: 8rem;

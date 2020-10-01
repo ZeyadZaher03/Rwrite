@@ -57,6 +57,7 @@ const authintication = () => {
   auth.onAuthStateChanged((user) => {
     const uid = Cookies.get("uid");
     const registerButton = document.querySelector(".registerbutton");
+
     console.log("id", uid);
     console.log("user", user);
 
@@ -189,19 +190,19 @@ const authintication = () => {
         });
         provider.addScope('user_link');
 
-
         auth
           .signInWithPopup(provider)
           .then((result) => {
-            var user = result.user;
-            var uid = user.uid;
-            var email = result.user.email;
-            var name = result.user.displayName;
-            var profileImageUrl = result.user.photoURL;
+            const user = result.user;
+            const uid = user.uid;
+            const email = result.user.email;
+            const name = result.user.displayName;
+            const profileImageUrl = result.user.photoURL;
             console.log(result);
             Cookies.set("uid", uid);
             Cookies.set("email", email);
             db.ref(`users/${uid}`).once("value", (res) => {
+              if (res.val()) return
               db.ref(`users/${uid}`).set({
                 name,
                 profileImageUrl,
@@ -214,8 +215,39 @@ const authintication = () => {
           });
       });
     };
+
+    const signInWithTwitter = () => {
+      const twiiterLoginButton = document.querySelector(".register-twitter-login");
+      twiiterLoginButton.addEventListener("click", (e) => {
+          e.preventDefault()
+          const provider = new firebase.auth.FacebookAuthProvider();
+          provider.setCustomParameters({
+            display: "popup",
+          });
+          auth.signInWithPopup(provider).then((result) => {
+            const user = result.user;
+            const username = result.additionalUserInfo.username;
+            const uid = user.uid;
+            const email = result.user.email;
+            const name = result.user.displayName;
+
+            db.ref(`users/${uid}`).once("value", (res) => {
+              if (res.val()) return
+              db.ref(`users/${uid}`).set({
+                name,
+                profileImageUrl,
+                email,
+              });
+            });
+          })
+        })
+        .catch(function (error) {
+          var errorMessage = error.message;
+        })
+    }
     registerPopup();
     signInWithFaceBook();
+    signInWithTwitter();
   };
 };
 

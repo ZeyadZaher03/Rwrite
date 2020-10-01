@@ -56,6 +56,7 @@
         </div>
       </div>
     </div>
+
     <nav class="nav">
       <div class="nav-row nav-row-first">
         <a class="nav-lang-link" href="#">English</a>
@@ -75,7 +76,9 @@
             </div>
           </div>
         </div>
-        <img class="nav-logo" src="assets/image/rwrite-1.png"></img>
+        <a class="nav-logo-container" href="index.html">
+          <img class="nav-logo" src="assets/image/rwrite-1.png"></img>
+        </a>
         <div class="nav-row-container nav-actions">
           <a class="nav-sec-row-link registerbutton" id=""></a>
           <a class="nav-sec-row-link submit-article" href="article.html">Submit your Article</a>
@@ -91,7 +94,7 @@
             <p>Login with Facebook</p>
           </div>
           <div class="social-item-container">
-            <a class="register-social-icons" id="twitter-background" href="#">
+            <a class="register-social-icons register-twitter-login" id="twitter-background" href="#">
               <i class="fab fa-twitter"></i>
             </a>
             <p>Login with Twitter</p>
@@ -205,10 +208,10 @@
               from this publication.</span>
           </div>
           <div class="input-container">
-            <label class="input-title" for="name">Writer</label>
+            <label class="input-title" for="name">Tagged People</label>
             <div id="writer-container" class="addarticle-elements-container">
               <input class="input-inline" id="addWriterInput" placeholder="Type a writer" type="text">
-              <button id="addWriterButton" class="add-tag-button">Add a writer</button>
+              <button id="addWriterButton" class="add-tag-button">Add by Tag Name</button>
               <div id="writer-item-container" class="elements-container"></div>
 
             </div>
