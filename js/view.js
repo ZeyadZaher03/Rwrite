@@ -5,6 +5,7 @@ const url = new URL(location.href).searchParams
 const id = url.get("id")
 const uid = Cookies.get("uid")
 console.log(uid)
+
 const getArticle = async () => {
     const aticleQuery = await db.ref(`articles/${id}`)
     const snapshot = await aticleQuery.once("value")
@@ -47,7 +48,10 @@ const commentSystem = () => {
         const commentinput = commentForm["comment"]
         commentForm.addEventListener("submit", e => {
             e.preventDefault()
-            if (!!uid) return alert("login to be able to comment")
+            if (!uid) {
+                return alert("login to be able to comment")
+                console.log("s")
+            }
 
             const comment = commentinput.value
 
