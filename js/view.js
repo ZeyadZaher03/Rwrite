@@ -17,7 +17,7 @@ const getArticle = async () => {
 }
 
 
-if (!id) return location.href = "index.html"
+if (!id) location.href = "index.html"
 
 const runArticle = async () => {
     const articleData = await getArticle()
