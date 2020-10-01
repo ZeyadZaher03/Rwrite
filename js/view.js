@@ -3,7 +3,7 @@ menuNavigationSwitch()
 
 const url = new URL(location.href).searchParams
 const id = url.get("id")
-const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
+const uid = Cookies.get("uid")
 
 const getArticle = async () => {
     const aticleQuery = await db.ref(`articles/${id}`)
@@ -17,7 +17,7 @@ const getArticle = async () => {
 }
 
 
-// if (id) return undefined
+if (!id) return location.href = "index.html"
 
 const runArticle = async () => {
     const articleData = await getArticle()
@@ -27,15 +27,11 @@ const runArticle = async () => {
     const tagline = articleData.tagline
     const article = articleData.article
 
-    console.log(article)
-    console.log(image)
-    console.log(tagline)
-    console.log(name)
-
     const articleImageEle = document.querySelector("#article_image")
     const articleBody = document.querySelector(".article_body")
     const articleTagline = document.querySelector(".article_tagline")
     const articleName = document.querySelector(".article_name")
+
     articleImageEle.src = image
     articleBody.innerHTML = article
     articleTagline.innerHTML = tagline
@@ -51,9 +47,13 @@ const commentSystem = () => {
         const commentinput = commentForm["comment"]
         commentForm.addEventListener("submit", e => {
             e.preventDefault()
+            if (!uid) return alert("login to be able to comment")
+
             const comment = commentinput.value
+
             if (comment === "") return
             const timestamp = new Date().getTime()
+
             db.ref(`articles/${id}/comments`).push({
                 "uid": uid,
                 "comment": comment,

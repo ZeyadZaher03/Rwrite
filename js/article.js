@@ -5,8 +5,8 @@ menuNavigationSwitch();
 // }
 
 
-const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
-
+const uid = Cookies.get("uid")
+console.log(uid)
 const runArticle = () => {
     const getDisplay = (item) => getComputedStyle(item).display;
 
