@@ -209,6 +209,8 @@ const authintication = () => {
                 email,
               });
             });
+
+            closeRegisterAnimation()
           })
           .catch((err) => {
             console.log(err);
