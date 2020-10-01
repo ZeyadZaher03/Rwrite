@@ -17,6 +17,7 @@ const getArticle = async () => {
 }
 
 
+if (!id) location.href = "index.html"
 
 const runArticle = async () => {
     const articleData = await getArticle()
@@ -46,7 +47,7 @@ const commentSystem = () => {
         const commentinput = commentForm["comment"]
         commentForm.addEventListener("submit", e => {
             e.preventDefault()
-            if (!uid) return alert("login to be able to comment")
+            if (!!uid) return alert("login to be able to comment")
 
             const comment = commentinput.value
 
