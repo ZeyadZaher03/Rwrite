@@ -218,38 +218,38 @@ const authintication = () => {
       });
     };
 
-    const signInWithTwitter = () => {
-      const twiiterLoginButton = document.querySelector(".register-twitter-login");
-      twiiterLoginButton.addEventListener("click", (e) => {
-          e.preventDefault()
-          const provider = new firebase.auth.FacebookAuthProvider();
-          provider.setCustomParameters({
-            display: "popup",
-          });
-          auth.signInWithPopup(provider).then((result) => {
-            const user = result.user;
-            const username = result.additionalUserInfo.username;
-            const uid = user.uid;
-            const email = result.user.email;
-            const name = result.user.displayName;
+    // const signInWithTwitter = () => {
+    //   const twiiterLoginButton = document.querySelector(".register-twitter-login");
+    //   twiiterLoginButton.addEventListener("click", (e) => {
+    //       e.preventDefault()
+    //       const provider = new firebase.auth.FacebookAuthProvider();
+    //       provider.setCustomParameters({
+    //         display: "popup",
+    //       });
+    //       auth.signInWithPopup(provider).then((result) => {
+    //         const user = result.user;
+    //         const username = result.additionalUserInfo.username;
+    //         const uid = user.uid;
+    //         const email = result.user.email;
+    //         const name = result.user.displayName;
 
-            db.ref(`users/${uid}`).once("value", (res) => {
-              if (res.val()) return
-              db.ref(`users/${uid}`).set({
-                name,
-                profileImageUrl,
-                email,
-              });
-            });
-          })
-        })
-        .catch(function (error) {
-          var errorMessage = error.message;
-        })
-    }
+    //         db.ref(`users/${uid}`).once("value", (res) => {
+    //           if (res.val()) return
+    //           db.ref(`users/${uid}`).set({
+    //             name,
+    //             profileImageUrl,
+    //             email,
+    //           });
+    //         });
+    //       })
+    //     })
+    //     .catch(function (error) {
+    //       var errorMessage = error.message;
+    //     })
+    // }
     registerPopup();
     signInWithFaceBook();
-    signInWithTwitter();
+    // signInWithTwitter();
   };
 };
 
