@@ -106,6 +106,10 @@ nav {
   justify-self: center;
 }
 
+.search-content-list {
+  z-index: 9999;
+}
+
 .nav-logo {
   justify-self: center;
   height: 8rem;

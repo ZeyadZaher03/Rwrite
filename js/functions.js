@@ -188,7 +188,7 @@ const authintication = () => {
         provider.setCustomParameters({
           display: "popup",
         });
-        provider.addScope('user_link');
+        provider.addScope("user_link");
 
         auth
           .signInWithPopup(provider)
@@ -202,7 +202,7 @@ const authintication = () => {
             Cookies.set("uid", uid);
             Cookies.set("email", email);
             db.ref(`users/${uid}`).once("value", (res) => {
-              if (res.val()) return
+              if (res.val()) return;
               db.ref(`users/${uid}`).set({
                 name,
                 profileImageUrl,
@@ -210,7 +210,7 @@ const authintication = () => {
               });
             });
 
-            closeRegisterAnimation()
+            closeRegisterAnimation();
           })
           .catch((err) => {
             console.log(err);
@@ -254,13 +254,13 @@ const authintication = () => {
 };
 
 const getArticlesByTag = async () => {
-
   let searchInput = document.querySelector(".search_input");
   let searchContentList = document.querySelector("#searchContentList");
   if (window.innerWidth < 800) {
     searchInput = document.querySelector(".search_input-smallscreen");
     searchContentList = document.querySelector("#searchContentListSmallScreens");
   }
+
   const runSearch = async (searchInput) => {
     // get all tags names
     const getTagIdsByName = await db.ref(`tags`).once("value");
@@ -275,25 +275,50 @@ const getArticlesByTag = async () => {
     const matchesTags = async () => {
       if (!searchValue.trim()) {
         searchContentList.innerHTML = "";
-        return [];
+        return ["noText"];
       } else return await tagsNames.filter((tagName) => tagName.indexOf(searchValue) > -1);
     };
-    const matchingTagsArr = await matchesTags();
+
     // get all the articles assoc in this tag
-    matchingTagsArr.forEach((tagId, index) => {
+    const matchingTagsArr = await matchesTags();
+
+    // create search result
+    const createSearchResultItem = (name, id) => {
+      const item = document.createElement("a");
+
+      item.innerHTML = name;
+      item.href = `/articleview.html?id=${id}`;
+      item.classList.add("search-content-list-link");
+      return item;
+    };
+
+    // show search result
+    const showSearchResult = (articleSnapshot) => {
+      const articleUid = articleSnapshot.key;
+      const articleData = articleSnapshot.val();
+      const articleTagline = articleData.tagline;
+      return searchContentList.appendChild(createSearchResultItem(articleTagline, articleUid));
+    };
+
+    // get search item data
+    const getSearchedData = (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+        const articleId = childSnapshot.val();
+        db.ref(`articles/${articleId}`).once("value", (articleSnapshot) => showSearchResult(articleSnapshot));
+      });
+    };
+
+    if (!matchingTagsArr[0] === "noText") return (searchContentList.innerHTML = "");
+    if (matchingTagsArr.length === 0) {
+      searchContentList.innerHTML = "";
+      return searchContentList.appendChild(createSearchResultItem("no result", "#"));
+    }
+
+    matchingTagsArr.forEach((tagId) => {
+      searchContentList.innerHTML = "";
       db.ref(`tags/${tagId}`).once("value", (snapshot) => {
-        snapshot.forEach(async (childSnapshot) => {
-          searchContentList.innerHTML = "";
-          const articleData = await db.ref(`articles/${childSnapshot.val()}`).once("value");
-          const articleId = await articleData.key;
-          const articleTagline = await articleData.val().tagline;
-          console.log(index, articleTagline);
-          const a = document.createElement("a");
-          a.innerHTML = articleTagline;
-          a.href = `/articleview.html?id=${articleId}`;
-          a.classList.add("search-content-list-link");
-          searchContentList.appendChild(a);
-        });
+        if (snapshot.numChildren() > 0) return getSearchedData(snapshot);
+        createSearchResultItem("no result", "#");
       });
     });
   };
@@ -301,47 +326,46 @@ const getArticlesByTag = async () => {
   let timeout = null;
   searchInput.addEventListener("keyup", async (e) => {
     e.preventDefault();
+
+    // on typing make the timer return to 1 s again
     clearTimeout(timeout);
-    // Make a new timeout set to go off in 1000ms (1 second)
+
+    // Make a new timer for one secone then run the search function
     timeout = setTimeout(function () {
       runSearch(searchInput);
-    }, 1000);
+    }, 500);
   });
-  // check if there is any tags with this name
-  // sort tags with
 };
 getArticlesByTag();
 
-
 const displayMessage = (position, type, message, duration) => {
-  let element
-  if (position === "topCenter") element = document.querySelector(".bottom-left-popup-message")
-  else if (position === "bottomLeft") element = document.querySelector(".bottom-left-popup-message")
-  else element = document.querySelector(".bottom-left-popup-message")
+  let element;
+  if (position === "topCenter") element = document.querySelector(".bottom-left-popup-message");
+  else if (position === "bottomLeft") element = document.querySelector(".bottom-left-popup-message");
+  else element = document.querySelector(".bottom-left-popup-message");
 
-  const textContainer = element.querySelector("p")
-  textContainer.innerHTML = ""
-  textContainer.innerHTML = message
+  const textContainer = element.querySelector("p");
+  textContainer.innerHTML = "";
+  textContainer.innerHTML = message;
 
   if (type === "error") {
-    element.classList.add("bottom-left-popup-message--err")
+    element.classList.add("bottom-left-popup-message--err");
 
-    const elementIcon = element.querySelector(".popup-message-icon--error")
-    elementIcon.classList.add("popup-message-icon--active")
+    const elementIcon = element.querySelector(".popup-message-icon--error");
+    elementIcon.classList.add("popup-message-icon--active");
   } else if (type === "success") {
-    element.classList.add("bottom-left-popup-message--succ")
-    const elementIcon = element.querySelector(".popup-message-icon--success")
-    elementIcon.classList.add("popup-message-icon--active")
+    element.classList.add("bottom-left-popup-message--succ");
+    const elementIcon = element.querySelector(".popup-message-icon--success");
+    elementIcon.classList.add("popup-message-icon--active");
   }
-  element.classList.add("bottom-left-popup-message--active")
-
+  element.classList.add("bottom-left-popup-message--active");
 
   setTimeout(() => {
-    element.classList.remove("bottom-left-popup-message--active")
+    element.classList.remove("bottom-left-popup-message--active");
   }, duration);
-}
+};
 const loadLoader = (status) => {
-  let element = document.querySelector(".article-sumbmition-container")
-  if (status == "show") element.classList.add("article-sumbmition-container--active")
-  if (status == "hide") element.classList.remove("article-sumbmition-container--active")
-}
+  let element = document.querySelector(".article-sumbmition-container");
+  if (status == "show") element.classList.add("article-sumbmition-container--active");
+  if (status == "hide") element.classList.remove("article-sumbmition-container--active");
+};
