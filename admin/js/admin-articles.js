@@ -24,13 +24,11 @@ const articles = async () => {
         // elements values
         nameEle.innerHTML = name;
         deleteBtn.innerHTML = "Remove";
-        hideBtn.innerHTML = "Hide"
 
         // elements classes
         container.classList.add("item-container");
         buttonsContainer.classList.add("buttons-container");
         deleteBtn.classList.add("btn", "delete", "btn-article");
-        hideBtn.classList.add("btn", "hide", "btn-article-hide");
 
         // arranging elements
         buttonsContainer.appendChild(nameEle);
@@ -43,6 +41,11 @@ const articles = async () => {
             hiddenEle.innerHTML = "hidden"
             hiddenEle.classList.add("hiddenEle");
             buttonsContainer.appendChild(hiddenEle);
+            hideBtn.innerHTML = "Hide"
+            hideBtn.classList.add("btn", "hide", "btn-article-unhide");
+        } else {
+            hideBtn.innerHTML = "Hide"
+            hideBtn.classList.add("btn", "hide", "btn-article-hide");
         }
 
         buttonsContainer.appendChild(hideBtn);
@@ -78,11 +81,23 @@ const articles = async () => {
             });
         });
     }
+    // unhide article
+    const unhideArticles = () => {
+        const unHideButtons = document.querySelectorAll(".btn-article-unhide");
+        unHideButtons.forEach((unHideButton) => {
+            unHideButton.addEventListener("click", (e) => {
+                const id = unHideButton.parentNode.parentNode.dataset.id;
+                e.preventDefault();
+                // hide article warning message
+                if (confirm("you sure you want to hide this article")) unHideArticle(id);
+            });
+        });
+    }
 
     // hide article from the db
-    const hideArticle = (id) => {
+    const unHideArticle = (id) => {
         db.ref(`articles/${id}`).update({
-            isHidden: true
+            isHidden: false
         });
     };
 
@@ -137,6 +152,7 @@ const articles = async () => {
         });
         deleteArticle();
         hideArticles();
+        unhideArticles();
     });
 };
 

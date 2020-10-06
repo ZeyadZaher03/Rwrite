@@ -1,3 +1,12 @@
+const uid = Cookies.get("uid")
+auth.onAuthStateChanged((user) => {
+    db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
+        if (!user || !uid || !snapshot.val()) {
+            location.href = "../index.html"
+        }
+    })
+})
+
 const articles = async () => {
     const createTagsElements = (name, id) => {
         const container = document.createElement("div");

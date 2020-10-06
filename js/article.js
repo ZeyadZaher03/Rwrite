@@ -277,6 +277,7 @@ const runArticle = () => {
             editor: editorArray,
             article,
             uid,
+            isHidden: true
         };
 
         return {
