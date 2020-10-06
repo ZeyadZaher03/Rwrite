@@ -3,7 +3,8 @@ auth.onAuthStateChanged((user) => {
     if (!user || !uid) {
         location.href = "../index.html"
     }
-    db.ref(`user/${uid}/isAdmin`).once("value", (snapshot) => {
+    console.log(uid)
+    db.ref(`user/${uid}`).once("value", (snapshot) => {
         console.log(snapshot.val())
     })
 })
