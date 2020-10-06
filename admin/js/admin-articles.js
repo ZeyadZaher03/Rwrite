@@ -41,7 +41,7 @@ const articles = async () => {
             hiddenEle.innerHTML = "hidden"
             hiddenEle.classList.add("hiddenEle");
             buttonsContainer.appendChild(hiddenEle);
-            hideBtn.innerHTML = "Hide"
+            hideBtn.innerHTML = "unHide"
             hideBtn.classList.add("btn", "hide", "btn-article-unhide");
         } else {
             hideBtn.innerHTML = "Hide"
