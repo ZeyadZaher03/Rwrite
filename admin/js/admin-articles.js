@@ -41,7 +41,7 @@ const articles = async () => {
             hiddenEle.innerHTML = "hidden"
             hiddenEle.classList.add("hiddenEle");
             buttonsContainer.appendChild(hiddenEle);
-            hideBtn.innerHTML = "unHide"
+            hideBtn.innerHTML = "Unhide"
             hideBtn.classList.add("btn", "hide", "btn-article-unhide");
         } else {
             hideBtn.innerHTML = "Hide"
@@ -89,12 +89,18 @@ const articles = async () => {
                 const id = unHideButton.parentNode.parentNode.dataset.id;
                 e.preventDefault();
                 // hide article warning message
-                if (confirm("you sure you want to hide this article")) unHideArticle(id);
+                unHideArticle(id);
             });
         });
     }
 
     // hide article from the db
+    const hideArticle = (id) => {
+        db.ref(`articles/${id}`).update({
+            isHidden: true
+        });
+    };
+    // unhide article from the db
     const unHideArticle = (id) => {
         db.ref(`articles/${id}`).update({
             isHidden: false
