@@ -192,6 +192,8 @@ nav {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
   width: 22rem;
   padding: 1rem;
+  color: initial;
+  text-decoration: none;
   line-height: 1;
   position: relative;
   transition: all 300ms ease-in-out;
@@ -212,14 +214,14 @@ nav {
   margin-right: 3rem;
 }
 
-.trending-image {
+.trending-image-container {
   width: 100%;
   height: 17rem;
   overflow: hidden;
   width: 100%;
 }
 
-.trending-image img {
+.trending-image {
   width: 100%;
 }
 
@@ -231,7 +233,7 @@ nav {
   line-height: 1;
 }
 
-.trending-info {
+.trending-details {
   display: flex;
   justify-content: space-between;
   font-size: 1.2rem;
@@ -245,7 +247,7 @@ nav {
   justify-content: flex-end;
 }
 
-.trending-name-tag {
+.trending-info {
   margin-top: 1.2rem;
   display: flex;
   align-items: center;
@@ -270,7 +272,7 @@ nav {
   align-items: center;
 }
 
-.trendin-user-image {
+.trendin-user-image-container {
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 50%;
@@ -278,7 +280,7 @@ nav {
   overflow: hidden;
 }
 
-.trendin-user-image img {
+.trendin-user-image {
   width: 100%;
 }
 
@@ -1175,6 +1177,7 @@ nav {
   flex: 1;
   overflow: hidden;
   position: relative;
+  background-color: #fff;
   border-right: 1px solid #ddd;
   flex-direction: column;
 }

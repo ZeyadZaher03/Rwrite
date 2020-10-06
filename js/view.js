@@ -3,8 +3,20 @@ menuNavigationSwitch()
 
 const url = new URL(location.href).searchParams
 const id = url.get("id")
-const uid = Cookies.get("uid")
+const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
 console.log(uid)
+
+const getWriters = async () => {
+    const writersSnapshot = await db.ref(`articles/${id}/writer`).once("value")
+    const writers = await writersSnapshot.val()
+    return await writers
+}
+
+const getMyName = async () => {
+    const userSnapshot = await db.ref(`users/${uid}/name`).once("value")
+    const name = await userSnapshot.val()
+    return await name
+}
 
 const getArticle = async () => {
     const aticleQuery = await db.ref(`articles/${id}`)
@@ -44,7 +56,9 @@ const runArticle = async () => {
 runArticle()
 
 
-const commentSystem = () => {
+const commentSystem = async () => {
+    const writers = await getWriters()
+    const name = await getMyName()
     const addComment = () => {
         const commentForm = document.querySelector(".add-comment")
         const commentinput = commentForm["comment"]
@@ -53,6 +67,9 @@ const commentSystem = () => {
             if (!uid) {
                 commentinput.value = ""
                 return alert("login to be able to comment")
+            } else if (!(writers.includes(name))) {
+                commentinput.value = ""
+                return alert("You are not tagged in this Article")
             }
 
             const comment = commentinput.value

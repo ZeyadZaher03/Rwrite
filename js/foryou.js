@@ -7,6 +7,8 @@ const selectedTag = url.get("tag") || "rwrite"
 
 
 const getArticles = async () => {
+    const parent = document.querySelector(".foryou")
+
     const createArticleEle = (snapshot) => {
         const id = snapshot.key
         const articleData = snapshot.val()
@@ -17,11 +19,11 @@ const getArticles = async () => {
         const readingTime = articleData.est
 
 
-        const parent = document.querySelector(".foryou")
 
         const container = document.createElement("a")
         container.classList.add("article-link")
         container.href = `articleview.html?id=${id}`
+
         const infoContainer = document.createElement("div")
         infoContainer.classList.add("article-link-info")
 
@@ -89,9 +91,7 @@ const getArticles = async () => {
         dateEle.innerHTML = moment().format("MMM DD")
         readingTimeEle.innerHTML = readingTime
 
-
-        parent.appendChild(container)
-
+        return container
     }
 
     const tagsQuery = db.ref(`tags/${selectedTag}`)
@@ -100,10 +100,12 @@ const getArticles = async () => {
 
     tagsSnapshot.on("value", (snapshot) => {
         let selectedArticles = []
-        snapshot.forEach((childSnapshot) => selectedArticles.push(childSnapshot.val()));
-        selectedArticles.forEach(async (id) => {
-            const articleData = await db.ref(`articles/${id}`).once("value")
-            createArticleEle(articleData)
+        snapshot.forEach((childSnapshot) => {
+            selectedArticles.push(childSnapshot.val())
+        });
+        selectedArticles.forEach((id) => {
+            db.ref(`articles/${id}`).once("value", (articleData) => parent.appendChild(createArticleEle(articleData)))
+
         });
     })
 }

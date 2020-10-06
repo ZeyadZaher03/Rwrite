@@ -29,7 +29,7 @@ const profileSideNavigationStyle = () => {
         }
 
         if (screenWidth > 1000) {
-            if (485 <= scrollTop) {
+            if (510 <= scrollTop) {
                 child.classList.add("sticky")
                 // startingAnimation()
             } else {
