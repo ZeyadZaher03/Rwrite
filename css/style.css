@@ -1412,15 +1412,30 @@ nav {
   align-items: center;
 }
 
+.top-center-popup-message {
+  position: fixed;
+  left: 50%;
+  top: 7rem;
+  transform: translateX(-50%);
+  z-index: 9;
+  display: flex;
+  padding: 1rem 1.5rem;
+  border-radius: 2px;
+  align-items: center;
+}
+
+.top-center-popup-message--active,
 .bottom-left-popup-message--active {
   display: flex;
 }
 
+.top-center-popup-message--succ,
 .bottom-left-popup-message--succ {
   border-left: 6px solid #13b100;
   background: rgba(0, 80, 0, 0.171);
 }
 
+.top-center-popup-message--err,
 .bottom-left-popup-message--err {
   border-left: 6px solid #b10000;
   background: rgba(80, 0, 0, 0.171);

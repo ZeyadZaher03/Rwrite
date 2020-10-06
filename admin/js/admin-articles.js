@@ -1,3 +1,11 @@
+const uid = cookies.get("uid")
+auth.onAuthStateChanged((user) => {
+    if (!user || !uid) {
+        location.href = "../index.html"
+        console.log(user)
+    }
+})
+
 const articles = async () => {
     // creating article element
     const createArticlsElements = (name, id, uid, isHidden) => {

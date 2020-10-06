@@ -1,8 +1,10 @@
-const menuNavigationSwitch = () => {
+const menuNavigationSwitch = (role) => {
+  const sideMenuContainer = document.querySelector(".sidemenu")
   const menuButton = document.querySelector(".nav-menu");
   const menuOptions = {
     isOpened: false,
   };
+
   const closeAnimation = () => {
     anime({
       targets: ".sidemenu",
@@ -51,6 +53,21 @@ const menuNavigationSwitch = () => {
   };
 
   search();
+  const getProfileButton = () => {
+    const sideMenuButtons = document.querySelectorAll('.sidemenu-link')
+    return Array.from(sideMenuButtons).filter(sideMenuButton => sideMenuButton.innerHTML.toLocaleLowerCase() === "Profile".toLocaleLowerCase())[0]
+  }
+  const makeAdminPanelButton = () => {
+    const sideMenuButtons = document.createElement('a')
+    sideMenuButtons.href = "admin/index.html"
+    sideMenuButtons.classList.add('sidemenu-link')
+    sideMenuButtons.innerHTML = "Admin Dashboard"
+    return sideMenuButtons
+  }
+  console.log(makeAdminPanelButton())
+  if (role === "user") ""
+  if (role === "admin") return sideMenuContainer.appendChild(makeAdminPanelButton())
+  if (role === "guest") return getProfileButton().remove()
 };
 
 const authintication = () => {
@@ -340,7 +357,7 @@ getArticlesByTag();
 
 const displayMessage = (position, type, message, duration) => {
   let element;
-  if (position === "topCenter") element = document.querySelector(".bottom-left-popup-message");
+  if (position === "topCenter") element = document.querySelector(".top-center-popup-message");
   else if (position === "bottomLeft") element = document.querySelector(".bottom-left-popup-message");
   else element = document.querySelector(".bottom-left-popup-message");
 

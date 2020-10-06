@@ -1,6 +1,16 @@
+const uid = Cookies.get("uid");
+auth.onAuthStateChanged((user) => {
+
+  if (!uid || !user) {
+    displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected  ", 3000)
+    location.href = "index.html"
+  }
+
+})
+
+
 authintication();
-menuNavigationSwitch();
-const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92";
+
 
 const profileSideNavigationStyle = () => {
   window.addEventListener("scroll", (e) => {
@@ -38,7 +48,6 @@ const profileSideNavigationStyle = () => {
     }
   });
 };
-profileSideNavigationStyle();
 
 const updateProfileDataInDb = (inputName, value) => {
   const userQuery = db.ref(`users/${uid}`);
@@ -286,96 +295,107 @@ const getProfileData = () => {
   });
 };
 
-getProfileData();
-
 const getUserArticls = async () => {
-
   const createArticleItem = (articleData, articleId) => {
-    const name = articleData.tagline
+    const name = articleData.tagline;
 
     const containerItem = document.createElement("a");
     const heading = document.createElement("h3");
     const buttonsContainer = document.createElement("div");
     const deleteButton = document.createElement("button");
 
-    containerItem.classList.add("profile-item")
-    heading.classList.add("profile-item-name")
-    buttonsContainer.classList.add("profile-item-buttons-container")
-    deleteButton.classList.add("profile-item-delete", "delete-article-button-profile")
+    containerItem.classList.add("profile-item");
+    heading.classList.add("profile-item-name");
+    buttonsContainer.classList.add("profile-item-buttons-container");
+    deleteButton.classList.add("profile-item-delete", "delete-article-button-profile");
 
-    buttonsContainer.appendChild(deleteButton)
-    containerItem.appendChild(heading)
-    containerItem.appendChild(buttonsContainer)
+    buttonsContainer.appendChild(deleteButton);
+    containerItem.appendChild(heading);
+    containerItem.appendChild(buttonsContainer);
 
     // containerItem.href = `articleview.html?id=${articleId}`
-    deleteButton.innerHTML = "Delete"
-    deleteButton.dataset.id = articleId
-    heading.innerHTML = name
+    deleteButton.innerHTML = "Delete";
+    deleteButton.dataset.id = articleId;
+    heading.innerHTML = name;
 
-    return containerItem
-  }
+    return containerItem;
+  };
+
+  const deleteArticleOnClick = () => {
+    const deleteButtons = document.querySelectorAll(".delete-article-button-profile");
+    deleteButtons.forEach((deleteButton) => {
+      deleteButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = deleteButton.dataset.id;
+        const areYouSure = confirm("are you sure you want to delete this article?!");
+        if (areYouSure) runDeleteArticle(id, uid);
+      });
+    });
+  };
 
   const runDeleteArticle = async (id, userId) => {
-    const articleSnapshot = await db.ref(`articles/${id}/tags`).once("value")
-    const articleData = articleSnapshot.val()
+    const articleSnapshot = await db.ref(`articles/${id}/tags`).once("value");
+    const articleData = articleSnapshot.val();
 
     // delete article from tag if there is tag associated with this article
     if (!!articleData) {
       db.ref(`tags`).once("value", (snapshot) => {
-        snapshot.forEach(childsnapshot => {
-          const tagName = childsnapshot.key
-          childsnapshot.forEach(articlesSnapshot => {
-            const snapshotId = articlesSnapshot.key
-            const articleId = articlesSnapshot.val()
-            console.log(articleId == id)
-            if (articleId == id) {
-              db.ref(`tags/${tagName}/${snapshotId}`).remove()
-            }
-          })
-        })
+        snapshot.forEach((childsnapshot) => {
+          const tagName = childsnapshot.key;
+          childsnapshot.forEach((articlesSnapshot) => {
+            const snapshotId = articlesSnapshot.key;
+            const articleId = articlesSnapshot.val();
+            if (articleId == id) return db.ref(`tags/${tagName}/${snapshotId}`).remove();
+          });
+        });
       });
-
     }
-
 
     // delete article from user data
     db.ref(`users/${userId}/articles`).once("value", (snapshot) => {
-      snapshot.forEach(childSnapshot => {
-        const snapshotId = childSnapshot.key
-        const articleId = childSnapshot.val()
-        if (articleId === id) db.ref(`users/${userId}/articles/${snapshotId}`).remove()
-      })
-    })
+      snapshot.forEach((childSnapshot) => {
+        const snapshotId = childSnapshot.key;
+        const articleId = childSnapshot.val();
+        if (articleId === id) db.ref(`users/${userId}/articles/${snapshotId}`).remove();
+      });
+    });
 
     // delete article it self
-    db.ref(`articles/${id}`).remove()
+    db.ref(`articles/${id}`).remove();
   };
 
-
   await db.ref(`users/${uid}/articles`).on("value", async (articlesSnapshot) => {
-    const parentContainer = document.querySelector(".profile-items-container")
-    const parentContainerTitle = document.createElement("h1")
-    parentContainerTitle.classList.add("parentContainerTitle")
-    parentContainerTitle.innerHTML = "Articles"
-    parentContainer.innerHTML = ""
-    let articlesId = []
+    const createHeader = (title) => {
+      const parentContainerTitle = document.createElement("h1");
+      parentContainerTitle.classList.add("parentContainerTitle");
+      parentContainerTitle.innerHTML = title;
+      return parentContainerTitle;
+    };
 
-    await articlesSnapshot.forEach((articleRefSnapshot) => {
-      const articleId = articleRefSnapshot.val()
-      articlesId.push(articleId)
-    })
+    const numOfArticles = articlesSnapshot.numChildren();
+    const parentContainer = document.querySelector(".profile-items-container");
+    let calculatedChilds = 0;
+    let articlesId = [];
 
-    parentContainer.appendChild(parentContainerTitle)
+    parentContainer.innerHTML = "";
+
+    parentContainer.appendChild(createHeader("My Articles"));
+
+    articlesSnapshot.forEach((articleRefSnapshot) => {
+      const articleId = articleRefSnapshot.val();
+      articlesId.push(articleId);
+    });
+
     articlesId.forEach(async (articleId) => {
-      const articleQuery = await db.ref(`articles/${articleId}`).once("value")
-      const articleData = await articleQuery.val()
-      parentContainer.appendChild(createArticleItem(articleData, articleId))
-      const deleteButtons = document.querySelectorAll(".delete-article-button-profile")
-    })
+      const articleQuery = await db.ref(`articles/${articleId}`).once("value");
+      const articleData = await articleQuery.val();
+      parentContainer.appendChild(createArticleItem(articleData, articleId));
+      calculatedChilds++;
+      if (numOfArticles === calculatedChilds) deleteArticleOnClick();
+    });
+  });
+};
 
-  })
-
-
-}
-
-getUserArticls()
+getUserArticls();
+profileSideNavigationStyle();
+getProfileData();

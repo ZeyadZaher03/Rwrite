@@ -1,5 +1,5 @@
 authintication()
-menuNavigationSwitch()
+menuNavigationSwitch("admin")
 
 
 const tag = async () => {
