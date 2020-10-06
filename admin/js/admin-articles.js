@@ -1,4 +1,4 @@
-const uid = cookies.get("uid")
+const uid = Cookies.get("uid")
 auth.onAuthStateChanged((user) => {
     if (!user || !uid) {
         location.href = "../index.html"
