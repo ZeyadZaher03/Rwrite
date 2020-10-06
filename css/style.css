@@ -1103,6 +1103,11 @@ nav {
   .foryou {
     margin: 0;
   }
+
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .sidemenu {
@@ -1435,4 +1440,89 @@ nav {
   width: 90%;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.profile-items-container {
+  margin: 1rem;
+}
+
+.profile-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 1px 5px 1px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  color: initial;
+}
+
+.profile-item-name {
+  font-size: 2rem;
+  margin-right: 5rem;
+}
+
+.profile-item-buttons-container {
+  display: flex;
+}
+
+.profile-item-delete {
+  background-color: #c71818;
+  border-radius: 3px;
+  padding: .3rem 1rem;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  position: relative;
+  height: 3rem;
+}
+
+.profile-item-delete-filler {
+  background-color: #f1f1f1;
+  border-radius: 2px;
+  width: 100%;
+}
+
+.profile-item-name-filler {
+  background-color: #f1f1f1;
+  width: 100%;
+  border-radius: 2px;
+  height: 2rem;
+}
+
+.profile-item-delete:hover {
+  background-color: #e61414;
+}
+
+.profile-item-delete-filler:hover {
+  background-color: #f1f1f1;
+  border-radius: 2px;
+  ;
+}
+
+@media only screen and (max-width: 500px) {
+  .profile-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-container-sidenav {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile-content-header {
+    flex-direction: column;
+  }
+
+  .profile-status {
+    width: 100%;
+  }
+}
+
+.parentContainerTitle {
+  margin: 2rem 0;
 }
