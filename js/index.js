@@ -146,7 +146,8 @@ const getTrendingArticles = async () => {
             const writerData = writerSnapshot.val()
             const imgURL = writerData.imageURL || "assets/image/userImageFiller.png"
             const name = writerData.name
-            container.appendChild(createTrendingItem(articleData, articleId, name, imgURL))
+            const isHidden = articleData.isHidden
+            if (!isHidden) container.appendChild(createTrendingItem(articleData, articleId, name, imgURL))
         })
     })
 }

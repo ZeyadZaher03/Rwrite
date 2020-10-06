@@ -104,7 +104,10 @@ const getArticles = async () => {
             selectedArticles.push(childSnapshot.val())
         });
         selectedArticles.forEach((id) => {
-            db.ref(`articles/${id}`).once("value", (articleData) => parent.appendChild(createArticleEle(articleData)))
+            db.ref(`articles/${id}`).once("value", (articleData) => {
+                const isHidden = articleData.val().isHidden
+                if (isHidden) parent.appendChild(createArticleEle(articleData))
+            })
 
         });
     })
@@ -163,8 +166,13 @@ const getPopularTasks = async () => {
     articlesSnapshot.forEach((snapshot) => {
         const articleId = snapshot.key
         const articleObj = snapshot.val()
-        articleCounter++
-        if (articleCounter <= 6) container.appendChild(createPopularArticleElement(articleObj, articleId, articleCounter))
+        const isHidden = articleObj.isHidden
+        if (!isHidden) {
+            articleCounter++
+            if (articleCounter <= 6) {
+                container.appendChild(createPopularArticleElement(articleObj, articleId, articleCounter))
+            }
+        }
     })
 
 }
