@@ -28,11 +28,11 @@ const users = async () => {
 
         deleteBtn.innerHTML = "Remove";
         if (isAdmin) {
-            adminBtn.innerHTML = "Make Admin";
-            adminBtn.classList.add("btn", "hide", "btn-make-admin");
-        } else {
             adminBtn.innerHTML = "remove Admin";
             adminBtn.classList.add("btn", "hide", "btn-remove-admin");
+        } else {
+            adminBtn.innerHTML = "Make Admin";
+            adminBtn.classList.add("btn", "hide", "btn-make-admin");
         }
 
         container.classList.add("item-container");
