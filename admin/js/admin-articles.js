@@ -2,8 +2,8 @@ const uid = Cookies.get("uid")
 auth.onAuthStateChanged((user) => {
     if (!user || !uid) {
         location.href = "../index.html"
-        console.log(user)
     }
+    console.log(user)
 })
 
 const articles = async () => {
