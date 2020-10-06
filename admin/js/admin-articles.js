@@ -1,11 +1,9 @@
 const uid = Cookies.get("uid")
 auth.onAuthStateChanged((user) => {
-    if (!user || !uid) {
-        location.href = "../index.html"
-    }
-    console.log(uid)
-    db.ref(`user/${uid}`).once("value", (snapshot) => {
-        console.log(snapshot.val())
+    db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
+        if (!user || !uid || !snapshot.val()) {
+            location.href = "../index.html"
+        }
     })
 })
 
