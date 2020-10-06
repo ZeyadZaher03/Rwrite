@@ -1,10 +1,17 @@
+const uid = Cookies.get("uid");
+if (uid) {
+    db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
+        if (snapshot.val()) menuNavigationSwitch("admin")
+        else menuNavigationSwitch("user")
+    })
+} else {
+    menuNavigationSwitch("guest")
+}
+
 authintication()
-menuNavigationSwitch()
 
 const url = new URL(location.href).searchParams
 const id = url.get("id")
-const uid = Cookies.get("uid") || "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
-console.log(uid)
 
 const getWriters = async () => {
     const writersSnapshot = await db.ref(`articles/${id}/writer`).once("value")

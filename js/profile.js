@@ -1,11 +1,14 @@
 const uid = Cookies.get("uid");
 auth.onAuthStateChanged((user) => {
-
   if (!uid || !user) {
     displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected  ", 3000)
     location.href = "index.html"
+  } else {
+    db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
+      if (snapshot.val()) menuNavigationSwitch("admin")
+      else menuNavigationSwitch("user")
+    })
   }
-
 })
 
 

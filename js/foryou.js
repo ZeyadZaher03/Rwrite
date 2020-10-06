@@ -1,5 +1,14 @@
+const uid = Cookies.get("uid");
+if (uid) {
+    db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
+        if (snapshot.val()) menuNavigationSwitch("admin")
+        else menuNavigationSwitch("user")
+    })
+} else {
+    menuNavigationSwitch("guest")
+}
+
 authintication()
-menuNavigationSwitch()
 
 
 const url = new URL(location.href).searchParams
@@ -106,7 +115,7 @@ const getArticles = async () => {
         selectedArticles.forEach((id) => {
             db.ref(`articles/${id}`).once("value", (articleData) => {
                 const isHidden = articleData.val().isHidden
-                if (isHidden) parent.appendChild(createArticleEle(articleData))
+                if (!isHidden) parent.appendChild(createArticleEle(articleData))
             })
 
         });
