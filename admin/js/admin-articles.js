@@ -3,7 +3,9 @@ auth.onAuthStateChanged((user) => {
     if (!user || !uid) {
         location.href = "../index.html"
     }
-    console.log(user)
+    db.ref(`user/${user.uid}/isAdmin`).once("value", (snapshot) => {
+        console.log(snapshot.val())
+    })
 })
 
 const articles = async () => {
