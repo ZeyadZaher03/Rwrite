@@ -180,10 +180,11 @@ nav {
 
 .trending {
   background: #fff;
-  width: 100%;
-  display: flex;
+  /* width: 100%; */
+  /* flex-wrap: nowrap; */
+  /* display: flex; */
   padding: 1.5rem 2rem;
-  justify-content: center;
+  /* justify-content: center; */
   border-radius: 2px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 }
@@ -548,13 +549,11 @@ nav {
 }
 
 .tags {
-  display: flex;
-  align-items: center;
-  width: 80%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 3rem;
+  margin: 2rem 4rem !important;
+  padding: 1rem !important;
+  background-color: #f5f5f5;
+  border-radius: 2rem;
+  box-shadow: inset -2px 0 6px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -804,9 +803,6 @@ nav {
 
 }
 
-.glider-track {
-  margin-left: 20rem !important;
-}
 
 .article-link-info {
   display: grid;

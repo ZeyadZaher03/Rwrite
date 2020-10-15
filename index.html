@@ -2,317 +2,321 @@
 <html lang="en">
 
 <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R/Write</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script defer href="assets/js/slider.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
-        integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"
-        integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R/Write</title>
+
+  <!-- slick glider (that an actuall name :D) -->
+  <!-- <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script> -->
+  <!-- slick glider -->
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer href="assets/js/slider.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+    integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"
+    integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.css" />
 </head>
 
 <body>
-    <div class="sidemenu">
-        <a class="sidemenu-link sidemenu-link-active" href="index.html">Home</a>
-        <a class="sidemenu-link" href="section.html">Rwrite Articles</a>
-        <a class="sidemenu-link" href="profile.html">Profile</a>
-        <a class="sidemenu-link" href="article.html">Submit your Article</a>
+  <div class="sidemenu">
+    <a class="sidemenu-link sidemenu-link-active" href="index.html">Home</a>
+    <a class="sidemenu-link" href="section.html">Rwrite Articles</a>
+    <a class="sidemenu-link" href="profile.html">Profile</a>
+    <a class="sidemenu-link" href="article.html">Submit your Article</a>
+  </div>
+
+  <div class="container">
+    <div class="bottom-left-popup-message">
+      <p></p>
+      &nbsp;
+      <div class="popup-message-icon-container">
+        <div class="popup-message-icon popup-message-icon--success">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="popup-message-icon popup-message-icon--error">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
     </div>
 
-    <div class="container">
-
-        <div class="bottom-left-popup-message">
-            <p></p>
-            &nbsp;
-            <div class="popup-message-icon-container">
-                <div class="popup-message-icon popup-message-icon--success">
-                    <i class="fas fa-check"></i>
-                </div>
-                <div class="popup-message-icon popup-message-icon--error">
-                    <i class="fas fa-times"></i>
-                </div>
-            </div>
+    <div class="article-sumbmition-container">
+      <div class="article-sumbmition">
+        <div class="article-sumbmition-content">
+          <div class="article-sumbmition-circle">
+            <img src="assets/gifs/826.gif" alt="" srcset="" />
+          </div>
+          <p class="article-sumbmition-loading">Loading..</p>
         </div>
-
-        <div class="article-sumbmition-container">
-            <div class="article-sumbmition">
-                <div class="article-sumbmition-content">
-                    <div class="article-sumbmition-circle">
-                        <img src="assets/gifs/826.gif" alt="" srcset="">
-                    </div>
-                    <p class="article-sumbmition-loading">Loading..</p>
-                </div>
-            </div>
-        </div>
-
-        <nav class="nav">
-            <div class="nav-row nav-row-first">
-                <a class="nav-lang-link" href="#">English</a>
-                <div class="nav-social-links">
-                    <a class="nav-social-button" id="instagram" href="#"><i class="fab fa-instagram"></i></a>
-                    <a class="nav-social-button" id="twitter" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="nav-social-button" id="facebook" href="#"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
-            <div class="nav-row nav-row-second">
-                <div class="nav-row-container">
-                    <a class="nav-sec-row-link nav-menu" href="#"><i class="fas fa-bars"></i> menu</a>
-                    <div class="search-nav-container">
-                        <a class="nav-sec-row-link" id="navsearchbutton" href="#"><i class="fas fa-search"></i></a>
-                        <input type="text" class="search_input">
-                        <div id="searchContentList" class="search-content-list">
-                        </div>
-                    </div>
-                </div>
-                <a class="nav-logo-container" href="index.html">
-                    <img class="nav-logo" src="assets/image/rwrite-1.png"></img>
-                </a>
-                <div class="nav-row-container nav-actions">
-                    <a class="nav-sec-row-link registerbutton" id=""></a>
-                    <a class="nav-sec-row-link submit-article" href="article.html">Submit your Article</a>
-                </div>
-            </div>
-            <div class="register-container">
-                <h2>Register / Log in</h2>
-                <div class="social-media-container">
-                    <div class="social-item-container">
-                        <a class="register-social-icons register-facebook-login" id="facebook-background" href="#">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <p>Login with Facebook</p>
-                    </div>
-                    <div class="social-item-container">
-                        <a class="register-social-icons register-twitter-login" id="twitter-background" href="#">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <p>Login with Twitter</p>
-                    </div>
-                </div>
-            </div>
-            <div class="search-res-row">
-                <input type="text" class="search_input-smallscreen">
-                <div id="searchContentListSmallScreens" class="search-content-list">
-                </div>
-            </div>
-        </nav>
-
-        <header class="header">
-            <img src="https://www.alixbdanthenay.fr/wp-content/uploads/2016/11/20mars17-sans-typo.jpg" alt="">
-        </header>
-
-        <div class="trending-container">
-
-            <div class="glider trending">
-                <div class="trending-item">
-                    <div class="trending-image">
-                        <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="">
-                    </div>
-                    <p class="trending-title">Why Vouge got viral</p>
-                    <div class="trending-info">
-                        <span>From UK</span>
-                        <span>August 18, 2020</span>
-                    </div>
-                    <div class="trending-name-tag">
-                        <div class="trendin-user">
-                            <div class="trendin-user-image">
-                                <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
-                                    alt="">
-                            </div>
-                            <div class="trendin-user-name">By Zeyad03</div>
-                        </div>
-                        <div class="tag-container trending-tag-container">
-                            <a href="#" class="tag-item trending-tag-item">Fashon</a>
-                            <a href="#" class="tag-item trending-tag-item">Dress</a>
-                            <a href="#" class="tag-item trending-tag-item">2020</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-image">
-                        <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="">
-                    </div>
-                    <p class="trending-title">Why Vouge got viral</p>
-                    <div class="trending-info">
-                        <span>From UK</span>
-                        <span>August 18, 2020</span>
-                    </div>
-                    <div class="trending-name-tag">
-                        <div class="trendin-user">
-                            <div class="trendin-user-image">
-                                <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
-                                    alt="">
-                            </div>
-                            <div class="trendin-user-name">By Zeyad03</div>
-                        </div>
-                        <div class="tag-container trending-tag-container">
-                            <a href="#" class="tag-item trending-tag-item">Fashon</a>
-                            <a href="#" class="tag-item trending-tag-item">Dress</a>
-                            <a href="#" class="tag-item trending-tag-item">2020</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-image">
-                        <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="">
-                    </div>
-                    <p class="trending-title">Why Vouge got viral</p>
-                    <div class="trending-info">
-                        <span>From UK</span>
-                        <span>August 18, 2020</span>
-                    </div>
-                    <div class="trending-name-tag">
-                        <div class="trendin-user">
-                            <div class="trendin-user-image">
-                                <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
-                                    alt="">
-                            </div>
-                            <div class="trendin-user-name">By Zeyad03</div>
-                        </div>
-                        <div class="tag-container trending-tag-container">
-                            <a href="#" class="tag-item trending-tag-item">Fashon</a>
-                            <a href="#" class="tag-item trending-tag-item">Dress</a>
-                            <a href="#" class="tag-item trending-tag-item">2020</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-image">
-                        <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="">
-                    </div>
-                    <p class="trending-title">Why Vouge got viral</p>
-                    <div class="trending-info">
-                        <span>From UK</span>
-                        <span>August 18, 2020</span>
-                    </div>
-                    <div class="trending-name-tag">
-                        <div class="trendin-user">
-                            <div class="trendin-user-image">
-                                <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
-                                    alt="">
-                            </div>
-                            <div class="trendin-user-name">By Zeyad03</div>
-                        </div>
-                        <div class="tag-container trending-tag-container">
-                            <a href="#" class="tag-item trending-tag-item">Fashon</a>
-                            <a href="#" class="tag-item trending-tag-item">Dress</a>
-                            <a href="#" class="tag-item trending-tag-item">2020</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-image">
-                        <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="">
-                    </div>
-                    <p class="trending-title">Why Vouge got viral</p>
-                    <div class="trending-info">
-                        <span>From UK</span>
-                        <span>August 18, 2020</span>
-                    </div>
-                    <div class="trending-name-tag">
-                        <div class="trendin-user">
-                            <div class="trendin-user-image">
-                                <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
-                                    alt="">
-                            </div>
-                            <div class="trendin-user-name">By Zeyad03</div>
-                        </div>
-                        <div class="tag-container trending-tag-container">
-                            <a href="#" class="tag-item trending-tag-item">Fashon</a>
-                            <a href="#" class="tag-item trending-tag-item">Dress</a>
-                            <a href="#" class="tag-item trending-tag-item">2020</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-image">
-                        <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="">
-                    </div>
-                    <p class="trending-title">Why Vouge got viral</p>
-                    <div class="trending-info">
-                        <span>From UK</span>
-                        <span>August 18, 2020</span>
-                    </div>
-                    <div class="trending-name-tag">
-                        <div class="trendin-user">
-                            <div class="trendin-user-image">
-                                <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
-                                    alt="">
-                            </div>
-                            <div class="trendin-user-name">By Zeyad03</div>
-                        </div>
-                        <div class="tag-container trending-tag-container">
-                            <a href="#" class="tag-item trending-tag-item">Fashon</a>
-                            <a href="#" class="tag-item trending-tag-item">Dress</a>
-                            <a href="#" class="tag-item trending-tag-item">2020</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="trending-item">
-                    <div class="trending-image">
-                        <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="">
-                    </div>
-                    <p class="trending-title">Why Vouge got viral</p>
-                    <div class="trending-info">
-                        <span>From UK</span>
-                        <span>August 18, 2020</span>
-                    </div>
-                    <div class="trending-name-tag">
-                        <div class="trendin-user">
-                            <div class="trendin-user-image">
-                                <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
-                                    alt="">
-                            </div>
-                            <div class="trendin-user-name">By Zeyad03</div>
-                        </div>
-                        <div class="tag-container trending-tag-container">
-                            <a href="#" class="tag-item trending-tag-item">Fashon</a>
-                            <a href="#" class="tag-item trending-tag-item">Dress</a>
-                            <a href="#" class="tag-item trending-tag-item">2020</a>
-                        </div>
-                    </div>
-                </div>
-                <button aria-label="Previous" class="glider-prev">«</button>
-                <button aria-label="Next" class="glider-next">»</button>
-            </div>
-        </div>
-        <div class="tags">
-        </div>
-        <div class="arcticle-container">
-            <div class="arcticle-item"></div>
-            <div class="arcticle-item"></div>
-            <div class="arcticle-item"></div>
-            <div class="arcticle-item"></div>
-        </div>
-        </main>
-        <footer class="footer">
-            <div class="footer-links">
-                <a href="#">contact</a>
-                <a href="#">F.A.Q.</a>
-                <a href="#">Cookies Policy</a>
-                <a href="#">Legal Terms</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">English 🇬🇧</a>
-            </div>
-            <div class="footer-info">Privat Cloud <b>Stacks</b></div>
-        </footer>
+      </div>
     </div>
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/functions.js"></script>
-    <script src="js/index.js"></script>
+    <main>
+      <nav class="nav">
+        <div class="nav-row nav-row-first">
+          <a class="nav-lang-link" href="#">English</a>
+          <div class="nav-social-links">
+            <a class="nav-social-button" id="instagram" href="#"><i class="fab fa-instagram"></i></a>
+            <a class="nav-social-button" id="twitter" href="#"><i class="fab fa-twitter"></i></a>
+            <a class="nav-social-button" id="facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+        <div class="nav-row nav-row-second">
+          <div class="nav-row-container">
+            <a class="nav-sec-row-link nav-menu" href="#"><i class="fas fa-bars"></i> menu</a>
+            <div class="search-nav-container">
+              <a class="nav-sec-row-link" id="navsearchbutton" href="#"><i class="fas fa-search"></i></a>
+              <input type="text" class="search_input" />
+              <div id="searchContentList" class="search-content-list"></div>
+            </div>
+          </div>
+          <a class="nav-logo-container" href="index.html">
+            <img class="nav-logo" src="assets/image/rwrite-1.png" />
+          </a>
+          <div class="nav-row-container nav-actions">
+            <a class="nav-sec-row-link registerbutton" id=""></a>
+            <a class="nav-sec-row-link submit-article" href="article.html">Submit your Article</a>
+          </div>
+        </div>
+        <div class="register-container">
+          <h2>Register / Log in</h2>
+          <div class="social-media-container">
+            <div class="social-item-container">
+              <a class="register-social-icons register-facebook-login" id="facebook-background" href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <p>Login with Facebook</p>
+            </div>
+            <div class="social-item-container">
+              <a class="register-social-icons register-twitter-login" id="twitter-background" href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <p>Login with Twitter</p>
+            </div>
+          </div>
+        </div>
+        <div class="search-res-row">
+          <input type="text" class="search_input-smallscreen" />
+          <div id="searchContentListSmallScreens" class="search-content-list"></div>
+        </div>
+      </nav>
+
+      <header class="header">
+        <img src="https://www.alixbdanthenay.fr/wp-content/uploads/2016/11/20mars17-sans-typo.jpg" alt="" />
+      </header>
+
+      <div class="trending-container">
+        <div class="trending">
+
+        </div>
+      </div>
+      <div class="gliderTags tags"></div>
+      <div class="arcticle-container">
+        <div class="arcticle-item"></div>
+        <div class="arcticle-item"></div>
+        <div class="arcticle-item"></div>
+        <div class="arcticle-item"></div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#">contact</a>
+        <a href="#">F.A.Q.</a>
+        <a href="#">Cookies Policy</a>
+        <a href="#">Legal Terms</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">English 🇬🇧</a>
+      </div>
+      <div class="footer-info">Privat Cloud <b>Stacks</b></div>
+    </footer>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glider-js@1/glider.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/index.js"></script>
 </body>
 
 </html>
+
+<!-- <div class="trending-item">
+            <div class="trending-image">
+              <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="" />
+            </div>
+            <p class="trending-title">Why Vouge got viral</p>
+            <div class="trending-info">
+              <span>From UK</span>
+              <span>August 18, 2020</span>
+            </div>
+            <div class="trending-name-tag">
+              <div class="trendin-user">
+                <div class="trendin-user-image">
+                  <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
+                    alt="" />
+                </div>
+                <div class="trendin-user-name">By Zeyad03</div>
+              </div>
+              <div class="tag-container trending-tag-container">
+                <a href="#" class="tag-item trending-tag-item">Fashon</a>
+                <a href="#" class="tag-item trending-tag-item">Dress</a>
+                <a href="#" class="tag-item trending-tag-item">2020</a>
+              </div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="trending-image">
+              <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="" />
+            </div>
+            <p class="trending-title">Why Vouge got viral</p>
+            <div class="trending-info">
+              <span>From UK</span>
+              <span>August 18, 2020</span>
+            </div>
+            <div class="trending-name-tag">
+              <div class="trendin-user">
+                <div class="trendin-user-image">
+                  <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
+                    alt="" />
+                </div>
+                <div class="trendin-user-name">By Zeyad03</div>
+              </div>
+              <div class="tag-container trending-tag-container">
+                <a href="#" class="tag-item trending-tag-item">Fashon</a>
+                <a href="#" class="tag-item trending-tag-item">Dress</a>
+                <a href="#" class="tag-item trending-tag-item">2020</a>
+              </div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="trending-image">
+              <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="" />
+            </div>
+            <p class="trending-title">Why Vouge got viral</p>
+            <div class="trending-info">
+              <span>From UK</span>
+              <span>August 18, 2020</span>
+            </div>
+            <div class="trending-name-tag">
+              <div class="trendin-user">
+                <div class="trendin-user-image">
+                  <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
+                    alt="" />
+                </div>
+                <div class="trendin-user-name">By Zeyad03</div>
+              </div>
+              <div class="tag-container trending-tag-container">
+                <a href="#" class="tag-item trending-tag-item">Fashon</a>
+                <a href="#" class="tag-item trending-tag-item">Dress</a>
+                <a href="#" class="tag-item trending-tag-item">2020</a>
+              </div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="trending-image">
+              <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="" />
+            </div>
+            <p class="trending-title">Why Vouge got viral</p>
+            <div class="trending-info">
+              <span>From UK</span>
+              <span>August 18, 2020</span>
+            </div>
+            <div class="trending-name-tag">
+              <div class="trendin-user">
+                <div class="trendin-user-image">
+                  <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
+                    alt="" />
+                </div>
+                <div class="trendin-user-name">By Zeyad03</div>
+              </div>
+              <div class="tag-container trending-tag-container">
+                <a href="#" class="tag-item trending-tag-item">Fashon</a>
+                <a href="#" class="tag-item trending-tag-item">Dress</a>
+                <a href="#" class="tag-item trending-tag-item">2020</a>
+              </div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="trending-image">
+              <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="" />
+            </div>
+            <p class="trending-title">Why Vouge got viral</p>
+            <div class="trending-info">
+              <span>From UK</span>
+              <span>August 18, 2020</span>
+            </div>
+            <div class="trending-name-tag">
+              <div class="trendin-user">
+                <div class="trendin-user-image">
+                  <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
+                    alt="" />
+                </div>
+                <div class="trendin-user-name">By Zeyad03</div>
+              </div>
+              <div class="tag-container trending-tag-container">
+                <a href="#" class="tag-item trending-tag-item">Fashon</a>
+                <a href="#" class="tag-item trending-tag-item">Dress</a>
+                <a href="#" class="tag-item trending-tag-item">2020</a>
+              </div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="trending-image">
+              <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="" />
+            </div>
+            <p class="trending-title">Why Vouge got viral</p>
+            <div class="trending-info">
+              <span>From UK</span>
+              <span>August 18, 2020</span>
+            </div>
+            <div class="trending-name-tag">
+              <div class="trendin-user">
+                <div class="trendin-user-image">
+                  <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
+                    alt="" />
+                </div>
+                <div class="trendin-user-name">By Zeyad03</div>
+              </div>
+              <div class="tag-container trending-tag-container">
+                <a href="#" class="tag-item trending-tag-item">Fashon</a>
+                <a href="#" class="tag-item trending-tag-item">Dress</a>
+                <a href="#" class="tag-item trending-tag-item">2020</a>
+              </div>
+            </div>
+          </div>
+          <div class="trending-item">
+            <div class="trending-image">
+              <img src="https://i.mdel.net/i/db/2020/8/1378137/1378137-800w.jpg" alt="" />
+            </div>
+            <p class="trending-title">Why Vouge got viral</p>
+            <div class="trending-info">
+              <span>From UK</span>
+              <span>August 18, 2020</span>
+            </div>
+            <div class="trending-name-tag">
+              <div class="trendin-user">
+                <div class="trendin-user-image">
+                  <img src="https://lh3.googleusercontent.com/ogw/ADGmqu9cra9tHFvr1ZWxewJOty4bDKTy6_LmuX24J0_t=s32-c-mo"
+                    alt="" />
+                </div>
+                <div class="trendin-user-name">By Zeyad03</div>
+              </div>
+              <div class="tag-container trending-tag-container">
+                <a href="#" class="tag-item trending-tag-item">Fashon</a>
+                <a href="#" class="tag-item trending-tag-item">Dress</a>
+                <a href="#" class="tag-item trending-tag-item">2020</a>
+              </div>
+            </div>
+          </div>
+          <button aria-label="Previous" class="glider-prev">«</button>
+          <button aria-label="Next" class="glider-next">»</button> -->
