@@ -20,7 +20,7 @@ const getWriters = async () => {
 }
 
 const getMyName = async () => {
-    const userSnapshot = await db.ref(`users/${uid}/name`).once("value")
+    const userSnapshot = await db.ref(`users/${uid}/tagName`).once("value")
     const name = await userSnapshot.val()
     return await name
 }

@@ -175,7 +175,6 @@ nav {
 
 .trending-container {
   margin: 4rem;
-
 }
 
 .trending {
@@ -554,11 +553,10 @@ nav {
   background-color: #f5f5f5;
   border-radius: 2rem;
   box-shadow: inset -2px 0 6px rgba(0, 0, 0, 0.1);
-
 }
 
 .tag-main-item {
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 50rem;
   margin: 0 2rem;
   background: #cf3a3a;
@@ -770,7 +768,6 @@ nav {
   align-items: center;
 }
 
-
 .article_tagline {
   font-size: 3.2rem;
   margin: 0 auto;
@@ -800,9 +797,7 @@ nav {
   border: 0;
   border-top: 1px solid #e4e4e4;
   border-left: 1px solid #e4e4e4;
-
 }
-
 
 .article-link-info {
   display: grid;
@@ -880,8 +875,6 @@ nav {
   position: relative;
 }
 
-
-
 .popular-article-number {
   font-size: 4rem;
   font-weight: 800;
@@ -943,7 +936,7 @@ nav {
   color: #313131;
 }
 
-.article-link-actions>* {
+.article-link-actions > * {
   margin: 0 1rem;
 }
 
@@ -1010,7 +1003,7 @@ nav {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.article-sumbmition-circle>* {
+.article-sumbmition-circle > * {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -1022,14 +1015,12 @@ nav {
   padding: 2rem;
 }
 
-
-
 .add-comment {
   display: flex;
 }
 
 .add-comment input {
-  padding: .7rem 2rem;
+  padding: 0.7rem 2rem;
   border-radius: 50rem;
   border: 1px solid #8f8f8f;
   outline: none;
@@ -1075,7 +1066,7 @@ nav {
   align-items: center;
   border: 0;
   cursor: pointer;
-  padding: .7rem 2rem;
+  padding: 0.7rem 2rem;
 }
 
 @media only screen and (max-width: 500px) {
@@ -1142,7 +1133,6 @@ nav {
 .sidemenu-link-active:hover {
   background: #00a9a1;
   color: #fff;
-
 }
 
 /* profile */
@@ -1291,7 +1281,6 @@ nav {
   align-items: center;
 }
 
-
 .profile-image img {
   position: relative;
   top: -1rem;
@@ -1307,14 +1296,14 @@ nav {
 }
 
 .profile-data-and-input {
-  margin: .4rem 0;
+  margin: 0.4rem 0;
   display: flex;
   align-items: center;
 }
 
 .profile-data-input-icon {
   font-size: 1.2rem;
-  margin-left: .3rem;
+  margin-left: 0.3rem;
 }
 
 .profile-data-icon {
@@ -1330,7 +1319,6 @@ nav {
   display: block;
 }
 
-
 .profile-data-and-input:hover .profile-data-icon {
   opacity: 1;
   visibility: visible;
@@ -1339,13 +1327,13 @@ nav {
 .profile-data-and-input-filler {
   background: #f1f1f1;
   height: 2rem;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .profile-data-input {
   display: none;
   border: 1px solid #ccc;
-  padding: .3em .5rem;
+  padding: 0.3em 0.5rem;
   border-radius: 3px;
 }
 
@@ -1480,7 +1468,7 @@ nav {
 .profile-item-delete {
   background-color: #c71818;
   border-radius: 3px;
-  padding: .3rem 1rem;
+  padding: 0.3rem 1rem;
   border: 0;
   cursor: pointer;
   color: #fff;
@@ -1508,7 +1496,6 @@ nav {
 .profile-item-delete-filler:hover {
   background-color: #f1f1f1;
   border-radius: 2px;
-  ;
 }
 
 @media only screen and (max-width: 500px) {
@@ -1536,4 +1523,47 @@ nav {
 
 .parentContainerTitle {
   margin: 2rem 0;
+}
+
+.arcticle-item-image-container {
+  width: 100%;
+  height: 24rem;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.arcticle-item-image {
+  width: 100%;
+}
+
+.arcticle-item {
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  text-decoration: none;
+  color: initial;
+  padding: 1rem;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.arcticle-item-tagline {
+  font-weight: bold;
+}
+.arcticle-item-details {
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: space-between;
+}
+
+.arcticle-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 3rem 10rem;
+  grid-column-gap: 2rem;
+  grid-row-gap: 4rem;
+  margin-top: 6rem;
 }

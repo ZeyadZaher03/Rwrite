@@ -214,6 +214,7 @@ const authintication = () => {
             const uid = user.uid;
             const email = result.user.email;
             const name = result.user.displayName;
+            const tagName = result.user.displayName;
             const profileImageUrl = result.user.photoURL;
             console.log(result);
             Cookies.set("uid", uid);
@@ -222,6 +223,7 @@ const authintication = () => {
               if (res.val()) return;
               db.ref(`users/${uid}`).set({
                 name,
+                tagName,
                 profileImageUrl,
                 email,
               });

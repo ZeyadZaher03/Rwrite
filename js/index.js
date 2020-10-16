@@ -76,7 +76,6 @@ const createTrendingItem = (articleData, articleId, writerName, writerImageURL) 
     const addClassesAndAttributes = () => {
         // Adding attributes and Classes
         articleItemContainer.classList.add("trending-item")
-        // articleItemContainer.classList.add("glider-slide", "trending-item")
         articleImageContainer.classList.add("trending-image-container")
         articleImage.classList.add("trending-image")
         articleName.classList.add("trending-title")
@@ -156,6 +155,42 @@ const createTrendingItem = (articleData, articleId, writerName, writerImageURL) 
     return articleItemContainer
 }
 
+const createArticleItem = (articleData, articleId, name) => {
+
+    const articleContainer = document.createElement("a")
+    const imageContainer = document.createElement("div")
+    const imageEle = document.createElement("img")
+    const ArticleTagLine = document.createElement("h3")
+    const ArticleDetails = document.createElement("div")
+    const ArticleWriter = document.createElement("p")
+    const ArticleDate = document.createElement("p")
+
+
+    articleContainer.classList.add("arcticle-item")
+    imageContainer.classList.add("arcticle-item-image-container")
+    imageEle.classList.add("arcticle-item-image")
+    ArticleTagLine.classList.add("arcticle-item-tagline")
+    ArticleDetails.classList.add("arcticle-item-details")
+    ArticleWriter.classList.add("arcticle-item-writer")
+    ArticleDate.classList.add("arcticle-item-date")
+
+    imageEle.src = articleData.image
+    ArticleTagLine.innerHTML = articleData.tagline
+    ArticleWriter.innerHTML = `writer: ${name}`
+    ArticleDate.innerHTML = "29/10/2020"
+    articleContainer.href = articleId
+
+    articleContainer.appendChild(imageContainer)
+    imageContainer.appendChild(imageEle)
+    articleContainer.appendChild(ArticleTagLine)
+    articleContainer.appendChild(ArticleDetails)
+    ArticleDetails.appendChild(ArticleWriter)
+    ArticleDetails.appendChild(ArticleDate)
+
+    return articleContainer
+}
+
+
 
 const getTrendingArticles = async () => {
     const container = document.querySelector(".trending")
@@ -163,29 +198,55 @@ const getTrendingArticles = async () => {
     const trendingArticlesSnapshot = await trendingArticlsQuery
     container.innerHTML = ""
 
-    let counter = 0
-    const numOfArticles = trendingArticlesSnapshot.numChildren()
     const articleGlider = new Glider(container, {
         slidesToShow: 5,
         slidesToScroll: 3,
         draggable: true,
     });
     articleGlider
+    const latestArticlesSnapshotArray = []
     trendingArticlesSnapshot.forEach((articleSnapshot) => {
-        // if (counter > 2) return undefined
-
         const articleId = articleSnapshot.key
-        const articleData = articleSnapshot.val()
-        const articleWriterUid = articleData.uid
-        counter++
-        db.ref(`users/${articleWriterUid}`).once("value", async (writerSnapshot) => {
-            const writerData = await writerSnapshot.val()
-            const imgURL = writerData.imageURL || "assets/image/userImageFiller.png"
-            const name = writerData.name
-            const isHidden = await articleData.isHidden
-            if (!isHidden) articleGlider.addItem(createTrendingItem(articleData, articleId, name, imgURL))
-            console.log(articleGlider)
+        latestArticlesSnapshotArray.push(articleId)
+    })
+    let counter = 0
+    latestArticlesSnapshotArray.reverse().forEach((articleSnapshotKey) => {
+        db.ref(`articles/${articleSnapshotKey}`).once("value", (articleSnapshot) => {
+            if (counter < 8) {
+                const articleData = articleSnapshot.val()
+                const articleWriterUid = articleData.uid
+                const isHidden = articleData.isHidden
+                if (!isHidden) {
+                    counter++
+                    db.ref(`users/${articleWriterUid}`).once("value", async (writerSnapshot) => {
+                        const writerData = await writerSnapshot.val()
+                        const imgURL = writerData.imageURL || "assets/image/userImageFiller.png"
+                        const name = writerData.name
+                        articleGlider.addItem(createTrendingItem(articleData, articleSnapshotKey, name, imgURL))
+                    })
+                }
+            }
         })
+
+
+    })
+
+    document.querySelector(".arcticle-container").innerHTML = ""
+    latestArticlesSnapshotArray.reverse().forEach((articleSnapshotKey) => {
+        db.ref(`articles/${articleSnapshotKey}`).once("value", (articleSnapshot) => {
+            const articleData = articleSnapshot.val()
+            const articleWriterUid = articleData.uid
+            const isHidden = articleData.isHidden
+            if (!isHidden) {
+                db.ref(`users/${articleWriterUid}`).once("value", async (writerSnapshot) => {
+                    const writerData = await writerSnapshot.val()
+                    const name = writerData.name
+                    document.querySelector(".arcticle-container").appendChild(createArticleItem(articleData, articleSnapshotKey, name))
+                })
+            }
+        })
+
+
     })
 
 
