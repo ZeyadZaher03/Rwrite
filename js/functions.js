@@ -369,20 +369,24 @@ const displayMessage = (position, type, message, duration) => {
 
   if (type === "error") {
     element.classList.add("bottom-left-popup-message--err");
-
     const elementIcon = element.querySelector(".popup-message-icon--error");
     elementIcon.classList.add("popup-message-icon--active");
-  } else if (type === "success") {
+  } 
+  else if (type === "success") {
     element.classList.add("bottom-left-popup-message--succ");
     const elementIcon = element.querySelector(".popup-message-icon--success");
     elementIcon.classList.add("popup-message-icon--active");
   }
-  element.classList.add("bottom-left-popup-message--active");
 
+  element.classList.add("popup-message--active");
+  
   setTimeout(() => {
-    element.classList.remove("bottom-left-popup-message--active");
+    element.classList.remove("popup-message--active");
+    textContainer.innerHTML = "";
   }, duration);
 };
+
+
 const loadLoader = (status) => {
   let element = document.querySelector(".article-sumbmition-container");
   if (status == "show") element.classList.add("article-sumbmition-container--active");

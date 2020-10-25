@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>R/Write</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer href="assets/js/slider.js"></script>
+  <script src="https://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js"
+    integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.0/lib/anime.min.js"
+    integrity="sha256-hBMojZuWKocCflyaG8T19KBq9OlTlK39CTxb8AUWKhY=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+
+  <div class="sidemenu">
+    <a class="sidemenu-link" href="index.html">Home</a>
+    <a class="sidemenu-link" href="section.html">Rwrite Articles</a>
+    <a class="sidemenu-link" href="profile.html">Profile</a>
+    <a class="sidemenu-link sidemenu-link-active" href="article.html">Submit your Article</a>
+  </div>
+
+  <div class="container">
+    <div class="top-center-popup-message">
+      <p></p>
+      &nbsp;
+      &nbsp;
+      <div class="popup-message-icon-container">
+        <div class="popup-message-icon popup-message-icon--success">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="popup-message-icon popup-message-icon--error">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-left-popup-message">
+      <p></p>
+      &nbsp;
+      <div class="popup-message-icon-container">
+        <div class="popup-message-icon popup-message-icon--success">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="popup-message-icon popup-message-icon--error">
+          <i class="fas fa-times"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="article-sumbmition-container">
+      <div class="article-sumbmition">
+        <div class="article-sumbmition-content">
+          <div class="article-sumbmition-circle">
+            <img src="assets/gifs/826.gif" alt="" srcset="">
+          </div>
+          <p class="article-sumbmition-loading">Loading..</p>
+        </div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-row nav-row-first">
+        <a class="nav-lang-link" href="#">English</a>
+        <div class="nav-social-links">
+          <a class="nav-social-button" id="instagram" href="#"><i class="fab fa-instagram"></i></a>
+          <a class="nav-social-button" id="twitter" href="#"><i class="fab fa-twitter"></i></a>
+          <a class="nav-social-button" id="facebook" href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="nav-row nav-row-second">
+        <div class="nav-row-container">
+          <a class="nav-sec-row-link nav-menu" href="#"><i class="fas fa-bars"></i> menu</a>
+          <div class="search-nav-container">
+            <a class="nav-sec-row-link" id="navsearchbutton" href="#"><i class="fas fa-search"></i></a>
+            <input type="text" class="search_input">
+            <div id="searchContentList" class="search-content-list">
+            </div>
+          </div>
+        </div>
+        <a class="nav-logo-container" href="index.html">
+          <img class="nav-logo" src="assets/image/rwrite-1.png"></img>
+        </a>
+        <div class="nav-row-container nav-actions">
+          <a class="nav-sec-row-link registerbutton" id=""></a>
+          <a class="nav-sec-row-link submit-article" href="article.html">Submit your Article</a>
+        </div>
+      </div>
+      <div class="register-container">
+        <h2>Register / Log in</h2>
+        <div class="social-media-container">
+          <div class="social-item-container">
+            <a class="register-social-icons register-facebook-login" id="facebook-background" href="#">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <p>Login with Facebook</p>
+          </div>
+          <div class="social-item-container">
+            <a class="register-social-icons register-twitter-login" id="twitter-background" href="#">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <p>Login with Twitter</p>
+          </div>
+        </div>
+      </div>
+      <div class="search-res-row">
+        <input type="text" class="search_input-smallscreen">
+        <div id="searchContentListSmallScreens" class="search-content-list">
+        </div>
+      </div>
+    </nav>
+
+    <main class="article-body">
+      <div id="article-content"></div>
+      <div id="reading-time"></div>
+      <form class="article-form-container" action="">
+        <div class="article-form-col">
+          <h2>new publication</h2>
+          <div class="input-container">
+            <label class="input-title" for="name">Name*</label>
+            <input name="name" id="name" type="text" class="input" placeholder="Type your publication's name"
+              autocomplete="none">
+            <span class="input-text">Link: medium.com/</span>
+          </div>
+
+          <div class="input-container">
+            <label class="input-title" for="tagline">Tagline*</label>
+            <input name="tagline" id="tagline" class="input" placeholder="Type a Tagline" autocomplete="none">
+            <span class="input-text">This will appear in your publication homepage and helps reader understand your
+              publication.</span>
+          </div>
+
+          <div class="input-container">
+            <label class="input-title" for="description">Description*</label>
+            <input name="description" id="description" type="text" class="input" placeholder="Type a short description"
+              autocomplete="none">
+            <span class="input-text">This will used in footers, search results, and other places.</span>
+          </div>
+
+          <div class="input-container">
+            <label class="input-title" for="tagline">Publication Avatar*</label>
+            <div class="input-image-container">
+              <div class="input-image-text">
+                <p>Add Image...</p>
+                <span class="input-text">This works like a user icon and appears in previews of your publication content
+                  throughout Meduim. It is square and should be 1000 x 1000 px in size.</span>
+              </div>
+              <label for="articleImage" class="input-image">
+                <svg enable-background="new 0 0 420.8 420.8" version="1.1" viewBox="0 0 420.8 420.8"
+                  xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="m406.8 96.4c-8.4-8.8-20-14-33.2-14h-66.4v-0.8c0-10-4-19.6-10.8-26-6.8-6.8-16-10.8-26-10.8h-120c-10.4 0-19.6 4-26.4 10.8s-10.8 16-10.8 26v0.8h-66c-13.2 0-24.8 5.2-33.2 14-8.4 8.4-14 20.4-14 33.2v199.2c0 13.2 5.2 24.8 14 33.2 8.4 8.4 20.4 14 33.2 14h326.4c13.2 0 24.8-5.2 33.2-14 8.4-8.4 14-20.4 14-33.2v-199.2c0-13.2-5.2-24.8-14-33.2zm-6.8 232.4h-0.4c0 7.2-2.8 13.6-7.6 18.4s-11.2 7.6-18.4 7.6h-326.4c-7.2 0-13.6-2.8-18.4-7.6s-7.6-11.2-7.6-18.4v-199.2c0-7.2 2.8-13.6 7.6-18.4s11.2-7.6 18.4-7.6h77.2c6 0 10.8-4.8 10.8-10.8v-11.6c0-4.4 1.6-8.4 4.4-11.2s6.8-4.4 11.2-4.4h119.6c4.4 0 8.4 1.6 11.2 4.4s4.4 6.8 4.4 11.2v11.6c0 6 4.8 10.8 10.8 10.8h77.2c7.2 0 13.6 2.8 18.4 7.6s7.6 11.2 7.6 18.4v199.2z" />
+                  <path
+                    d="m210.4 130.8c-27.2 0-52 11.2-69.6 28.8-18 18-28.8 42.4-28.8 69.6s11.2 52 28.8 69.6c18 18 42.4 28.8 69.6 28.8s52-11.2 69.6-28.8c18-18 28.8-42.4 28.8-69.6s-11.2-52-28.8-69.6-42.4-28.8-69.6-28.8zm54.4 153.2c-14 13.6-33.2 22.4-54.4 22.4s-40.4-8.8-54.4-22.4c-14-14-22.4-33.2-22.4-54.4s8.8-40.4 22.4-54.4c14-14 33.2-22.4 54.4-22.4s40.4 8.8 54.4 22.4c14 14 22.4 33.2 22.4 54.4 0.4 21.2-8.4 40.4-22.4 54.4z" />
+                  <circle cx="352.8" cy="150" r="19.6" />
+                </svg>
+              </label>
+              <input type="file" name="publication_avatar" id="articleImage">
+            </div>
+          </div>
+          <textarea id="editor1"></textarea>
+          <span class="input-text input-text-err" id="article-err-message"></span>
+        </div>
+        <div class="article-form-col">
+          <h3 class="article-col-header">Social and tags</h3>
+          <div class="input-container">
+            <p class="input-title">Contact Info</p>
+            <div class="social-input-container">
+              <label class="input-title input-title-small" for="email">Email</label>
+              <input name="email" id="email" type="text" class="input input-small" placeholder="Email"
+                autocomplete="none">
+            </div>
+            <div class="social-input-container">
+              <label class="input-title input-title-small" for="twitter">twitter.com/</label>
+              <input name="twitter" id="twitter" type="text" class="input input-small" placeholder="username"
+                autocomplete="none">
+            </div>
+            <div class="social-input-container">
+              <label class="input-title input-title-small" for="facebook">facebook.com/</label>
+              <input name="facebook" id="facebook" type="text" class="input input-small" placeholder="pagename"
+                autocomplete="none">
+            </div>
+            <div class="social-input-container">
+              <label class="input-title input-title-small" for="instagram">instagram.com/</label>
+              <input name="instagram" id="instagram" type="text" class="input input-small" placeholder="username"
+                autocomplete="none">
+            </div>
+            <span class="input-text">These links will be public.</span>
+          </div>
+          <div class="input-container">
+            <label class="input-title" for="name">Tags</label>
+            <div class="addarticle-elements-container">
+              <input class="input-inline" id="addtagInput" placeholder="Type a tag" type="text">
+              <button id="addtagButton" class="add-tag-button">Add a tag..</button>
+              <div id="tagsContainer" class="elements-container"></div>
+            </div>
+            <span class="input-text">addding tags (up to 5) allow people to search for and discover your
+              publication.</span>
+          </div>
+          <h3 class="article-col-header">People</h3>
+          <div class="input-container">
+            <label class="input-title" for="name">Editors</label>
+            <div id="editor-container" class="addarticle-elements-container">
+              <input class="input-inline" id="addEditorInput" placeholder="Type a Editor" type="text">
+              <button id="addEditorButton" class="add-tag-button">Add a Editor</button>
+              <div id="editor-item-container" class="elements-container"></div>
+            </div>
+            <span class="input-text">Editor can review submission, add Stories, edit Publish drafts and remove any
+              stories
+              from this publication.</span>
+          </div>
+          <div class="input-container">
+            <label class="input-title" for="name">Tagged People</label>
+            <div id="writer-container" class="addarticle-elements-container">
+              <input class="input-inline" id="addWriterInput" placeholder="Type a writer" type="text">
+              <button id="addWriterButton" class="add-tag-button">Add by Tag Name</button>
+              <div id="writer-item-container" class="elements-container"></div>
+
+            </div>
+            <span class="input-text">Add new writer and remove existing writers. Writers can submit thier stories and
+              remove them from this publication.</span>
+          </div>
+
+          <button class="publish-button">Publish</button>
+        </div>
+
+      </form>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#">contact</a>
+        <a href="#">F.A.Q.</a>
+        <a href="#">Cookies Policy</a>
+        <a href="#">Legal Terms</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">English 🇬🇧</a>
+      </div>
+      <div class="footer-info">Privat Cloud <b>Stacks</b></div>
+    </footer>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+  <script src="assets/js/readingtime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/functions.js"></script>
+  <script src="js/article.js"></script>
+</body>
+
+</html>

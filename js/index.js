@@ -178,7 +178,7 @@ const createArticleItem = (articleData, articleId, name) => {
     ArticleTagLine.innerHTML = articleData.tagline
     ArticleWriter.innerHTML = `writer: ${name}`
     ArticleDate.innerHTML = "29/10/2020"
-    articleContainer.href = articleId
+    articleContainer.href = `articleview.html?id=${articleId}`
 
     articleContainer.appendChild(imageContainer)
     imageContainer.appendChild(imageEle)
