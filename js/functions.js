@@ -202,38 +202,40 @@ const authintication = () => {
       facebookLoginButton.addEventListener("click", (e) => {
         e.preventDefault();
         const provider = new firebase.auth.FacebookAuthProvider();
-        provider.setCustomParameters({
-          display: "popup",
-        });
+        // provider.setCustomParameters({
+        //   display: "popup",
+        // });
         provider.addScope("user_link");
 
         auth
           .signInWithPopup(provider)
           .then((result) => {
-            const user = result.user;
-            const uid = user.uid;
-            const email = result.user.email;
-            const name = result.user.displayName;
-            const tagName = result.user.displayName;
-            const profileImageUrl = result.user.photoURL;
-            console.log(result);
-            Cookies.set("uid", uid);
-            Cookies.set("email", email);
-            db.ref(`users/${uid}`).once("value", (res) => {
-              if (res.val()) return;
-              db.ref(`users/${uid}`).set({
-                name,
-                tagName,
-                profileImageUrl,
-                email,
-              });
-            });
-
-            closeRegisterAnimation();
-          })
-          .catch((err) => {
+            console.log(result)
+            //     const user = result.user;
+            //     const uid = user.uid;
+            //     const email = result.user.email;
+            //     const name = result.user.displayName;
+            //     const tagName = result.user.displayName;
+            //     const profileImageUrl = result.user.photoURL;
+            //     console.log(result);
+            //     Cookies.set("uid", uid);
+            //     Cookies.set("email", email);
+            //     db.ref(`users/${uid}`).once("value", (res) => {
+              //       if (res.val()) return;
+              //       db.ref(`users/${uid}`).set({
+                //         name,
+                //         tagName,
+                //         profileImageUrl,
+                //         email,
+                //       });
+        //     });
+        
+        //     closeRegisterAnimation();
+      })
+      .catch((err) => {
+        console.log("result")
             console.log(err);
-          });
+        });
       });
     };
 
