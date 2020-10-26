@@ -202,40 +202,77 @@ const authintication = () => {
       facebookLoginButton.addEventListener("click", (e) => {
         e.preventDefault();
         const provider = new firebase.auth.FacebookAuthProvider();
+        provider.addScope('user_birthday');
         provider.setCustomParameters({
-          display: "popup",
+          'display': 'popup'
         });
+
         // provider.addScope("user_link");
 
-        auth
-        .signInWithPopup(provider)
-        .then((result) => {
-          console.log(result)
-          //     const user = result.user;
-          //     const uid = user.uid;
-          //     const email = result.user.email;
-          //     const name = result.user.displayName;
-          //     const tagName = result.user.displayName;
-          //     const profileImageUrl = result.user.photoURL;
-          //     console.log(result);
-          //     Cookies.set("uid", uid);
-          //     Cookies.set("email", email);
-          //     db.ref(`users/${uid}`).once("value", (res) => {
-            //       if (res.val()) return;
-            //       db.ref(`users/${uid}`).set({
-              //         name,
-              //         tagName,
-              //         profileImageUrl,
-              //         email,
-              //       });
-        //     });
-
-        //     closeRegisterAnimation();
-        })
-        .catch((err) => {
-          console.log("result")
-          console.log(err);
+        firebase.auth().getRedirectResult().then(function(result) {
+          if (result.credential) {
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            var token = result.credential.accessToken;
+            // ...
+          }
+          // The signed-in user info.
+          var user = result.user;
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
         });
+
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // ...
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+        });
+
+        // auth
+          // .signInWithPopup(provider)
+          // .then((result) => {
+          //   // const user = result.user;
+          //   // const uid = user.uid;
+          //   // const email = result.user.email;
+          //   // const name = result.user.displayName;
+          //   // const tagName = result.user.displayName;
+          //   // const profileImageUrl = result.user.photoURL;
+          //   // console.log(result);
+          //   // Cookies.set("uid", uid);
+          //   // Cookies.set("email", email);
+          //   // db.ref(`users/${uid}`).once("value", (res) => {
+          //   //   if (res.val()) return;
+          //   //   db.ref(`users/${uid}`).set({
+          //   //     name,
+          //   //     tagName,
+          //   //     profileImageUrl,
+          //   //     email,
+          //   //   });
+          //   // });
+
+          //   // closeRegisterAnimation();
+          // })
+          // .catch((err) => {
+          //   console.log(err);
+          //   closeRegisterAnimation();
+          // });
       });
     };
 
@@ -371,24 +408,20 @@ const displayMessage = (position, type, message, duration) => {
 
   if (type === "error") {
     element.classList.add("bottom-left-popup-message--err");
+
     const elementIcon = element.querySelector(".popup-message-icon--error");
     elementIcon.classList.add("popup-message-icon--active");
-  } 
-  else if (type === "success") {
+  } else if (type === "success") {
     element.classList.add("bottom-left-popup-message--succ");
     const elementIcon = element.querySelector(".popup-message-icon--success");
     elementIcon.classList.add("popup-message-icon--active");
   }
+  element.classList.add("bottom-left-popup-message--active");
 
-  element.classList.add("popup-message--active");
-  
   setTimeout(() => {
-    element.classList.remove("popup-message--active");
-    textContainer.innerHTML = "";
+    element.classList.remove("bottom-left-popup-message--active");
   }, duration);
 };
-
-
 const loadLoader = (status) => {
   let element = document.querySelector(".article-sumbmition-container");
   if (status == "show") element.classList.add("article-sumbmition-container--active");
