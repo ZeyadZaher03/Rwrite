@@ -729,22 +729,6 @@ nav {
   margin-bottom: 3rem;
 }
 
-.article-link::before {
-  /* content: "";
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 0;
-  height: 2px;
-  background: #009b93;
-  transition: all 200ms ease-in-out; */
-}
-
-.article-link:hover::before {
-  /* width: 100%; */
-}
-
 .article_header {
   height: 40rem;
   overflow: hidden;
@@ -1402,14 +1386,13 @@ nav {
   top: 7rem;
   transform: translateX(-50%);
   z-index: 9;
-  display: flex;
+  display: none;
   padding: 1rem 1.5rem;
   border-radius: 2px;
   align-items: center;
 }
 
-.top-center-popup-message--active,
-.bottom-left-popup-message--active {
+.popup-message--active {
   display: flex;
 }
 
@@ -1560,10 +1543,19 @@ nav {
 }
 
 .arcticle-container {
+  align-items: center;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   margin: 3rem 10rem;
   grid-column-gap: 2rem;
   grid-row-gap: 4rem;
-  margin-top: 6rem;
+  margin-top: 3rem;
+  justify-items: center;
+}
+    
+    
+.homepage-all-articles-header{
+  font-size: 5rem;
+  margin-top: 3rem;
+  text-align: center;
 }

@@ -103,12 +103,33 @@ const getArticles = async () => {
         return container
     }
 
+    const addToBookMarks = ()=>{
+        const bookMarkButtons = document.querySelectorAll(".article-link-bookmark")
+        bookMarkButtons.forEach(bookMarkButton=>{
+
+            bookMarkButton.addEventListener("click",(e)=>{
+                e.preventDefault()
+                const bookMarkErrorMessage = "You have to be logedin"
+                const bookMarkSuccessMessage = "Added successfully"
+                
+                if(!uid) return displayMessage("topCenter","error",bookMarkErrorMessage,2000)
+                const articleId = bookMarkButton.parentElement.parentElement.parentElement.dataset
+                db.ref(`users/${uid}/bookmarks`)
+                .push(articleId)
+                .then(() => {
+                    displayMessage("topCenter","success",bookMarkSuccessMessage,2000)
+                });
+            })
+        })
+    }
+
     const tagsQuery = db.ref(`tags/${selectedTag}`)
     const tagsSnapshot = await tagsQuery
     document.querySelector(".foryou").innerHTML = ""
 
     tagsSnapshot.on("value", (snapshot) => {
         let selectedArticles = []
+        console.log(selectedArticles)
         snapshot.forEach((childSnapshot) => {
             selectedArticles.push(childSnapshot.val())
         });
@@ -116,9 +137,10 @@ const getArticles = async () => {
             db.ref(`articles/${id}`).once("value", (articleData) => {
                 const isHidden = articleData.val().isHidden
                 if (!isHidden) parent.appendChild(createArticleEle(articleData))
+                addToBookMarks()
             })
-
         });
+        
     })
 }
 
