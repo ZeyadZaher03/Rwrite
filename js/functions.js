@@ -202,7 +202,7 @@ const authintication = () => {
       const facebookLoginButton = document.querySelector(".register-facebook-login");
       
 
-      const signInWithFaceBookRun = ()=>{
+      const runSignInWithFaceBook = ()=>{
         const provider = new firebase.auth.FacebookAuthProvider();
         provider.addScope('user_birthday');
         provider.setCustomParameters({
@@ -224,14 +224,17 @@ const authintication = () => {
           var email = error.email;
           // The firebase.auth.AuthCredential type that was used.
           var credential = error.credential;
-          console.log("e")
+          console.log("errorCode", errorCode)
+          console.log("errorMessage", errorMessage)
+          console.log("email", email)
+          console.log("credential", credential)
           // ...
         });
       }
 
       facebookLoginButton.addEventListener("click", (e) => {
         e.preventDefault();  
-        signInWithFaceBookRun()
+        runSignInWithFaceBook()
       });
     };
    
