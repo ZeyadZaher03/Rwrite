@@ -14,6 +14,3 @@ firebase.initializeApp(firebaseConfig);
 
 const auth = firebase.auth();
 const db = firebase.database();
-
-firebase.storage().maxUploadRetryTime_ = 50000
-firebase.storage().maxOperationRetryTime_ = 50000
