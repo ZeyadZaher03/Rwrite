@@ -205,37 +205,35 @@ const authintication = () => {
         provider.setCustomParameters({
           display: "popup",
         });
-        // provider.addScope("user_link");
+        provider.addScope("user_link");
 
         auth
-        .signInWithPopup(provider)
-        .then((result) => {
-          console.log(result)
-          //     const user = result.user;
-          //     const uid = user.uid;
-          //     const email = result.user.email;
-          //     const name = result.user.displayName;
-          //     const tagName = result.user.displayName;
-          //     const profileImageUrl = result.user.photoURL;
-          //     console.log(result);
-          //     Cookies.set("uid", uid);
-          //     Cookies.set("email", email);
-          //     db.ref(`users/${uid}`).once("value", (res) => {
-            //       if (res.val()) return;
-            //       db.ref(`users/${uid}`).set({
-              //         name,
-              //         tagName,
-              //         profileImageUrl,
-              //         email,
-              //       });
-        //     });
+          .signInWithPopup(provider)
+          .then((result) => {
+            const user = result.user;
+            const uid = user.uid;
+            const email = result.user.email;
+            const name = result.user.displayName;
+            const tagName = result.user.displayName;
+            const profileImageUrl = result.user.photoURL;
+            console.log(result);
+            Cookies.set("uid", uid);
+            Cookies.set("email", email);
+            db.ref(`users/${uid}`).once("value", (res) => {
+              if (res.val()) return;
+              db.ref(`users/${uid}`).set({
+                name,
+                tagName,
+                profileImageUrl,
+                email,
+              });
+            });
 
-        //     closeRegisterAnimation();
-        })
-        .catch((err) => {
-          console.log("result")
-          console.log(err);
-        });
+            closeRegisterAnimation();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       });
     };
 
@@ -371,24 +369,20 @@ const displayMessage = (position, type, message, duration) => {
 
   if (type === "error") {
     element.classList.add("bottom-left-popup-message--err");
+
     const elementIcon = element.querySelector(".popup-message-icon--error");
     elementIcon.classList.add("popup-message-icon--active");
-  } 
-  else if (type === "success") {
+  } else if (type === "success") {
     element.classList.add("bottom-left-popup-message--succ");
     const elementIcon = element.querySelector(".popup-message-icon--success");
     elementIcon.classList.add("popup-message-icon--active");
   }
+  element.classList.add("bottom-left-popup-message--active");
 
-  element.classList.add("popup-message--active");
-  
   setTimeout(() => {
-    element.classList.remove("popup-message--active");
-    textContainer.innerHTML = "";
+    element.classList.remove("bottom-left-popup-message--active");
   }, duration);
 };
-
-
 const loadLoader = (status) => {
   let element = document.querySelector(".article-sumbmition-container");
   if (status == "show") element.classList.add("article-sumbmition-container--active");
