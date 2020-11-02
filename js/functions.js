@@ -197,47 +197,58 @@ const authintication = () => {
       });
     };
 
-    
+
     const signInWithFaceBook = () => {
       const facebookLoginButton = document.querySelector(".register-facebook-login");
-      
 
-      const runSignInWithFaceBook = ()=>{
+
+      const runSignInWithFaceBook = () => {
         const provider = new firebase.auth.FacebookAuthProvider();
         // provider.addScope('user_birthday');
         provider.setCustomParameters({
           'display': 'popup'
         });
 
-        firebase.auth().signInWithPopup(provider).then(function(result) {
-          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        firebase.auth().signInWithPopup(provider).then(function (result) {
           var token = result.credential.accessToken;
-          // The signed-in user info.
-          var user = result.user;
-          console.log("s")
-          // ...
-        }).catch(function(error) {
-          // Handle Errors here.
+          const user = result.user;
+          const uid = user.uid;
+          const email = result.user.email;
+          const name = result.user.displayName;
+          const tagName = result.user.displayName;
+          const profileImageUrl = result.user.photoURL;
+          console.log(result);
+          Cookies.set("uid", uid);
+          Cookies.set("email", email);
+
+          db.ref(`users/${uid}`).once("value", (res) => {
+            if (res.val()) return;
+            db.ref(`users/${uid}`).set({
+              name,
+              tagName,
+              profileImageUrl,
+              email,
+            });
+          });
+
+          console.log(user)
+        }).catch(function (error) {
           var errorCode = error.code;
           var errorMessage = error.message;
-          // The email of the user's account used.
-          var email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
           var credential = error.credential;
           console.log("errorCode", errorCode)
           console.log("errorMessage", errorMessage)
-          console.log("email", email)
           console.log("credential", credential)
           // ...
         });
       }
 
       facebookLoginButton.addEventListener("click", (e) => {
-        e.preventDefault();  
+        e.preventDefault();
         runSignInWithFaceBook()
       });
     };
-   
+
     registerPopup();
     signInWithFaceBook();
     // signInWithTwitter();
@@ -370,24 +381,24 @@ const loadLoader = (status) => {
 // auth
 // .signInWithPopup(provider)
 // .then((result) => {
-//   // const user = result.user;
-//   // const uid = user.uid;
-//   // const email = result.user.email;
-//   // const name = result.user.displayName;
-//   // const tagName = result.user.displayName;
-//   // const profileImageUrl = result.user.photoURL;
-//   // console.log(result);
-//   // Cookies.set("uid", uid);
-//   // Cookies.set("email", email);
-//   // db.ref(`users/${uid}`).once("value", (res) => {
-//   //   if (res.val()) return;
-//   //   db.ref(`users/${uid}`).set({
-//   //     name,
-//   //     tagName,
-//   //     profileImageUrl,
-//   //     email,
-//   //   });
-//   // });
+// const user = result.user;
+// const uid = user.uid;
+// const email = result.user.email;
+// const name = result.user.displayName;
+// const tagName = result.user.displayName;
+// const profileImageUrl = result.user.photoURL;
+// console.log(result);
+// Cookies.set("uid", uid);
+// Cookies.set("email", email);
+// db.ref(`users/${uid}`).once("value", (res) => {
+//   if (res.val()) return;
+//   db.ref(`users/${uid}`).set({
+//     name,
+//     tagName,
+//     profileImageUrl,
+//     email,
+//   });
+// });
 
 //   // closeRegisterAnimation();
 // })
@@ -424,33 +435,33 @@ const loadLoader = (status) => {
 
 
 
-    // 
-     // const signInWithTwitter = () => {
-    //   const twiiterLoginButton = document.querySelector(".register-twitter-login");
-    //   twiiterLoginButton.addEventListener("click", (e) => {
-    //       e.preventDefault()
-    //       const provider = new firebase.auth.FacebookAuthProvider();
-    //       provider.setCustomParameters({
-    //         display: "popup",
-    //       });
-    //       auth.signInWithPopup(provider).then((result) => {
-    //         const user = result.user;
-    //         const username = result.additionalUserInfo.username;
-    //         const uid = user.uid;
-    //         const email = result.user.email;
-    //         const name = result.user.displayName;
+// 
+// const signInWithTwitter = () => {
+//   const twiiterLoginButton = document.querySelector(".register-twitter-login");
+//   twiiterLoginButton.addEventListener("click", (e) => {
+//       e.preventDefault()
+//       const provider = new firebase.auth.FacebookAuthProvider();
+//       provider.setCustomParameters({
+//         display: "popup",
+//       });
+//       auth.signInWithPopup(provider).then((result) => {
+//         const user = result.user;
+//         const username = result.additionalUserInfo.username;
+//         const uid = user.uid;
+//         const email = result.user.email;
+//         const name = result.user.displayName;
 
-    //         db.ref(`users/${uid}`).once("value", (res) => {
-    //           if (res.val()) return
-    //           db.ref(`users/${uid}`).set({
-    //             name,
-    //             profileImageUrl,
-    //             email,
-    //           });
-    //         });
-    //       })
-    //     })
-    //     .catch(function (error) {
-    //       var errorMessage = error.message;
-    //     })
-    // }
+//         db.ref(`users/${uid}`).once("value", (res) => {
+//           if (res.val()) return
+//           db.ref(`users/${uid}`).set({
+//             name,
+//             profileImageUrl,
+//             email,
+//           });
+//         });
+//       })
+//     })
+//     .catch(function (error) {
+//       var errorMessage = error.message;
+//     })
+// }
