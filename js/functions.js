@@ -211,27 +211,32 @@ const authintication = () => {
 
         firebase.auth().signInWithPopup(provider).then(function (result) {
           var token = result.credential.accessToken;
-          const user = result.user;
-          const uid = user.uid;
-          const email = result.user.email;
-          const name = result.user.displayName;
-          const tagName = result.user.displayName;
-          const profileImageUrl = result.user.photoURL;
-          console.log(result);
-          Cookies.set("uid", uid);
-          Cookies.set("email", email);
-
-          db.ref(`users/${uid}`).once("value", (res) => {
-            if (res.val()) return;
-            db.ref(`users/${uid}`).set({
-              name,
-              tagName,
-              profileImageUrl,
-              email,
-            });
-          });
-
+          var user = result.user;
+          console.log("s")
           console.log(user)
+
+          // var token = result.credential.accessToken;
+          // const user = result.user;
+          // const uid = user.uid;
+          // const email = result.user.email;
+          // const name = result.user.displayName;
+          // const tagName = result.user.displayName;
+          // const profileImageUrl = result.user.photoURL;
+          // console.log(result);
+          // Cookies.set("uid", uid);
+          // Cookies.set("email", email);
+
+          // db.ref(`users/${uid}`).once("value", (res) => {
+          //   if (res.val()) return;
+          //   db.ref(`users/${uid}`).set({
+          //     name,
+          //     tagName,
+          //     profileImageUrl,
+          //     email,
+          //   });
+          // });
+
+          // console.log(user)
         }).catch(function (error) {
           var errorCode = error.code;
           var errorMessage = error.message;
