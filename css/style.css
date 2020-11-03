@@ -1559,3 +1559,67 @@ nav {
   margin-top: 3rem;
   text-align: center;
 }
+
+/* contact us page */
+.contact-us{
+  width: 60%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-us-heading{
+  margin-bottom: 1rem;
+}
+
+.contact-us-form{
+  width: 100%;
+}
+
+.contact-form-input-container{
+  margin-bottom: 1.5rem;
+}
+
+.contact-form-input {
+  width: 100%;
+  padding: 1rem;
+  outline: none;
+  border: 1px solid #afafaf;
+  border-radius: 5px;
+}
+
+.contact-form-textarea{
+  border: 1px solid #afafaf;
+  border-radius: 5px;
+  min-width: 100%;
+  padding: 1rem;
+  max-width: 100%;
+  max-height:10rem;
+  min-height:6rem;
+  height:7rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.contact-form-button-container{
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-form-button{
+  padding: .7rem 4rem;
+  font-size: 1.6rem;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 700;
+  border: 0;
+  background: #b59c00;
+  cursor: pointer;
+  transition: all 100ms ease-in-out ;
+}
+
+.contact-form-button:hover {
+  background: #c7ad00;
+}
