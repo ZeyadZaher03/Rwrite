@@ -249,7 +249,7 @@ const authintication = () => {
       }
 
       facebookLoginButton.addEventListener("click", (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         runSignInWithFaceBook()
       });
     };
