@@ -1,3 +1,14 @@
+authintication()
+const uid = Cookies.get("uid");
+if (uid) {
+    db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
+        if (snapshot.val()) menuNavigationSwitch("admin")
+        else menuNavigationSwitch("user")
+    })
+} else {
+    menuNavigationSwitch("guest")
+}
+
 const contactMessage = ()=>{
     const contactForm = document.querySelector(".contact-us-form")
     const name = contactForm["name"]
@@ -33,10 +44,21 @@ const contactMessage = ()=>{
                 message: message.value,
             }
         
-        
-            displayMessage("topCenter", "success", "Message has been sent successfully", 3000)
+            db.ref(`messages`).push(messageObj)
+            
             console.log(messageObj)
             contactForm.reset()
+            displayMessage("topCenter", "success", "Message has been send successfully", 3000)
+            Email.send({
+                Host : "smtp.sendgrid.com",
+                Username : "ZeyadMohamed03",
+                SecureToken: "6acfe0a5-9ff0-48c4-8e52-59357cf3ccf2",
+                Password : "1MAMaTOKW*P0HeGOK&Y9",
+                To : 'zeyadzaher02@gmail.com',
+                From : messageObj.email,
+                Subject : `${messageObj.name} Want to send you a message!`,
+                Body : `${messageObj.message}, --- phone number: ${messageObj.phoneNumber}`
+            })
         })
     }
     
@@ -53,3 +75,5 @@ const contactMessage = ()=>{
 }
 
 contactMessage()
+
+

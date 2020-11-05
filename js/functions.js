@@ -204,39 +204,34 @@ const authintication = () => {
 
       const runSignInWithFaceBook = () => {
         const provider = new firebase.auth.FacebookAuthProvider();
-        // provider.addScope('user_birthday');
+
         provider.setCustomParameters({
           'display': 'popup'
         });
 
         firebase.auth().signInWithPopup(provider).then(function (result) {
-          var token = result.credential.accessToken;
-          var user = result.user;
-          console.log("s")
-          console.log(user)
+          const token = result.credential.accessToken;
+          const user = result.user;
+          const uid = user.uid;
+          const email = result.user.email;
+          const name = result.user.displayName;
+          const tagName = result.user.displayName;
+          const profileImageUrl = result.user.photoURL;
 
-          // var token = result.credential.accessToken;
-          // const user = result.user;
-          // const uid = user.uid;
-          // const email = result.user.email;
-          // const name = result.user.displayName;
-          // const tagName = result.user.displayName;
-          // const profileImageUrl = result.user.photoURL;
-          // console.log(result);
-          // Cookies.set("uid", uid);
-          // Cookies.set("email", email);
+          console.log(result);
+          Cookies.set("uid", uid);
+          Cookies.set("email", email);
 
-          // db.ref(`users/${uid}`).once("value", (res) => {
-          //   if (res.val()) return;
-          //   db.ref(`users/${uid}`).set({
-          //     name,
-          //     tagName,
-          //     profileImageUrl,
-          //     email,
-          //   });
-          // });
+          db.ref(`users/${uid}`).once("value", (res) => {
+            if (res.val()) return;
+            db.ref(`users/${uid}`).set({
+              name,
+              tagName,
+              profileImageUrl,
+              email,
+            });
+          });
 
-          // console.log(user)
         }).catch(function (error) {
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -244,7 +239,6 @@ const authintication = () => {
           console.log("errorCode", errorCode)
           console.log("errorMessage", errorMessage)
           console.log("credential", credential)
-          // ...
         });
       }
 

@@ -9,16 +9,72 @@ if (uid) {
 }
 
 authintication()
+const getBookmarks = async () => {
+    const bookmarks = []
+    const bookmarksQuery = await db.ref(`users/${"z26b90gJxfY9R61RlCdfV4KQDtu2"}/bookmarks`);
+    const bookmarksDb = await bookmarksQuery.once("value");
+    await bookmarksDb.forEach((bookmark)=>{
+        bookmarks.push(bookmark.val())
+    })
+    return bookmarks
+}
+
 
 
 const url = new URL(location.href).searchParams
 const selectedTag = url.get("tag") || "rwrite"
 
+const addToBookMarks = async () => {
+    
+    const myBookmarks = await getBookmarks()
+
+    const bookMarkButtons = document.querySelectorAll(".article-link-bookmark")
+    bookMarkButtons.forEach(bookMarkButton => {
+        bookMarkButton.addEventListener("click",  (e)=>{
+            e.preventDefault()
+            const articleId = bookMarkButton.parentElement.parentElement.parentElement.dataset.id
+            const bookMarkErrorMessage = "You must be logedin"
+            const bookMarkSuccessMessage = "Added successfully"
+            
+            if(!uid) return displayMessage("topCenter", "error" , bookMarkErrorMessage ,2000)
+
+            const addToBookMarkrun = ()=>{
+                bookMarkButton.querySelector("svg").dataset.prefix = "fas"
+                db.ref(`users/${uid}/bookmarks/${articleId}`)
+                .set(articleId)
+                .then(() => {
+                    displayMessage("topCenter", "success" ,bookMarkSuccessMessage, 2000)
+                    myBookmarks.push(articleId)
+                });
+            }
+
+            const removeToBookMarkrun = ()=>{
+                bookMarkButton.querySelector("svg").dataset.prefix = "far"
+                db.ref(`users/${uid}/bookmarks/${articleId}`)
+                .remove()
+                .then(() => {
+                    displayMessage("topCenter", "success" , "bookmark is successfully removed" ,2000)
+                    const indexOfId = myBookmarks.indexOf(articleId)
+                    myBookmarks.splice(indexOfId,1)
+                });
+            }
+
+            if(myBookmarks.includes(articleId)) {
+                removeToBookMarkrun()
+            } else{                
+                addToBookMarkrun()
+            }
+        })
+    })
+}
+
 
 const getArticles = async () => {
     const parent = document.querySelector(".foryou")
+    const myBookmarks = await getBookmarks()
 
-    const createArticleEle = (snapshot) => {
+    const createArticleEle = (snapshot,isInBookMarks) => {
+        
         const id = snapshot.key
         const articleData = snapshot.val()
         const tagline = articleData.tagline
@@ -61,7 +117,11 @@ const getArticles = async () => {
         bookmarkIconConatainer.classList.add("article-link-bookmark")
 
         const bookmarkIcon = document.createElement("i")
-        bookmarkIcon.classList.add("far", "fa-bookmark")
+        if(isInBookMarks){
+            bookmarkIcon.classList.add("fas", "fa-bookmark")
+        }else{
+            bookmarkIcon.classList.add("far", "fa-bookmark")
+        }
         bookmarkIconConatainer.appendChild(bookmarkIcon)
 
         const optionsIconConatainer = document.createElement("div")
@@ -103,49 +163,48 @@ const getArticles = async () => {
         return container
     }
 
-    const addToBookMarks = ()=>{
-        const bookMarkButtons = document.querySelectorAll(".article-link-bookmark")
-        bookMarkButtons.forEach(bookMarkButton=>{
-
-            bookMarkButton.addEventListener("click",(e)=>{
-                e.preventDefault()
-                const bookMarkErrorMessage = "You have to be logedin"
-                const bookMarkSuccessMessage = "Added successfully"
-                
-                if(!uid) return displayMessage("topCenter","error",bookMarkErrorMessage,2000)
-                const articleId = bookMarkButton.parentElement.parentElement.parentElement.dataset
-                db.ref(`users/${uid}/bookmarks`)
-                .push(articleId)
-                .then(() => {
-                    displayMessage("topCenter","success",bookMarkSuccessMessage,2000)
-                });
-            })
-        })
-    }
-
     const tagsQuery = db.ref(`tags/${selectedTag}`)
     const tagsSnapshot = await tagsQuery
     document.querySelector(".foryou").innerHTML = ""
 
     tagsSnapshot.on("value", (snapshot) => {
+        
+
+
         let selectedArticles = []
-        console.log(selectedArticles)
+
         snapshot.forEach((childSnapshot) => {
             selectedArticles.push(childSnapshot.val())
         });
-        selectedArticles.forEach((id) => {
-            db.ref(`articles/${id}`).once("value", (articleData) => {
-                const isHidden = articleData.val().isHidden
-                if (!isHidden) parent.appendChild(createArticleEle(articleData))
-                addToBookMarks()
-            })
+
+        let count = 0
+        selectedArticles.forEach(async (id) => {
+            count++
+
+            if (count == selectedArticles.length) {
+                db.ref(`articles/${id}`).once("value", (articleData) => {
+                    const isHidden = articleData.val().isHidden
+                    const isInBookMarks = myBookmarks.includes(id)
+                    if (!isHidden) parent.appendChild(createArticleEle(articleData,isInBookMarks))
+                    addToBookMarks(myBookmarks)
+                })
+            } 
+            else {
+                db.ref(`articles/${id}`).once("value", (articleData) => {
+                    const isHidden = articleData.val().isHidden
+                    const isInBookMarks = myBookmarks.includes(id)
+                    if (!isHidden) parent.appendChild(createArticleEle(articleData,isInBookMarks))
+                })
+            }
+
         });
-        
+
     })
 }
 
 const getPopularTasks = async () => {
     const container = document.querySelector(".popular-articles-container-items")
+
     const createPopularArticleElement = (articleObj, id, counter) => {
         const title = articleObj.tagline
         const description = articleObj.description;
@@ -188,7 +247,6 @@ const getPopularTasks = async () => {
 
         return container
     }
-
 
     const articlesQuery = db.ref(`articles`).once("value")
     const articlesSnapshot = await articlesQuery
