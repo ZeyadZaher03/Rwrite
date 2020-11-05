@@ -361,18 +361,18 @@ const runArticle = () => {
             const id = await saveTagsAndArticle()
             await mailingWriters(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
-            addArticleForm.reset();
+            // addArticleForm.reset();
             loadLoader("hide")
             addArticleButton.disabled = false
-            location.href = `/articleview.html?id=${id}`
+            // location.href = `/articleview.html?id=${id}`
         } else {
             const id = await addArticleToDb(article)
             await mailingWriters(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
             addArticleButton.disabled = false
             loadLoader("hide")
-            addArticleForm.reset();
-            location.href = `/articleview.html?id=${id}`
+            // addArticleForm.reset();
+            // location.href = `/articleview.html?id=${id}`
         }
     });
 
