@@ -324,16 +324,16 @@ const runArticle = () => {
                             if(userName){
                                 if(userName.toLowerCase() == editor.toLowerCase()){
                                     const email = childSnapshot.val().email
-                                    console.log(email)
+                                    
                                     Email.send({
                                         Host : "smtp.sendgrid.com",
                                         Username : "ZeyadMohamed03",
                                         SecureToken: "6acfe0a5-9ff0-48c4-8e52-59357cf3ccf2",
                                         Password : "1MAMaTOKW*P0HeGOK&Y9",
                                         To : 'zeyadzaher02@gmail.com',
-                                        From : email,
+                                        From : "zeyadzaher02@gmail.com",
                                         Subject : `You have just been tagged in an article`,
-                                        Body : `<p>you can visit it now :<a href="${articleLink}">${articleName}</a> </p>`
+                                        Body : `<p>you can visit it now </p>`
                                     })
                                 }
                             }
