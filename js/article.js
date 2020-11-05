@@ -1,8 +1,8 @@
 const uid = Cookies.get("uid");
 auth.onAuthStateChanged((user) => {
     if (!uid || !user) {
-        displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected", 3000)
-        location.href = "index.html"
+        // displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected", 3000)
+        // location.href = "index.html"
     } else {
         db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
             if (snapshot.val()) menuNavigationSwitch("admin")
@@ -314,6 +314,35 @@ const runArticle = () => {
         return articleId
     }
 
+    const mailingWriters = async (articleName,  articleLink)=>{
+            if(editorArray.length>0){
+                editorArray.forEach(editor=>{
+                    editor
+                    await db.ref(`users`).once("value",(snapshot)=>{
+                        snapshot.forEach(childSnapshot=>{
+                            const userName = childSnapshot.val().tagName
+                            if(userName){
+                                if(userName.toLowerCase() == editor.toLowerCase()){
+                                    const email = childSnapshot.val().email
+                                    console.log(email)
+                                    Email.send({
+                                        Host : "smtp.sendgrid.com",
+                                        Username : "ZeyadMohamed03",
+                                        SecureToken: "6acfe0a5-9ff0-48c4-8e52-59357cf3ccf2",
+                                        Password : "1MAMaTOKW*P0HeGOK&Y9",
+                                        To : 'zeyadzaher02@gmail.com',
+                                        From : email,
+                                        Subject : `You have just been tagged in an article`,
+                                        Body : `<p>you can visit it now :<a href="${articleLink}">${articleName}</a> </p>`
+                                    })
+                                }
+                            }
+                        })
+                    })
+                })
+            }
+    }
+
     addArticleButton.addEventListener("click", async (e) => {
 
         addArticleButton.disabled = true
@@ -322,6 +351,7 @@ const runArticle = () => {
         const articleReturn = await addArticle()
         const article = articleReturn.article;
         const errorsInArticle = articleReturn.numberOfErrors;
+        
         if (errorsInArticle > 0) return;
         const saveTagsAndArticle = async () => {
             return await saveNewTags(article.tags, await addArticleToDb(article))
@@ -329,6 +359,7 @@ const runArticle = () => {
 
         if (article.tags.length > 0) {
             const id = await saveTagsAndArticle()
+            await mailingWriters(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
             addArticleForm.reset();
             loadLoader("hide")
@@ -336,6 +367,7 @@ const runArticle = () => {
             location.href = `/articleview.html?id=${id}`
         } else {
             const id = await addArticleToDb(article)
+            await mailingWriters(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
             addArticleButton.disabled = false
             loadLoader("hide")
