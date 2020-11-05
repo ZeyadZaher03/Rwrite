@@ -316,8 +316,8 @@ const runArticle = () => {
 
     const mailingWriters = async (articleName,  articleLink)=>{
             if(editorArray.length>0){
-                editorArray.forEach(editor=>{
-                    editor
+                editorArray.forEach(async (editor)=>{
+                    
                     await db.ref(`users`).once("value",(snapshot)=>{
                         snapshot.forEach(childSnapshot=>{
                             const userName = childSnapshot.val().tagName
