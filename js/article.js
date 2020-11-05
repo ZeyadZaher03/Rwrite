@@ -308,7 +308,9 @@ const runArticle = () => {
     addArticleForm.addEventListener("submit", (e) => e.preventDefault());
 
     const saveNewTags = async (tags, articleId) => {
-        tags.forEach((tag) => db.ref(`tags/${tag}`).push(articleId))
+        tags.forEach((tag) => {
+            db.ref(`tags/${tag}`).push(articleId)
+        })
         return articleId
     }
 
