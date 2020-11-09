@@ -1,8 +1,11 @@
+// get uid from the cookies  
 const uid = Cookies.get("uid");
+
+//if user not logedin redirect him to the home page
 auth.onAuthStateChanged((user) => {
     if (!uid || !user) {
-        displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected", 3000)
-        location.href = "index.html"
+        // displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected", 3000)
+        // location.href = "index.html"
     } else {
         db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
             if (snapshot.val()) menuNavigationSwitch("admin")
@@ -11,9 +14,12 @@ auth.onAuthStateChanged((user) => {
     }
 })
 
+// add article functionality
 const runArticle = () => {
+
     const getDisplay = (item) => getComputedStyle(item).display;
 
+    //writers and tags and editor functionalities
     const tagsArray = [];
     const writerArray = [];
     const editorArray = [];
@@ -127,13 +133,17 @@ const runArticle = () => {
     tags(addWritersOption);
     tags(addEditorsOption);
 
+
+    //run the text editor
     CKEDITOR.replace("editor1");
 
+    // select forms and buttons 
     const addArticleForm = document.querySelector(".article-form-container");
     const addArticleButton = document.querySelector(".publish-button");
     const articleContent = document.querySelector("#article-content");
     const articletime = document.querySelector("#reading-time");
 
+    // adding image and viewing it.
     const articleImageView = () => {
         const articleImageInput = document.querySelector("#articleImage");
         const createImageContainer = (src) => {
@@ -163,6 +173,7 @@ const runArticle = () => {
         removeArticleImage()
     }
 
+    // remove article image
     const removeArticleImage = () => {
 
         document.querySelector('.input-image').addEventListener("click", (e) => {
@@ -189,15 +200,20 @@ const runArticle = () => {
     }
 
     articleImageView()
+
+    // add article functionality
     const addArticle = async () => {
+        // get article body 
         const article = CKEDITOR.instances.editor1.getData();
         articleContent.innerHTML = article;
 
+        // get the est. time to read the article
         $("#article-content").readingTime({
             readingTimeAsNumber: true,
             readingTimeTarget: $("#reading-time"),
         });
 
+        //select article data 
         const name = addArticleForm["name"];
         const tagline = addArticleForm["tagline"];
         const description = addArticleForm["description"];
@@ -212,6 +228,7 @@ const runArticle = () => {
 
         const est = articletime.innerHTML;
 
+        // handling erros
         const errorMessages = () => {
             let emptyValues = 0;
             const errorInput = (ele, errorMessage) => {
@@ -249,6 +266,8 @@ const runArticle = () => {
 
         let imgUrl
 
+
+        //adding image data
         const getImageUrl = async () => {
             const storageRef = firebase.storage().ref(`articles`)
             const fileName = `${new Date()}_${image.name}`
@@ -262,9 +281,10 @@ const runArticle = () => {
 
             return imgUrl = driverImageUrl
         }
+
         if (image) await getImageUrl()
 
-
+        // saving all the data inside an object 
         const articleObj = {
             name: name.value,
             tagline: tagline.value,
@@ -284,13 +304,17 @@ const runArticle = () => {
             isHidden: true
         };
 
+        //return the object with the number of errors
         return {
             article: articleObj,
             numberOfErrors: errorMessages(),
         };
     };
 
+    // save articles to the db
     const addArticleToDb = async (articleObj) => {
+        // make a var to store article id in
+        // connncet to the db and then save it  
         let articleId
         await db
             .ref(`articles`)
@@ -301,9 +325,9 @@ const runArticle = () => {
                 return articleId = id
             });
 
+        // return the id
         return articleId
     };
-
 
     addArticleForm.addEventListener("submit", (e) => e.preventDefault());
 
@@ -314,35 +338,49 @@ const runArticle = () => {
         return articleId
     }
 
-    const mailingWriters = async (articleName,  articleLink)=>{
-            if(editorArray.length>0){
-                editorArray.forEach(async (editor)=>{
-                    
-                    await db.ref(`users`).once("value",(snapshot)=>{
-                        snapshot.forEach(childSnapshot=>{
-                            const userName = childSnapshot.val().tagName
-                            if(userName){
-                                if(userName.toLowerCase() == editor.toLowerCase()){
-                                    const email = childSnapshot.val().email
-                                    
-                                    Email.send({
-                                        Host : "smtp.sendgrid.com",
-                                        Username : "ZeyadMohamed03",
-                                        SecureToken: "6acfe0a5-9ff0-48c4-8e52-59357cf3ccf2",
-                                        Password : "1MAMaTOKW*P0HeGOK&Y9",
-                                        To : 'zeyadzaher02@gmail.com',
-                                        From : "zeyadzaher02@gmail.com",
-                                        Subject : `You have just been tagged in an article`,
-                                        Body : `<p>you can visit it now </p>`
-                                    })
-                                }
-                            }
-                        })
-                    })
-                })
-            }
-    }
+    const mailingWriters = async (articleName, articleLink) => {
+        const editorsArray = ["Adrian"]
+        if (editorsArray.length <= 0) return
+        
+        // loop over the writers to mail them
+        const usersDBConnection = await db.ref(`users`) 
+        const usersSnapshot = await usersDBConnection.once("value")
+        const userWithEmailAndTagname = []
+        
+        await usersSnapshot.forEach( async (userSnapshot)=>{
+            usersSnapshot.forEach((userSnapshot) => {
+                const userData = userSnapshot.val()
+                const email = userData.email
+                const tagName = userData.tagName
+                userWithEmailAndTagname.push({email,tagName})
+            });
+        })
 
+        
+        
+        editorsArray.forEach(async (editorName) => {
+            userWithEmailAndTagname.forEach((userObj)=>{
+                const email = userObj.email
+                const tagName = userObj.tagName
+                if(!email && !tagName) return
+                const editorNameClean = editorName.trim().toLowerCase()
+                const userTaglineClean = userObj.tagName.trim().toLowerCase()
+                if( editorNameClean !== userTaglineClean) return 
+                
+                
+                Email.send({
+                    Host : "smtp.sendgrid.com",
+                    SecureToken: "ed9c86d7-8655-49fd-b860-04abd4a85c9a",
+                    To : 'zeyadzaher02@gmail.com',
+                    From: "zeyadzaher02@gmail.com",
+                    To: email,
+                    Subject: `You have just been tagged in an article`,
+                    Body: `<p>you can visit it now </p>`
+                })
+            })
+        })
+        
+    }
     addArticleButton.addEventListener("click", async (e) => {
 
         addArticleButton.disabled = true
@@ -351,7 +389,7 @@ const runArticle = () => {
         const articleReturn = await addArticle()
         const article = articleReturn.article;
         const errorsInArticle = articleReturn.numberOfErrors;
-        
+
         if (errorsInArticle > 0) return;
         const saveTagsAndArticle = async () => {
             return await saveNewTags(article.tags, await addArticleToDb(article))
@@ -359,7 +397,8 @@ const runArticle = () => {
 
         if (article.tags.length > 0) {
             const id = await saveTagsAndArticle()
-            await mailingWriters(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
+            // await mailingWriters(article.tagline, `https://rwrite.netlify.app/articleview.html?id=${id}`)
+            console.log(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
             // addArticleForm.reset();
             loadLoader("hide")
@@ -367,7 +406,8 @@ const runArticle = () => {
             // location.href = `/articleview.html?id=${id}`
         } else {
             const id = await addArticleToDb(article)
-            await mailingWriters(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
+            // await mailingWriters(article.tagline, `https://rwrite.netlify.app/articleview.html?id=${id}`)
+            console.log(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
             addArticleButton.disabled = false
             loadLoader("hide")

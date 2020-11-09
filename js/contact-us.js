@@ -51,9 +51,7 @@ const contactMessage = ()=>{
             displayMessage("topCenter", "success", "Message has been send successfully", 3000)
             Email.send({
                 Host : "smtp.sendgrid.com",
-                Username : "ZeyadMohamed03",
-                SecureToken: "6acfe0a5-9ff0-48c4-8e52-59357cf3ccf2",
-                Password : "1MAMaTOKW*P0HeGOK&Y9",
+                SecureToken: "ed9c86d7-8655-49fd-b860-04abd4a85c9a",
                 To : 'zeyadzaher02@gmail.com',
                 From : messageObj.email,
                 Subject : `${messageObj.name} Want to send you a message!`,
