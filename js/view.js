@@ -66,6 +66,7 @@ runArticle()
 const commentSystem = async () => {
     const writers = await getWriters()
     const name = await getMyName()
+    console.log(name)
     const addComment = () => {
         const commentForm = document.querySelector(".add-comment")
         const commentinput = commentForm["comment"]
@@ -74,7 +75,7 @@ const commentSystem = async () => {
             if (!uid) {
                 commentinput.value = ""
                 return alert("login to be able to comment")
-            } else if (!(writers.includes(name))) {
+            } else if (!(writers.includes(name.toLowerCase()))) {
                 commentinput.value = ""
                 return alert("You are not tagged in this Article")
             }
