@@ -1425,7 +1425,11 @@ nav {
   width: 100%;
   border: 1px solid #ddd;
 }
-
+.profile-container-sidenav-buttton{
+  background-color: #00b3aa;
+  color: #fff !important;
+  font-weight: 500;
+}
 .search-res-row {
   position: relative;
 }

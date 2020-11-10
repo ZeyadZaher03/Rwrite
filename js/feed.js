@@ -1,4 +1,5 @@
-const uid = Cookies.get("uid");
+// const uid = Cookies.get("uid");
+const uid = "C16NeLUBm5XfzKSuySJf7Ti1Uw92";
 auth.onAuthStateChanged((user) => {
   if (!uid || !user) {
     // displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected  ", 3000)
@@ -382,7 +383,7 @@ const getUserArticls = async () => {
 
     parentContainer.innerHTML = "";
 
-    parentContainer.appendChild(createHeader("My Articles"));
+    parentContainer.appendChild(createHeader("Feed"));
 
     articlesSnapshot.forEach((articleRefSnapshot) => {
       const articleId = articleRefSnapshot.val();

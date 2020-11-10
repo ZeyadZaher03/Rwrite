@@ -1,13 +1,11 @@
 // get uid from the cookies  
-const uid ="C16NeLUBm5XfzKSuySJf7Ti1Uw92"
-
-
+const uid = Cookies.get("uid");
 
 //if user not logedin redirect him to the home page
 auth.onAuthStateChanged((user) => {
     if (!uid || !user) {
-        // displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected", 3000)
-        // location.href = "index.html"
+        displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected", 3000)
+        location.href = "index.html"
     } else {
         db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
             if (snapshot.val()) menuNavigationSwitch("admin")
@@ -138,7 +136,7 @@ const runArticle = () => {
 
     const mailingWriters = async (articleName, articleLink) => {
         
-        if (editorArray.length <= 0) return
+        if (writerArray.length <= 0) return
         
         // loop over the writers to mail them
         const usersDBConnection = await db.ref(`users`) 
@@ -157,7 +155,7 @@ const runArticle = () => {
 
         
         
-        editorArray.forEach(async (editorName) => {
+        writerArray.forEach(async (editorName) => {
             userWithEmailAndTagname.forEach((userObj)=>{
                 const taggedUid = userObj.uid
                 const email = userObj.email
