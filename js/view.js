@@ -7,8 +7,8 @@ if (uid) {
 } else {
     menuNavigationSwitch("guest")
 }
-
 authintication()
+
 
 const url = new URL(location.href).searchParams
 const id = url.get("id")

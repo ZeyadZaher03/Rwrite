@@ -1,5 +1,7 @@
 // get uid from the cookies  
-const uid = Cookies.get("uid");
+const uid ="C16NeLUBm5XfzKSuySJf7Ti1Uw92"
+
+
 
 //if user not logedin redirect him to the home page
 auth.onAuthStateChanged((user) => {
@@ -133,6 +135,56 @@ const runArticle = () => {
     tags(addWritersOption);
     tags(addEditorsOption);
 
+
+    const mailingWriters = async (articleName, articleLink) => {
+        
+        if (editorArray.length <= 0) return
+        
+        // loop over the writers to mail them
+        const usersDBConnection = await db.ref(`users`) 
+        const usersSnapshot = await usersDBConnection.once("value")
+        const userWithEmailAndTagname = []
+        
+        await usersSnapshot.forEach( async (userSnapshot)=>{
+            usersSnapshot.forEach((userSnapshot) => {
+                const userData = userSnapshot.val()
+                const uid = userSnapshot.key
+                const email = userData.email
+                const tagName = userData.tagName
+                userWithEmailAndTagname.push({email,tagName,uid})
+            });
+        })
+
+        
+        
+        editorArray.forEach(async (editorName) => {
+            userWithEmailAndTagname.forEach((userObj)=>{
+                const taggedUid = userObj.uid
+                const email = userObj.email
+                const tagName = userObj.tagName
+                if(!email && !tagName) return
+                const editorNameClean = editorName.trim().toLowerCase()
+                const userTaglineClean = userObj.tagName.trim().toLowerCase()
+                if( editorNameClean !== userTaglineClean) return 
+                
+                db.ref(`users/${taggedUid}/feed`).push({
+                    name:articleName,
+                    link:articleLink,
+                    timestamp:moment().unix()
+                })
+                
+                Email.send({
+                    Host : "smtp.sendgrid.com",
+                    SecureToken: "382ae844-772f-4c82-91e4-8c2ba0f933da",
+                    To : 'zeyadzaher02@gmail.com',
+                    From: "zeyadzaher02@gmail.com",
+                    Subject: `You have just been tagged in an article`,
+                    Body: `<p>you can visit it now </p>`
+                })
+            })
+        })
+        
+    }
 
     //run the text editor
     CKEDITOR.replace("editor1");
@@ -316,11 +368,12 @@ const runArticle = () => {
         // make a var to store article id in
         // connncet to the db and then save it  
         let articleId
+
         await db
             .ref(`articles`)
             .push(articleObj)
             .then((snapshot) => {
-                id = snapshot.key;
+                const id = snapshot.key;
                 db.ref(`users/${uid}/articles`).push(id);
                 return articleId = id
             });
@@ -338,49 +391,7 @@ const runArticle = () => {
         return articleId
     }
 
-    const mailingWriters = async (articleName, articleLink) => {
-        const editorsArray = ["Adrian"]
-        if (editorsArray.length <= 0) return
-        
-        // loop over the writers to mail them
-        const usersDBConnection = await db.ref(`users`) 
-        const usersSnapshot = await usersDBConnection.once("value")
-        const userWithEmailAndTagname = []
-        
-        await usersSnapshot.forEach( async (userSnapshot)=>{
-            usersSnapshot.forEach((userSnapshot) => {
-                const userData = userSnapshot.val()
-                const email = userData.email
-                const tagName = userData.tagName
-                userWithEmailAndTagname.push({email,tagName})
-            });
-        })
-
-        
-        
-        editorsArray.forEach(async (editorName) => {
-            userWithEmailAndTagname.forEach((userObj)=>{
-                const email = userObj.email
-                const tagName = userObj.tagName
-                if(!email && !tagName) return
-                const editorNameClean = editorName.trim().toLowerCase()
-                const userTaglineClean = userObj.tagName.trim().toLowerCase()
-                if( editorNameClean !== userTaglineClean) return 
-                
-                
-                Email.send({
-                    Host : "smtp.sendgrid.com",
-                    SecureToken: "ed9c86d7-8655-49fd-b860-04abd4a85c9a",
-                    To : 'zeyadzaher02@gmail.com',
-                    From: "zeyadzaher02@gmail.com",
-                    To: email,
-                    Subject: `You have just been tagged in an article`,
-                    Body: `<p>you can visit it now </p>`
-                })
-            })
-        })
-        
-    }
+    
     addArticleButton.addEventListener("click", async (e) => {
 
         addArticleButton.disabled = true
@@ -389,7 +400,7 @@ const runArticle = () => {
         const articleReturn = await addArticle()
         const article = articleReturn.article;
         const errorsInArticle = articleReturn.numberOfErrors;
-
+        console.log(article)
         if (errorsInArticle > 0) return;
         const saveTagsAndArticle = async () => {
             return await saveNewTags(article.tags, await addArticleToDb(article))
@@ -397,7 +408,7 @@ const runArticle = () => {
 
         if (article.tags.length > 0) {
             const id = await saveTagsAndArticle()
-            // await mailingWriters(article.tagline, `https://rwrite.netlify.app/articleview.html?id=${id}`)
+            await mailingWriters(article.tagline, `https://rwrite.netlify.app/articleview.html?id=${id}`)
             console.log(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
             // addArticleForm.reset();
@@ -406,7 +417,7 @@ const runArticle = () => {
             // location.href = `/articleview.html?id=${id}`
         } else {
             const id = await addArticleToDb(article)
-            // await mailingWriters(article.tagline, `https://rwrite.netlify.app/articleview.html?id=${id}`)
+            await mailingWriters(article.tagline, `https://rwrite.netlify.app/articleview.html?id=${id}`)
             console.log(article.tagline,`https://rwrite.netlify.app/articleview.html?id=${id}`)
             displayMessage("bottomLeft", "success", "Article Has Been Submited Successfully", 4000)
             addArticleButton.disabled = false

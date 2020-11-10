@@ -1395,7 +1395,9 @@ nav {
 .popup-message--active {
   display: flex;
 }
-
+.policy-page{
+  margin-top: 3rem;
+}
 .top-center-popup-message--succ,
 .bottom-left-popup-message--succ {
   border-left: 6px solid #13b100;
@@ -1407,7 +1409,18 @@ nav {
   border-left: 6px solid #b10000;
   background: rgba(80, 0, 0, 0.171);
 }
-
+.faq-c{
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 1rem 2rem;
+  margin-bottom: 1.5rem;
+}
+.faq-q{
+  font-weight: 500;
+}
+.faq-a{
+  margin-top: 7px;
+}
 .search-res-row input {
   width: 100%;
   border: 1px solid #ddd;
