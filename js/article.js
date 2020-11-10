@@ -167,6 +167,7 @@ const runArticle = () => {
                 
                 db.ref(`users/${taggedUid}/feed`).push({
                     name:articleName,
+                    articleAuthor:uid,
                     link:articleLink,
                     timestamp:moment().unix()
                 })

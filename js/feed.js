@@ -1,9 +1,10 @@
-// const uid = Cookies.get("uid");
-const uid = "C16NeLUBm5XfzKSuySJf7Ti1Uw92";
+// get uid from the cookies  
+const uid = Cookies.get("uid");
+
 auth.onAuthStateChanged((user) => {
   if (!uid || !user) {
-    // displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected  ", 3000)
-    // location.href = "index.html"
+    displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected  ", 3000)
+    location.href = "index.html"
   } else {
     db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
       if (snapshot.val()) menuNavigationSwitch("admin")
@@ -272,6 +273,7 @@ const getProfileData = () => {
       });
     });
   };
+
   db.ref(`users/${uid}`).on("value", (snapshot) => {
     const user = snapshot.val();
     const name = user.name;
@@ -280,10 +282,21 @@ const getProfileData = () => {
 
     const img = user.profileImageUrl;
     const articles = user.articles;
+    const bookmarks = user.bookmarks;
+    const feed = user.feed;
     const imgContainer = document.querySelector(".profile-image ");
     const articelNumberEle = document.querySelector("#article-number");
+    const tagsNumberEle = document.querySelector("#tags-number");
+    const bookmarksNumberEle = document.querySelector("#bookmarks-number");
+
     if (!articles) articelNumberEle.innerHTML = "0";
     if (articles) articelNumberEle.innerHTML = Object.keys(articles).length;
+
+    if (!feed) tagsNumberEle.innerHTML = "0";
+    if (feed) tagsNumberEle.innerHTML = Object.keys(feed).length;
+
+    if (!bookmarks) bookmarksNumberEle.innerHTML = "0";
+    if (bookmarks) bookmarksNumberEle.innerHTML = Object.keys(bookmarks).length;
 
     const imgEle = imgContainer.querySelector("img");
     imgEle.src = img;
@@ -299,9 +312,9 @@ const getProfileData = () => {
   });
 };
 
-const getUserArticls = async () => {
-  const createArticleItem = (articleData, articleId) => {
-    const name = articleData.tagline;
+const getUserFeed = async () => {
+  const createFeedItem = (feedData, authorName,feedId) => {
+    const name = `${authorName} has tagged you in his new article "${feedData.name}".`;
 
     const containerItem = document.createElement("a");
     const heading = document.createElement("h3");
@@ -311,95 +324,48 @@ const getUserArticls = async () => {
     containerItem.classList.add("profile-item");
     heading.classList.add("profile-item-name");
     buttonsContainer.classList.add("profile-item-buttons-container");
-    deleteButton.classList.add("profile-item-delete", "delete-article-button-profile");
 
-    buttonsContainer.appendChild(deleteButton);
     containerItem.appendChild(heading);
     containerItem.appendChild(buttonsContainer);
 
-    // containerItem.href = `articleview.html?id=${articleId}`
-    deleteButton.innerHTML = "Delete";
-    deleteButton.dataset.id = articleId;
+    containerItem.href = feedData.link
+ 
     heading.innerHTML = name;
 
     return containerItem;
   };
 
-  const deleteArticleOnClick = () => {
-    const deleteButtons = document.querySelectorAll(".delete-article-button-profile");
-    deleteButtons.forEach((deleteButton) => {
-      deleteButton.addEventListener("click", (e) => {
-        e.preventDefault();
-        const id = deleteButton.dataset.id;
-        const areYouSure = confirm("are you sure you want to delete this article?!");
-        if (areYouSure) runDeleteArticle(id, uid);
-      });
-    });
-  };
-
-  const runDeleteArticle = async (id, userId) => {
-    const articleSnapshot = await db.ref(`articles/${id}/tags`).once("value");
-    const articleData = articleSnapshot.val();
-
-    // delete article from tag if there is tag associated with this article
-    if (!!articleData) {
-      db.ref(`tags`).once("value", (snapshot) => {
-        snapshot.forEach((childsnapshot) => {
-          const tagName = childsnapshot.key;
-          childsnapshot.forEach((articlesSnapshot) => {
-            const snapshotId = articlesSnapshot.key;
-            const articleId = articlesSnapshot.val();
-            if (articleId == id) return db.ref(`tags/${tagName}/${snapshotId}`).remove();
-          });
-        });
-      });
-    }
-
-    // delete article from user data
-    db.ref(`users/${userId}/articles`).once("value", (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const snapshotId = childSnapshot.key;
-        const articleId = childSnapshot.val();
-        if (articleId === id) db.ref(`users/${userId}/articles/${snapshotId}`).remove();
-      });
-    });
-
-    // delete article it self
-    db.ref(`articles/${id}`).remove();
-  };
-
-  await db.ref(`users/${uid}/articles`).on("value", async (articlesSnapshot) => {
+  await db.ref(`users/${uid}/feed`).on("value", async (feedsSnapshot) => {
     const createHeader = (title) => {
-      const parentContainerTitle = document.createElement("h1");
-      parentContainerTitle.classList.add("parentContainerTitle");
-      parentContainerTitle.innerHTML = title;
-      return parentContainerTitle;
+        const parentContainerTitle = document.createElement("h1");
+        parentContainerTitle.classList.add("parentContainerTitle");
+        parentContainerTitle.innerHTML = title;
+        return parentContainerTitle;
     };
-
-    const numOfArticles = articlesSnapshot.numChildren();
+    const numOfFeed = feedsSnapshot.numChildren();
     const parentContainer = document.querySelector(".profile-items-container");
     let calculatedChilds = 0;
-    let articlesId = [];
+    
 
     parentContainer.innerHTML = "";
-
     parentContainer.appendChild(createHeader("Feed"));
 
-    articlesSnapshot.forEach((articleRefSnapshot) => {
-      const articleId = articleRefSnapshot.val();
-      articlesId.push(articleId);
+    
+    feedsSnapshot.forEach( (feedSnapshot) => {
+        const feedData = feedSnapshot.val();
+        const feedId = feedSnapshot.key
+        const authorUid = feedData.articleAuthor
+        calculatedChilds++;
+        db.ref(`users/${authorUid}/name`).once("value",(snapshot)=>{
+            const authorName = snapshot.val()
+            parentContainer.appendChild(createFeedItem(feedData,authorName,feedId));
+        })
+      
     });
 
-    articlesId.forEach(async (articleId) => {
-      const articleQuery = await db.ref(`articles/${articleId}`).once("value");
-      const articleData = await articleQuery.val();
-      parentContainer.appendChild(createArticleItem(articleData, articleId));
-      calculatedChilds++;
-      if (numOfArticles === calculatedChilds) deleteArticleOnClick();
-    });
   });
 };
 
-getUserArticls();
+getUserFeed();
 profileSideNavigationStyle();
 getProfileData();

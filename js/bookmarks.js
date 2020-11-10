@@ -1,9 +1,10 @@
-// const uid = Cookies.get("uid");
-const uid = "C16NeLUBm5XfzKSuySJf7Ti1Uw92"
+// get uid from the cookies  
+const uid = Cookies.get("uid");
+
 auth.onAuthStateChanged((user) => {
   if (!uid || !user) {
-    // displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected  ", 3000)
-    // location.href = "index.html"
+    displayMessage("topCenter", "error", "you have to be signed in to access this page, you are now being redirected  ", 3000)
+    location.href = "index.html"
   } else {
     db.ref(`users/${uid}/isAdmin`).once("value", (snapshot) => {
       if (snapshot.val()) menuNavigationSwitch("admin")
@@ -311,8 +312,10 @@ const getProfileData = () => {
   });
 };
 
-const getUserArticls = async () => {
-  const createArticleItem = (articleData, articleId) => {
+const getUserBookmarks = async () => {
+ 
+
+  const createBookmaekItem = (articleData, articleId) => {
     const name = articleData.tagline;
 
     const containerItem = document.createElement("a");
@@ -329,7 +332,7 @@ const getUserArticls = async () => {
     containerItem.appendChild(heading);
     containerItem.appendChild(buttonsContainer);
 
-    // containerItem.href = `articleview.html?id=${articleId}`
+    containerItem.href = `articleview.html?id=${articleId}`
     deleteButton.innerHTML = "Delete";
     deleteButton.dataset.id = articleId;
     heading.innerHTML = name;
@@ -337,81 +340,48 @@ const getUserArticls = async () => {
     return containerItem;
   };
 
-  const deleteArticleOnClick = () => {
+  const deleteBookmarkOnClick = () => {
     const deleteButtons = document.querySelectorAll(".delete-article-button-profile");
     deleteButtons.forEach((deleteButton) => {
       deleteButton.addEventListener("click", (e) => {
         e.preventDefault();
         const id = deleteButton.dataset.id;
-        const areYouSure = confirm("are you sure you want to delete this article?!");
-        if (areYouSure) runDeleteArticle(id, uid);
+        const areYouSure = confirm("are you sure you want to delete this bookmark?!");
+        if (areYouSure) runDeleteFeed(id, uid);
       });
     });
   };
 
-  const runDeleteArticle = async (id, userId) => {
-    const articleSnapshot = await db.ref(`articles/${id}/tags`).once("value");
-    const articleData = articleSnapshot.val();
-
-    // delete article from tag if there is tag associated with this article
-    if (!!articleData) {
-      db.ref(`tags`).once("value", (snapshot) => {
-        snapshot.forEach((childsnapshot) => {
-          const tagName = childsnapshot.key;
-          childsnapshot.forEach((articlesSnapshot) => {
-            const snapshotId = articlesSnapshot.key;
-            const articleId = articlesSnapshot.val();
-            if (articleId == id) return db.ref(`tags/${tagName}/${snapshotId}`).remove();
-          });
-        });
-      });
-    }
-
-    // delete article from user data
-    db.ref(`users/${userId}/articles`).once("value", (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-        const snapshotId = childSnapshot.key;
-        const articleId = childSnapshot.val();
-        if (articleId === id) db.ref(`users/${userId}/articles/${snapshotId}`).remove();
-      });
-    });
-
-    // delete article it self
-    db.ref(`articles/${id}`).remove();
+  const runDeleteFeed = async (id) => {
+    await db.ref(`users/${uid}/bookmarks/${id}`).remove();
   };
 
-  await db.ref(`users/${uid}/articles`).on("value", async (articlesSnapshot) => {
+  await db.ref(`users/${uid}/bookmarks`).on("value", async (bookmarksSnapshot) => {
     const createHeader = (title) => {
-      const parentContainerTitle = document.createElement("h1");
-      parentContainerTitle.classList.add("parentContainerTitle");
-      parentContainerTitle.innerHTML = title;
-      return parentContainerTitle;
+        const parentContainerTitle = document.createElement("h1");
+        parentContainerTitle.classList.add("parentContainerTitle");
+        parentContainerTitle.innerHTML = title;
+        return parentContainerTitle;
     };
-
-    const numOfArticles = articlesSnapshot.numChildren();
+    const numOfBookmarks = bookmarksSnapshot.numChildren();
     const parentContainer = document.querySelector(".profile-items-container");
     let calculatedChilds = 0;
-    let articlesId = [];
 
     parentContainer.innerHTML = "";
+    parentContainer.appendChild(createHeader("Bookmarks"));
 
-    parentContainer.appendChild(createHeader("My Articles"));
-
-    articlesSnapshot.forEach((articleRefSnapshot) => {
-      const articleId = articleRefSnapshot.val();
-      articlesId.push(articleId);
-    });
-
-    articlesId.forEach(async (articleId) => {
-      const articleQuery = await db.ref(`articles/${articleId}`).once("value");
-      const articleData = await articleQuery.val();
-      parentContainer.appendChild(createArticleItem(articleData, articleId));
-      calculatedChilds++;
-      if (numOfArticles === calculatedChilds) deleteArticleOnClick();
+    bookmarksSnapshot.forEach((bookmarkSnapshot) => {
+        const articleBookmarked = bookmarkSnapshot.val();
+        db.ref(`articles/${articleBookmarked}`).once("value",(snapshot)=>{
+            calculatedChilds++;
+            const articleData = snapshot.val()
+            parentContainer.appendChild(createBookmaekItem(articleData,articleBookmarked));
+            if (numOfBookmarks === calculatedChilds) deleteBookmarkOnClick();
+        })
     });
   });
 };
 
-getUserArticls();
+getUserBookmarks();
 profileSideNavigationStyle();
 getProfileData();
