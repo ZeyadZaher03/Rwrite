@@ -131,7 +131,7 @@ const runArticle = () => {
 
     tags(addTagsOptions);
     tags(addWritersOption);
-    tags(addEditorsOption);
+    // tags(addEditorsOption);
 
 
     const mailingWriters = async (articleName, articleLink) => {
